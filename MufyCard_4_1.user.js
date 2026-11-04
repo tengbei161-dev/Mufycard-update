@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MufyCard 4.1
 // @namespace    local.mufy.custom.scanner
-// @version      4.1.o
+// @version      4.1.1
 // @description  MufyCard 4.1 正式版
 // @updateURL    https://raw.githubusercontent.com/tengbei161-dev/Mufycard-update/refs/heads/main/MufyCard_4_1.meta.js
 // @downloadURL  https://raw.githubusercontent.com/tengbei161-dev/Mufycard-update/refs/heads/main/MufyCard_4_1.user.js
@@ -25,7 +25,7 @@
   const W = typeof unsafeWindow !== 'undefined' ? unsafeWindow : window;
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-  // ================= 1. 凭证捕获（参考 MufyLink 的页面请求捕获方式） =================
+  // ================= 1. 凭证捕获 =================
   let authToken = '';
   const originalFetch = W.fetch.bind(W);
 
@@ -196,8 +196,11 @@
     .more-title { font-weight:700; margin:2px 0 10px; }
     .more-entry { width:100%; text-align:left; padding:12px; margin-bottom:8px; border:1px solid var(--border); border-radius:10px; color:var(--fg); background:#ffffff06; cursor:pointer; }
     .more-entry small { display:block; color:var(--dim); margin-top:3px; }
+.trend-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:8px;border-bottom:1px solid var(--border)}.trend-toolbar button{border:1px solid #55555f;border-radius:7px;padding:6px 9px;background:#34343b;color:#f2f2f4;cursor:pointer}.trend-toolbar button:disabled{opacity:.45}.trend-summary{font-size:11px;color:var(--dim);margin-left:auto}.trend-list{flex:1;min-height:0;overflow:auto;padding:8px;-webkit-overflow-scrolling:touch}
     .command-list { flex:1 1 0; min-height:0; overflow-y:auto; padding:9px; display:flex; flex-direction:column; gap:8px; }
     .command-card { display:flex; align-items:center; gap:8px; width:100%; min-width:0; padding:10px; border:1px solid var(--border); border-radius:9px; background:#ffffff06; color:var(--fg); }
+    .command-swipe{position:relative;overflow:hidden;border-radius:9px;touch-action:pan-y}.command-swipe-actions{position:absolute;inset:0 0 0 auto;display:flex;align-items:stretch}.command-swipe-actions button{width:62px;min-width:62px;border:0;border-radius:0;background:#55555f;color:#fff;font-size:11px;box-shadow:none}.command-card{position:relative;z-index:1;background:var(--bg);transition:transform .18s ease;will-change:transform}.command-card.swiped{transform:translateX(-62px)}.command-select{flex:0 0 18px;width:18px;height:18px;margin:0 2px 0 0}
+
     .command-card-main { flex:1; min-width:0; text-align:left; }
     .command-card-name { font-size:13px; font-weight:650; overflow-wrap:anywhere; }
     .command-card-preview { color:var(--dim); font-size:11px; line-height:1.35; margin-top:4px; white-space:pre-wrap; overflow-wrap:anywhere; max-height:2.7em; overflow:hidden; }
@@ -205,7 +208,28 @@
     .command-card button { flex:0 0 auto; border:1px solid var(--border); border-radius:7px; padding:6px 8px; background:#302a48; color:#f2efff; }
     #wardrobe-page { display:none; flex:1; min-height:0; overflow:hidden; flex-direction:column; }
     #wardrobe-page.active { display:flex; }
-    .sticker-layout{display:flex;flex:1;min-height:0;overflow:hidden}.sticker-cats{width:72px;flex:0 0 72px;overflow:auto;border-right:1px solid var(--border);padding:7px 5px;display:flex;flex-direction:column;gap:6px}.sticker-cat{border:0;border-left:3px solid transparent;background:#ffffff08;color:var(--fg);padding:9px 4px;border-radius:0 8px 8px 0;font-size:11px;overflow-wrap:anywhere}.sticker-cat.active{border-left-color:#b7a1f2;background:#8b73cb25}.sticker-content{flex:1;min-width:0;display:flex;flex-direction:column;min-height:0}.sticker-grid{overflow-y:auto;overflow-x:hidden;min-height:0;height:0;flex:1 1 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;align-content:start;align-items:start;gap:8px;padding:8px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}.sticker-card{box-sizing:border-box;aspect-ratio:1/1;width:100%;min-width:0;min-height:0;align-self:start;border:1px solid var(--border);border-radius:9px;overflow:hidden;background:#17151e;position:relative;display:flex;flex-direction:column}.sticker-preview{flex:1 1 0;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;background:#17151e;overflow:hidden}.sticker-preview img{display:block;width:100%;height:100%;min-width:0;min-height:0;object-fit:contain}.sticker-actions{box-sizing:border-box;flex:0 0 30px;min-height:30px;display:flex;flex-direction:row;align-items:center;gap:4px;padding:3px 4px;background:#17151e}.sticker-actions button{box-sizing:border-box;height:24px;min-height:24px;max-height:24px;min-width:0;margin:0;padding:2px 4px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:6px!important;color:#fff!important;box-shadow:none!important}.sticker-copy{flex:1 1 0;font-size:10px;font-weight:650;background:transparent!important;border:1px solid #75659b!important;color:#fff!important}.sticker-edit{flex:0 0 42px;width:42px;font-size:10px;background:#51416f!important;border:1px solid #75659b!important;color:#fff!important}.sticker-select{position:absolute;top:6px;left:6px;width:20px;height:20px;z-index:2}.note-list{flex:1;min-height:0;overflow:auto;padding:5px 12px}.note-swipe{position:relative;overflow:hidden;border-bottom:1px solid var(--border);touch-action:pan-y}.note-swipe-actions{position:absolute;inset:0 0 0 auto;display:flex;align-items:stretch;gap:0}.note-swipe-actions button{min-width:62px;border:0;color:#f4efff;background:#51416f;font-size:11px}.note-swipe-actions button[data-note-delete]{background:#75465c}.note-row{position:relative;z-index:1;padding:12px 2px;background:var(--bg);text-align:left;cursor:pointer;transition:transform .18s ease;will-change:transform}.note-row.swiped{transform:translateX(-124px)}.note-title{font-weight:650;font-size:14px}.note-preview{font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}.note-meta{font-size:10px;color:var(--dim);margin-top:5px}.note-editor{position:absolute;inset:0;background:var(--bg);z-index:4;display:flex;flex-direction:column;padding:10px;gap:8px}.note-editor input,.note-editor textarea{background:transparent;color:var(--fg);border:0;outline:none;width:100%;font:inherit}.note-editor input{font-size:20px;font-weight:700;padding:8px 2px}.note-editor textarea{flex:1;resize:none;font-size:15px;line-height:1.65;padding:4px 2px}.note-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px}.note-toolbar button{border:1px solid var(--border);border-radius:7px;background:#302a48;color:#f2efff;padding:7px 10px}.note-editor .note-toolbar [data-pin],.note-editor .note-toolbar [data-delete]{display:none}
+    .sticker-layout{display:flex;flex:1;min-height:0;overflow:hidden}.sticker-cats{width:72px;flex:0 0 72px;overflow:auto;border-right:1px solid var(--border);padding:7px 5px;display:flex;flex-direction:column;gap:6px}.sticker-cat{border:0;border-left:3px solid transparent;background:#ffffff08;color:var(--fg);padding:9px 4px;border-radius:0 8px 8px 0;font-size:11px;overflow-wrap:anywhere}.sticker-cat.active{border-left-color:#b7a1f2;background:#8b73cb25}.sticker-content{flex:1;min-width:0;display:flex;flex-direction:column;min-height:0}.sticker-grid{overflow-y:auto;overflow-x:hidden;min-height:0;height:0;flex:1 1 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;align-content:start;align-items:start;gap:8px;padding:8px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}.sticker-card{box-sizing:border-box;aspect-ratio:1/1;width:100%;min-width:0;min-height:0;align-self:start;border:1px solid var(--border);border-radius:9px;overflow:hidden;background:#17151e;position:relative;display:flex;flex-direction:column}.sticker-preview{flex:1 1 0;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;background:#17151e;overflow:hidden}.sticker-preview img{display:block;width:100%;height:100%;min-width:0;min-height:0;object-fit:contain}.sticker-actions{box-sizing:border-box;flex:0 0 30px;min-height:30px;display:flex;flex-direction:row;align-items:center;gap:4px;padding:3px 4px;background:#17151e}.sticker-actions button{box-sizing:border-box;height:24px;min-height:24px;max-height:24px;min-width:0;margin:0;padding:2px 4px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:6px!important;color:#fff!important;box-shadow:none!important}.sticker-copy{flex:1 1 0;font-size:10px;font-weight:650;background:transparent!important;border:1px solid #75659b!important;color:#fff!important}.sticker-edit{flex:0 0 42px;width:42px;font-size:10px;background:#51416f!important;border:1px solid #75659b!important;color:#fff!important}.sticker-select{position:absolute;top:6px;left:6px;width:20px;height:20px;z-index:2}    .avatar-tools{display:flex;gap:5px;flex-wrap:wrap;align-items:center;padding:7px;border-bottom:1px solid var(--border);flex:0 0 auto}.avatar-tools button{border:1px solid var(--border);border-radius:7px;padding:6px 8px;background:#302a48;color:#f2efff;font-size:10px}.avatar-tools span{margin-left:auto;font-size:10px;color:var(--dim)}
+    .avatar-file-picker{position:relative;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:7px;padding:6px 8px;background:#302a48;color:#f2efff;font-size:10px;line-height:1.5;cursor:pointer;overflow:hidden;touch-action:manipulation}.avatar-file-picker input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;display:block;margin:0;padding:0;border:0;cursor:pointer;font-size:100px}
+    .avatar-layout{display:flex;flex:1 1 0;min-height:0;overflow:hidden}
+    .avatar-cats{width:76px;flex:0 0 76px;display:flex;flex-direction:column;gap:5px;padding:7px 5px;overflow-y:auto;border-right:1px solid var(--border);box-sizing:border-box}
+    .avatar-cat{border:0;border-left:3px solid transparent;border-radius:0 7px 7px 0;padding:8px 4px;background:#ffffff08;color:var(--fg);font-size:10px;overflow-wrap:anywhere;flex:0 0 auto}
+    .avatar-cat.active{border-left-color:#b7a1f2;background:#8b73cb25}
+    .avatar-grid{flex:1 1 0;width:0;min-width:0;min-height:0;height:auto;overflow-y:auto;overflow-x:hidden;padding:8px;box-sizing:border-box;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;align-content:start;align-items:start;gap:9px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+    .avatar-card{position:relative!important;display:block!important;align-self:start!important;box-sizing:border-box!important;width:100%!important;min-width:0!important;min-height:0!important;aspect-ratio:1/1!important;height:auto!important;overflow:hidden!important;border:1px solid var(--border)!important;border-radius:9px!important;background:#17151e!important;pointer-events:auto!important}
+    .avatar-image-wrap{position:absolute!important;inset:0 0 30px 0!important;display:block!important;box-sizing:border-box!important;width:100%!important;height:auto!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important;background:#17171d!important;pointer-events:none!important}
+    .avatar-image-wrap img{position:absolute!important;inset:0!important;display:block!important;box-sizing:border-box!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;background:#17171d!important}
+    .avatar-name{position:absolute!important;left:0!important;right:0!important;bottom:32px!important;display:block!important;box-sizing:border-box!important;width:100%!important;padding:4px 6px!important;font-size:10px!important;line-height:1.25!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;color:#fff!important;background:#09090dcc!important;pointer-events:none!important}
+    .avatar-card-actions{position:absolute!important;left:0!important;right:0!important;bottom:0!important;z-index:3!important;display:flex!important;flex-direction:row!important;gap:4px!important;box-sizing:border-box!important;width:100%!important;height:30px!important;padding:3px 4px!important;background:#17151e!important;pointer-events:auto!important}
+    .avatar-card-actions button{position:relative!important;z-index:4!important;display:block!important;min-width:0!important;height:24px!important;min-height:24px!important;max-height:24px!important;margin:0!important;padding:2px 4px!important;line-height:18px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;border:1px solid #75659b!important;border-radius:6px!important;background:transparent!important;color:#f2efff!important;font-size:10px!important;pointer-events:auto!important;touch-action:manipulation!important;cursor:pointer!important}
+    .avatar-copy{flex:1 1 0!important;font-weight:650!important}
+    .avatar-edit{flex:0 0 42px!important;width:42px!important;background:#51416f!important}
+    .avatar-image-wrap.avatar-image-failed:after{content:"图片加载失败\A可点‘编辑’设置URL";white-space:pre;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;color:#c8c3d6;font-size:10px;line-height:1.6;background:#24212d}
+    .avatar-drag{position:absolute!important;right:5px!important;top:5px!important;z-index:5!important;width:26px!important;height:26px!important;border:1px solid #ffffff70!important;border-radius:7px!important;background:#111d!important;color:#fff!important;font-size:17px!important;touch-action:none!important;cursor:grab!important;pointer-events:auto!important}
+    .avatar-select{position:absolute!important;left:6px!important;top:6px!important;z-index:6!important;width:20px!important;height:20px!important;margin:0!important;accent-color:#a78bfa!important}
+    .avatar-card.is-selected{outline:2px solid #a78bfa!important;outline-offset:-2px!important}
+    .avatar-tools .avatar-multi-active{background:#6553a6!important}
+    .avatar-empty{grid-column:1/-1;padding:28px 10px;text-align:center;color:var(--dim);font-size:11px;line-height:1.7}
+.note-list{flex:1;min-height:0;overflow:auto;padding:5px 12px}.note-swipe{position:relative;overflow:hidden;border-bottom:1px solid var(--border);touch-action:pan-y}.note-swipe-actions{position:absolute;inset:0 0 0 auto;display:flex;align-items:stretch;gap:0}.note-swipe-actions button{min-width:62px;width:62px;border:0;color:#f4efff;background:#51416f;font-size:11px}.note-swipe-actions button[data-note-category]{background:#52636b}.note-swipe-actions button[data-note-delete]{background:#75465c}.note-row{position:relative;z-index:1;padding:12px 2px;background:var(--bg);text-align:left;cursor:pointer;transition:transform .18s ease;will-change:transform}.note-row.swiped{transform:translateX(-186px)}.note-title{font-weight:650;font-size:14px}.note-preview{font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}.note-meta{font-size:10px;color:var(--dim);margin-top:5px}.note-editor{position:absolute;inset:0;background:var(--bg);z-index:4;display:flex;flex-direction:column;padding:10px;gap:8px}.note-editor input,.note-editor textarea{background:transparent;color:var(--fg);border:0;outline:none;width:100%;font:inherit}.note-editor input{font-size:20px;font-weight:700;padding:8px 2px}.note-editor textarea{flex:1;resize:none;font-size:15px;line-height:1.65;padding:4px 2px}.note-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px}.note-toolbar button{border:1px solid var(--border);border-radius:7px;background:#302a48;color:#f2efff;padding:7px 10px}.note-editor .note-toolbar [data-pin],.note-editor .note-toolbar [data-delete]{display:none}
 
     .wardrobe-head { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid var(--border); }
     .wardrobe-head > :first-child { justify-self:start; }
@@ -224,6 +248,14 @@
     .wardrobe-card .wardrobe-copy { display:block; width:100%; margin-top:4px; padding:3px 7px; border:0 !important; background:transparent !important; box-shadow:none !important; color:#aaa4c8 !important; font-size:10px; }
     .wardrobe-detail-backdrop { position:absolute; inset:0; z-index:5; display:flex; align-items:center; justify-content:center; padding:14px; background:#0009; }
     .wardrobe-detail { width:100%; max-height:90%; overflow:auto; border:1px solid var(--border); border-radius:14px; background:#202027; box-shadow:0 12px 36px #0009; padding:10px; }
+    .author-organizer-box { height:min(76vh,560px); max-height:calc(100% - 8px); display:flex; flex-direction:column; overflow:hidden; gap:7px; }
+    .author-organizer-head,.author-organizer-controls,.author-organizer-footer { flex:0 0 auto; }
+    .author-organizer-list { flex:1 1 auto; min-height:60px; overflow:auto; overscroll-behavior:contain; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .author-organizer-row { min-height:36px; display:flex; align-items:center; gap:8px; padding:5px 3px; border-bottom:1px solid #3b3b46; white-space:nowrap; }
+    .author-organizer-row:last-child { border-bottom:0; }
+    .author-organizer-row input { width:auto !important; flex:0 0 auto; margin:0 !important; }
+    .author-organizer-row .author-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .author-organizer-row .author-count { flex:0 0 auto; margin-left:auto; white-space:nowrap; color:var(--dim); }
     .wardrobe-detail img { width:100%; max-height:220px; object-fit:contain; border-radius:8px; background:#15151b; }
     .wardrobe-detail .detail-desc { white-space:pre-wrap; overflow-wrap:anywhere; font-size:12px; margin:10px 0; }
     .wardrobe-detail input,.wardrobe-detail textarea,.wardrobe-detail select { width:100%; margin:5px 0 8px; padding:8px; border-radius:7px; border:1px solid var(--border); background:#15151b; color:var(--fg); }
@@ -281,11 +313,21 @@
     .report-num { display:block; font-size:clamp(12px, 3.6vw, 16px); line-height:1.15; font-weight:750; color:#fff; max-width:100%; }
     .report-label { display:block; font-size:clamp(8px, 2.5vw, 10px); line-height:1.15; color:var(--dim); overflow-wrap:anywhere; white-space:normal; max-width:100%; }
     .search-box { width:100%; background:#22222c; color:var(--fg); border:1px solid #4b4b5b; border-radius:7px; padding:5px 8px; font-size:12px; outline:none; }
+    .role-search-row { display:flex; align-items:center; gap:5px; min-width:0; }
+    .role-search-row .search-box { flex:1 1 auto; min-width:0; }
+    .role-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:5px; }
+    .role-tag { display:inline-block; border:1px solid #555866; background:#ffffff0a; color:#c9cbd4; border-radius:10px; padding:1px 6px; font-size:9px; line-height:1.5; }
     .search-help { color:var(--dim); font-size:10px; margin-top:-4px; }
     .bulk-fav { display:flex; gap:6px; align-items:center; }
     .bulk-fav button { flex:1; width:100%; margin-top:0; padding:3px 6px; border-style:solid; background:#3b326c; color:#fff; border-color:#6558a5; }
-    .chat-bulk { display:flex; gap:5px; margin-top:2px; }
-    .chat-bulk button { flex:1; min-width:0; border:1px solid #6558a5; border-radius:7px; padding:4px 6px; background:#302a48; color:#f2efff; font-size:11px; cursor:pointer; }
+    .role-action-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); align-items:stretch; gap:4px; margin-top:3px; width:100%; }
+    .role-action-row > button { box-sizing:border-box; width:100%; min-width:0; min-height:27px; border:1px solid #55555f; border-radius:7px; padding:4px 3px; background:#34343b; color:#f2f2f4; font-size:9.5px; line-height:1.25; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; }
+    .role-action-row > #btn-favorite-selected:disabled { opacity:.45; cursor:default; }
+    .role-action-row > #btn-add-to-folder:disabled { opacity:.45; cursor:default; }
+    .role-action-row > #btn-favorite-selected:disabled { opacity:.45; cursor:default; }
+    .chat-bulk { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:stretch; width:100%; min-width:0; gap:4px; margin-top:3px; }
+    .chat-bulk[hidden] { display:none !important; }
+    .chat-bulk button { box-sizing:border-box; width:100%; min-width:0; min-height:27px; border:1px solid #55555f; border-radius:7px; padding:4px 3px; background:#34343b; color:#f2f2f4; font-size:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; }
     .chat-bulk button:disabled { opacity:.55; cursor:wait; }
     .role-select { width:16px; height:16px; flex:0 0 auto; accent-color:#8b7bff; cursor:pointer; }
     .role-title-wrap { display:flex; align-items:center; gap:7px; min-width:0; }
@@ -370,6 +412,7 @@
     }catch(_){return 'anonymous';}
   }
   const ACCOUNT_CACHE_ID = currentAccountCacheId();
+  // 保留旧缓存命名空间用于跨预览版继承；此值是存储兼容标识，不是脚本显示版本。
   const CACHE_VERSION = 'v3_3_7_preview6';
   const SCAN_CACHE_STABLE_KEY = `mufycard_scan_cache_stable_${ACCOUNT_CACHE_ID}`;
   const ARCHIVE_CACHE_STABLE_KEY = `mufycard_archive_cache_stable_${ACCOUNT_CACHE_ID}`;
@@ -388,6 +431,48 @@
   let scanMode = 'full';
 
   const SCAN_CACHE_KEY = `mufycard_scan_cache_${CACHE_VERSION}_${ACCOUNT_CACHE_ID}`;
+  // 跨版本共享扫描快照：IndexedDB 属于同源页面，不受 userscript 名称/GM 命名空间隔离影响。
+  // 4.1、4.1.1 各预览版都使用同一个数据库和账号键，保证切换版本后读取最新扫描结果。
+  const SHARED_SCAN_DB_NAME = 'mufycard_shared_sync_v1';
+  const SHARED_SCAN_DB_STORE = 'snapshots';
+  const SHARED_SCAN_DB_KEY = `scan_${ACCOUNT_CACHE_ID}`;
+  function openSharedScanDB() {
+    return new Promise((resolve, reject) => {
+      if (!W.indexedDB) { reject(new Error('IndexedDB 不可用')); return; }
+      const req = W.indexedDB.open(SHARED_SCAN_DB_NAME, 1);
+      req.onupgradeneeded = () => { if (!req.result.objectStoreNames.contains(SHARED_SCAN_DB_STORE)) req.result.createObjectStore(SHARED_SCAN_DB_STORE); };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error('共享扫描数据库打开失败'));
+    });
+  }
+  async function readSharedScanSnapshot() {
+    const db = await openSharedScanDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(SHARED_SCAN_DB_STORE, 'readonly');
+      const req = tx.objectStore(SHARED_SCAN_DB_STORE).get(SHARED_SCAN_DB_KEY);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error || new Error('共享扫描快照读取失败'));
+      tx.oncomplete = () => db.close();
+      tx.onerror = () => { const err = tx.error; db.close(); reject(err || new Error('共享扫描快照读取事务失败')); };
+    });
+  }
+  async function writeSharedScanSnapshot(raw) {
+    const db = await openSharedScanDB();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(SHARED_SCAN_DB_STORE, 'readwrite');
+      tx.objectStore(SHARED_SCAN_DB_STORE).put(raw, SHARED_SCAN_DB_KEY);
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error || new Error('共享扫描快照写入失败'));
+      tx.onabort = () => reject(tx.error || new Error('共享扫描快照写入中断'));
+    }).finally(() => db.close());
+    const verified = await readSharedScanSnapshot();
+    if (verified !== raw) throw new Error('共享扫描快照回读校验不一致');
+    return true;
+  }
+  async function writeSharedScanTombstone() {
+    const raw = JSON.stringify({ schema: 1, cleared: true, clearedAt: Date.now() });
+    return writeSharedScanSnapshot(raw);
+  }
   const ARCHIVE_CACHE_KEY = `mufycard_archive_cache_${CACHE_VERSION}_${ACCOUNT_CACHE_ID}`;
   const SCAN_RESUME_KEY = `mufycard_scan_resume_${CACHE_VERSION}_${ACCOUNT_CACHE_ID}`;
   // 扫描数据优先保存到脚本管理器的 GM 存储，避免依赖网站页面的 localStorage/临时状态。
@@ -412,12 +497,7 @@
   }
   async function persistentWrite(key, value) {
     let successes = [];
-    // localStorage 同步落盘，先保证刷新前有一份可恢复副本。
-    for (const storage of [(() => { try { return W.localStorage; } catch (_) { return null; } })(), (() => { try { return localStorage; } catch (_) { return null; } })()]) {
-      if (!storage) continue;
-      try { storage.setItem(key, value); if (storage.getItem(key) === value) successes.push('localStorage'); } catch (e) { console.debug('[MufyCard] localStorage 写入失败', key, e); }
-    }
-    // GM API 可能是异步 Promise；必须 await 并回读验证，不能仅因调用未抛错就报告成功。
+    // 优先使用用户脚本管理器的独立持久化空间，避免扫描缓存挤占安卓网页 localStorage 配额。
     try {
       if (typeof GM !== 'undefined' && typeof GM.setValue === 'function') {
         await GM.setValue(key, value);
@@ -430,6 +510,13 @@
         if (typeof GM_getValue === 'function' && (await GM_getValue(key, null)) === value) successes.push('GM_legacy');
       }
     } catch (e) { console.error('[MufyCard] GM_setValue 写入失败', key, e); }
+    // 只有脚本管理器存储不可用时才退回页面存储，不再同时复制数 MB 的缓存。
+    if (!successes.length) {
+      for (const storage of [(() => { try { return W.localStorage; } catch (_) { return null; } })(), (() => { try { return localStorage; } catch (_) { return null; } })()]) {
+        if (!storage) continue;
+        try { storage.setItem(key, value); if (storage.getItem(key) === value) successes.push('localStorage'); } catch (e) { console.debug('[MufyCard] localStorage 写入失败', key, e); }
+      }
+    }
     if (!successes.length) console.error('[MufyCard] 持久化写入未能回读验证：', key);
     return successes.length > 0;
   }
@@ -438,6 +525,23 @@
     try { if (typeof GM_deleteValue === 'function') Promise.resolve(GM_deleteValue(key)).catch(() => {}); } catch (_) {}
     try { W.localStorage.removeItem(key); } catch (_) {}
     try { localStorage.removeItem(key); } catch (_) {}
+  }
+  function mirrorToScriptStorage(key, value) {
+    try { if (typeof GM !== 'undefined' && typeof GM.setValue === 'function') return Promise.resolve(GM.setValue(key, value)).catch(e => console.warn('[MufyCard] 独立存储写入失败', key, e)); } catch (e) { console.warn('[MufyCard] 独立存储写入失败', key, e); }
+    try { if (typeof GM_setValue === 'function') return Promise.resolve(GM_setValue(key, value)).catch(e => console.warn('[MufyCard] 独立存储写入失败', key, e)); } catch (e) { console.warn('[MufyCard] 独立存储写入失败', key, e); }
+    return Promise.resolve(false);
+  }
+  async function restorePageKeyFromScriptStorage(key) {
+    try { const current=W.localStorage.getItem(key); if(current!==null&&current!=='') return; } catch (_) {}
+    try {
+      let value=null;
+      if(typeof GM!=='undefined'&&typeof GM.getValue==='function') value=await GM.getValue(key,null);
+      if((value===null||value===undefined)&&typeof GM_getValue==='function') value=await GM_getValue(key,null);
+      if(value!==null&&value!==undefined&&value!=='') { const serialized=typeof value==='string'?value:JSON.stringify(value); try{W.localStorage.setItem(key,serialized);}catch(_){} }
+    } catch(e) { console.debug('[MufyCard] 本地数据恢复失败',key,e); }
+  }
+  async function migratePageKeyToScriptStorage(key) {
+    try { const raw=W.localStorage.getItem(key); if(raw===null||raw==='') return; let existing=null; if(typeof GM!=='undefined'&&typeof GM.getValue==='function') existing=await GM.getValue(key,null); if((existing===null||existing===undefined)&&typeof GM_getValue==='function') existing=await GM_getValue(key,null); if(existing===null||existing===undefined||existing==='') await mirrorToScriptStorage(key,raw); } catch(e) { console.debug('[MufyCard] 本地数据迁移到独立存储失败',key,e); }
   }
   function saveResumeState(state) {
     try { const raw = JSON.stringify({ ...state, updatedAt: Date.now() }); void persistentWrite(SCAN_RESUME_KEY, raw); void persistentWrite(SCAN_RESUME_STABLE_KEY, raw); } catch (e) { console.error('[MufyCard] 保存扫描恢复进度失败', e); }
@@ -452,73 +556,129 @@
     let payload;
     try { payload = JSON.stringify({ schema: 2, savedAt: Date.now(), roles: scannedRoles }); }
     catch (e) { console.error('[MufyCard] 序列化扫描缓存失败', e); return; }
-    // 先同步写入稳定备份，避免扫描结束后立刻刷新时，排队中的异步写入尚未执行。
-    for (const key of [SCAN_CACHE_KEY, SCAN_CACHE_STABLE_KEY]) {
-      try { W.localStorage.setItem(key, payload); } catch (e) { console.debug('[MufyCard] 页面 localStorage 快照写入失败', key, e); }
-      try { localStorage.setItem(key, payload); } catch (_) {}
-    }
+    // 统一进入持久化队列：优先 GM 独立空间，安卓端不再向 localStorage 重复写入大体积扫描快照。
     scanCacheWriteQueue = scanCacheWriteQueue.catch(() => {}).then(async () => {
       // 若用户在等待期间点了清空，丢弃旧快照，防止清空后旧数据又写回来。
       if (epoch !== scanCacheEpoch) return;
       const results = await Promise.all([persistentWrite(SCAN_CACHE_KEY, payload), persistentWrite(SCAN_CACHE_STABLE_KEY, payload)]);
-      if (!results.some(Boolean)) console.error('[MufyCard] 扫描缓存没有任何可用的存储通道');
+      let sharedSaved = false;
+      try { sharedSaved = await writeSharedScanSnapshot(payload); } catch (e) { console.error('[MufyCard] 跨版本共享扫描快照写入/校验失败', e); }
+      if (!results.some(Boolean) && !sharedSaved) console.error('[MufyCard] 扫描缓存没有任何可用的存储通道');
     });
     await scanCacheWriteQueue;
   }
+  // 预览六：跨预览版扫描数据恢复。
+  // 不仅检查当前版本键，还会枚举脚本管理器 GM 存储和页面 localStorage 中的旧扫描键。
+  // 若当前账号键不存在，只有在旧缓存明确不歧义（仅发现一个账号缓存组）时才回退，避免串号。
   async function loadScanCache() {
-    const keys = [SCAN_CACHE_KEY, SCAN_CACHE_STABLE_KEY];
-    const candidates = [];
-    for (const key of keys) {
-      try {
-        const raw = await persistentReadAsync(key, null);
-        const saved = typeof raw === 'string' ? JSON.parse(raw || 'null') : raw;
-        if (saved && Array.isArray(saved.roles)) candidates.push({ key, saved, raw });
-      } catch (e) { console.debug('[MufyCard] 扫描缓存读取失败', key, e); }
-    }
-    // 兼容旧 Preview：旧扫描结果可能只存在 Tampermonkey GM 存储，
-    // 不能只枚举网页 localStorage。分别枚举 GM 与页面存储中的旧键，再按账号后缀筛选。
-    if (!candidates.length) {
-      const prefixes = ['mufycard_scan_cache_', 'mufycard_scan_cache_stable_'];
-      const legacyKeys = new Set();
-      const matchesCurrentAccount = key => key.endsWith(`_${ACCOUNT_CACHE_ID}`) && prefixes.some(prefix => key.startsWith(prefix));
-      try {
-        if (typeof GM_listValues === 'function') {
-          const names = await GM_listValues();
-          for (const key of (Array.isArray(names) ? names : [])) if (matchesCurrentAccount(String(key))) legacyKeys.add(String(key));
+    const prefixes = ['mufycard_scan_cache_', 'mufycard_scan_cache_stable_'];
+    const allKeys = new Set([SCAN_CACHE_KEY, SCAN_CACHE_STABLE_KEY]);
+    try {
+      if (typeof GM_listValues === 'function') {
+        const names = await GM_listValues();
+        for (const key of (Array.isArray(names) ? names : [])) {
+          const name = String(key);
+          if (prefixes.some(prefix => name.startsWith(prefix))) allKeys.add(name);
         }
-      } catch (e) { console.debug('[MufyCard] GM_listValues 枚举旧扫描缓存失败', e); }
-      try {
-        if (typeof GM !== 'undefined' && typeof GM.listValues === 'function') {
-          const names = await GM.listValues();
-          for (const key of (Array.isArray(names) ? names : [])) if (matchesCurrentAccount(String(key))) legacyKeys.add(String(key));
+      }
+    } catch (e) { console.debug('[MufyCard] GM_listValues 枚举扫描缓存失败', e); }
+    try {
+      if (typeof GM !== 'undefined' && typeof GM.listValues === 'function') {
+        const names = await GM.listValues();
+        for (const key of (Array.isArray(names) ? names : [])) {
+          const name = String(key);
+          if (prefixes.some(prefix => name.startsWith(prefix))) allKeys.add(name);
         }
-      } catch (e) { console.debug('[MufyCard] GM.listValues 枚举旧扫描缓存失败', e); }
-      try {
-        for (let i = 0; i < W.localStorage.length; i++) {
-          const key = W.localStorage.key(i);
-          if (key && matchesCurrentAccount(key)) legacyKeys.add(key);
-        }
-      } catch (_) {}
-      for (const key of legacyKeys) {
+      }
+    } catch (e) { console.debug('[MufyCard] GM.listValues 枚举扫描缓存失败', e); }
+    try {
+      for (let i = 0; i < W.localStorage.length; i++) {
+        const key = W.localStorage.key(i);
+        if (key && prefixes.some(prefix => key.startsWith(prefix))) allKeys.add(String(key));
+      }
+    } catch (_) {}
+
+    const readCandidates = async keys => {
+      const found = [];
+      for (const key of keys) {
         try {
           const raw = await persistentReadAsync(key, null);
           const saved = typeof raw === 'string' ? JSON.parse(raw || 'null') : raw;
-          if (saved && Array.isArray(saved.roles)) candidates.push({ key, saved, raw });
-        } catch (e) { console.debug('[MufyCard] 旧版扫描缓存读取失败', key, e); }
+          if (saved && Array.isArray(saved.roles) && saved.roles.length >= 0) {
+            found.push({ key, saved, raw });
+          }
+        } catch (e) { console.debug('[MufyCard] 扫描缓存读取失败', key, e); }
+      }
+      return found;
+    };
+
+    const allNames = [...allKeys];
+    const exactKeys = allNames.filter(key => key.endsWith(`_${ACCOUNT_CACHE_ID}`));
+    let candidates = await readCandidates(exactKeys);
+    // IndexedDB 是所有版本共享的权威快照；与 GM/旧缓存一起按 savedAt 选最新版本。
+    let sharedTombstoneAt = 0;
+    try {
+      const sharedRaw = await readSharedScanSnapshot();
+      const sharedSaved = typeof sharedRaw === 'string' ? JSON.parse(sharedRaw || 'null') : sharedRaw;
+      if (sharedSaved?.cleared) sharedTombstoneAt = Number(sharedSaved.clearedAt) || Date.now();
+      else if (sharedSaved && Array.isArray(sharedSaved.roles)) candidates.push({ key: SHARED_SCAN_DB_KEY, saved: sharedSaved, raw: sharedRaw });
+    } catch (e) { console.debug('[MufyCard] 跨版本共享扫描快照读取失败', e); }
+    if (sharedTombstoneAt) candidates = candidates.filter(item => (Number(item.saved.savedAt) || 0) > sharedTombstoneAt);
+
+    // 兼容脚本启动瞬间拿到 anonymous、JWT token 轮换导致 token-hash 变化等情况。
+    // 只有没有当前账号精确匹配时才尝试唯一旧缓存组；若发现多个账号则拒绝猜测。
+    if (!candidates.length && !sharedTombstoneAt) {
+      const accountGroups = new Set();
+      for (const key of allNames) {
+        let match = key.match(/^mufycard_scan_cache_stable_(.+)$/);
+        if (!match) match = key.match(/^mufycard_scan_cache_.+_((?:u|t)[A-Za-z0-9_-]+|anonymous)$/);
+        if (match && match[1]) accountGroups.add(match[1]);
+      }
+      if (ACCOUNT_CACHE_ID === 'anonymous' || accountGroups.size === 1) {
+        const fallbackKeys = allNames.filter(key => {
+          if (ACCOUNT_CACHE_ID === 'anonymous') return true;
+          const group = key.match(/^mufycard_scan_cache_stable_(.+)$/)?.[1]
+            || key.match(/^mufycard_scan_cache_.+_((?:u|t)[A-Za-z0-9_-]+|anonymous)$/)?.[1];
+          return group && accountGroups.has(group);
+        });
+        candidates = await readCandidates(fallbackKeys);
+      } else if (accountGroups.size > 1) {
+        console.warn('[MufyCard] 检测到多个账号的旧扫描缓存，暂不自动混用；请确认 ChatMufy 登录账号。', [...accountGroups]);
       }
     }
-    if (!candidates.length) { console.warn('[MufyCard] 没有找到可恢复的扫描缓存'); return false; }
-    candidates.sort((a,b) => (Number(b.saved.savedAt)||0) - (Number(a.saved.savedAt)||0));
+
+    if (!candidates.length) {
+      console.warn('[MufyCard] 没有找到可恢复的扫描缓存');
+      return false;
+    }
+    candidates.sort((a, b) => (Number(b.saved.savedAt) || 0) - (Number(a.saved.savedAt) || 0));
     const chosen = candidates[0];
     scannedRoles = chosen.saved.roles;
-    // 同步将恢复到的最新快照写入稳定键，避免旧版缓存覆盖新结果。
-    const raw = JSON.stringify({ schema: 2, savedAt: Number(chosen.saved.savedAt)||Date.now(), roles: scannedRoles });
-    for (const key of [SCAN_CACHE_KEY, SCAN_CACHE_STABLE_KEY]) {
-      try { W.localStorage.setItem(key, raw); } catch (_) {}
-      try { localStorage.setItem(key, raw); } catch (_) {}
+
+    // 将旧版选中的完整快照先写入当前预览六稳定键，并回读验证后才算迁移成功。
+    const raw = JSON.stringify({
+      schema: 2,
+      savedAt: Number(chosen.saved.savedAt) || Date.now(),
+      roles: scannedRoles
+    });
+    const writeResults = await Promise.all([
+      persistentWrite(SCAN_CACHE_KEY, raw),
+      persistentWrite(SCAN_CACHE_STABLE_KEY, raw)
+    ]);
+    let sharedVerified = false;
+    try { sharedVerified = await writeSharedScanSnapshot(raw); } catch (e) { console.error('[MufyCard] 跨版本扫描数据迁移失败；旧缓存保留', e); }
+    const verifiedRaw = await persistentReadAsync(SCAN_CACHE_STABLE_KEY, null);
+    let verified = null;
+    try { verified = typeof verifiedRaw === 'string' ? JSON.parse(verifiedRaw) : verifiedRaw; } catch (_) {}
+    if (!verified || !Array.isArray(verified.roles) || verified.roles.length !== scannedRoles.length) {
+      console.error('[MufyCard] 旧扫描数据已读入本次页面，但稳定缓存回读验证未通过；不会清理任何旧缓存。');
+    } else {
+      console.info(`[MufyCard] 已将 ${scannedRoles.length} 个角色迁移到当前稳定缓存；跨版本共享快照：${sharedVerified ? '已校验' : '未校验'}。`);
     }
-    if (chosen.key !== SCAN_CACHE_KEY || !chosen.saved.schema) void saveScanCache();
-    console.info(`[MufyCard] 已从持久化缓存恢复 ${scannedRoles.length} 个角色（${chosen.key}）`);
+    // 每次成功恢复都刷新跨版本 IndexedDB 共享快照，确保旧缓存也完成迁移。
+    if (chosen.key !== SCAN_CACHE_KEY || !chosen.saved.schema || !writeResults.some(Boolean)) {
+      console.info(`[MufyCard] 扫描数据来源：${chosen.key}`);
+    }
     return true;
   }
   async function loadMaskCaches() {
@@ -607,7 +767,7 @@
     else if (scanRunning) { updateStatus('▶ 正在继续扫描…'); const waiters = pauseWaiters.splice(0); waiters.forEach(resolve => resolve()); }
   }
 
-  function initUI() {
+  async function initUI() {
     host = document.createElement('div');
     host.style.cssText = 'all: initial; position: fixed; z-index: 2147483640; top: 0; left: 0; width: 0; height: 0;';
     document.documentElement.appendChild(host);
@@ -657,18 +817,22 @@
             <div class="report">
               <button class="report-item" type="button" data-role-filter="fav-unchatted"><span class="report-num" id="count-fav-unchatted">0</span><span class="report-label">收藏未聊</span></button>
               <button class="report-item" type="button" data-role-filter="fav-chatted"><span class="report-num" id="count-fav-chatted">0</span><span class="report-label">收藏已聊</span></button>
+              <button class="report-item" type="button" data-role-filter="trending"><span class="report-num" id="count-trending">0</span><span class="report-label">趋势榜</span></button>
             </div>
           </section>
         </div>
-        <input class="search-box" id="role-search" type="search" placeholder="搜索角色名或作者名…" aria-label="搜索角色或作者" />
-        <div class="bulk-fav">
-          <button id="author-folder-btn" type="button">按作者整理收藏夹</button>
+        <div class="role-search-row"><input class="search-box" id="role-search" type="search" placeholder="搜索角色名、作者名或标签…" aria-label="搜索角色、作者或标签" /></div>
+        <div class="role-action-row">
+          <button id="btn-select-visible" type="button">一键勾选</button>
+          <button id="btn-favorite-selected" type="button" disabled>一键收藏（0）</button>
+          <button id="btn-add-to-folder" type="button" disabled>加入收藏夹</button>
+          <button id="author-folder-btn" type="button">按作者整理</button>
         </div>
-        <div class="chat-bulk"><button id="btn-chat-hi" type="button">勾选角色后发送 hi</button><button id="btn-chat-hi-stop" type="button" disabled>停止发送</button></div>
+        <div class="chat-bulk" id="chat-bulk" hidden><button id="btn-chat-hi" type="button">发送 hi</button><button id="btn-chat-hi-stop" type="button" disabled>停止</button><button id="btn-chat-custom" type="button">自定义</button></div>
       </div>
       <div class="archive-toolbar" id="archive-toolbar" style="display:none"><input class="search-box" id="archive-search" type="search" placeholder="搜索已扫描角色…" aria-label="搜索存档角色" /><div class="status" id="archive-status">只显示已完成详情扫描的角色；可逐个读取存档</div></div>
-      <div id="mask-toolbar" style="display:none;gap:6px;flex-direction:column;padding:6px 8px 2px"><input class="search-box" id="mask-search" type="search" placeholder="搜索备注、名称或描述…" /><button class="mask-add-btn" id="mask-refresh-btn" type="button">↻ 扫描/刷新网站面具</button><button class="mask-add-btn" id="mask-add-btn" type="button">＋ 新增本地面具</button><div class="mask-source-tabs"><button id="mask-view-cached" type="button">已缓存面具</button><button id="mask-view-local" class="active" type="button">本地面具</button></div><div class="status" id="mask-status">本地面具与网站缓存分开显示</div></div>
-      <div id="more-page"><button class="more-entry" data-wardrobe="user">🎀 User 衣柜<small>管理用户自己的穿搭预设</small></button><button class="more-entry" data-wardrobe="char">👔 Char 衣柜<small>管理角色使用的穿搭预设</small></button><button class="more-entry" id="open-music-page">♫ 音乐播放器<small>唱片封面、播放列表与循环模式</small></button><button class="more-entry" id="open-command-page">💲指令库<small>保存、搜索并快速复制聊天指令</small></button><button class="more-entry" id="open-sticker-page">👀 小u表情包<small>分类管理、批量导入与一键复制</small></button><button class="more-entry" id="open-notes-page">📝 善用备忘录<small>自由记录、搜索与置顶</small></button><button class="more-entry" id="open-persona-page">🎭 随机人物生成器<small>以角色关系、身份与性格为主的人设灵感</small></button></div>
+      <div id="mask-toolbar" style="display:none;gap:6px;flex-direction:column;padding:6px 8px 2px"><input class="search-box" id="mask-search" type="search" placeholder="搜索备注、名称或描述…" /><button class="mask-add-btn" id="mask-refresh-btn" type="button">↻ 扫描/刷新网站面具</button><div style="display:flex;gap:6px"><button class="mask-add-btn" id="mask-add-btn" type="button" style="flex:1">＋ 新增本地面具</button><button class="mask-add-btn" id="mask-import-btn" type="button" style="flex:1">⇧ 导入本地面具</button></div><div class="mask-source-tabs"><button id="mask-view-cached" type="button">已缓存面具</button><button id="mask-view-local" class="active" type="button">本地面具</button></div><div class="status" id="mask-status">本地面具与网站缓存分开显示</div></div>
+      <div id="more-page"><button class="more-entry" data-wardrobe="user">🎀 User 衣柜<small>管理用户自己的穿搭预设</small></button><button class="more-entry" data-wardrobe="char">👔 Char 衣柜<small>管理角色使用的穿搭预设</small></button><button class="more-entry" id="open-music-page">♫ 音乐播放器<small>唱片封面、播放列表与循环模式</small></button><button class="more-entry" id="open-command-page">💲指令库<small>保存、搜索并快速复制聊天指令</small></button><button class="more-entry" id="open-sticker-page">👀 小u表情包<small>分类管理、批量导入与一键复制</small></button><button class="more-entry" id="open-avatar-page">💤小u新头像<small>导入头像、分类整理与拖动排布</small></button><button class="more-entry" id="open-notes-page">📝 善用备忘录<small>自由记录、搜索与置顶</small></button><button class="more-entry" id="open-persona-page">🎭 随机人物生成器<small>以角色关系、身份与性格为主的人设灵感</small></button></div>
       <div id="wardrobe-page"></div>
       <div class="toast" id="mufy-toast" role="status" aria-live="polite"></div>
       <div class="list-container" id="list-container">
@@ -680,7 +844,7 @@
 
     // Persistent audio node: wardrobe rerenders and panel/tab changes won't interrupt playback.
     wardrobeAudio = document.createElement('audio');
-    wardrobeAudio.preload = 'none';
+    wardrobeAudio.preload = 'metadata';
     wardrobeAudio.loop = false;
     wardrobeAudio.style.display = 'none';
     wardrobeAudio.setAttribute('aria-hidden', 'true');
@@ -704,30 +868,38 @@
     panel.querySelector('#tab-roles').onclick = () => switchTab('roles');
     panel.querySelector('#tab-archives').onclick = () => switchTab('archives');
     panel.querySelector('#tab-masks').onclick = () => switchTab('masks');
-    panel.querySelector('#tab-more').onclick = () => showMorePage();
+    panel.querySelector('#tab-more').onclick = () => showMoreTab();
     panel.querySelectorAll('[data-wardrobe]').forEach(b => b.onclick = () => openWardrobe(b.dataset.wardrobe));
     panel.querySelector('#open-music-page').onclick = openMusicPage;
     panel.querySelector('#open-command-page').onclick = openCommandPage;
     panel.querySelector('#open-sticker-page').onclick = openStickerPage;
+    panel.querySelector('#open-avatar-page').onclick = openAvatarPage;
     panel.querySelector('#open-notes-page').onclick = openNotesPage;
     panel.querySelector('#open-persona-page').onclick = openPersonaPage;
     panel.querySelector('#btn-scan').onclick = () => { if (scanRunning && scanPaused) setScanPaused(false); else if (!scanRunning) runScan(); };
     panel.querySelector('#btn-pause').onclick = () => { if (scanRunning && !scanPaused) setScanPaused(true); };
     panel.querySelector('#btn-update-status').onclick = () => { if (!scanRunning) runScan(true); };
     panel.querySelector('#mask-add-btn').onclick = () => renderMaskForm();
+    panel.querySelector('#mask-import-btn').onclick = importLocalMasksFromFile;
     panel.querySelector('#mask-view-local').onclick = () => setMaskView('local');
     panel.querySelector('#mask-view-cached').onclick = () => setMaskView('remote');
     panel.querySelector('#mask-refresh-btn').onclick = refreshRemoteMasks;
     panel.querySelector('#mask-search').addEventListener('input', e => { maskSearchQuery = e.target.value || ''; renderMaskPage(); });
-    panel.querySelector('#author-folder-btn').onclick = () => organizeAuthorFolders();
-    panel.querySelector('#btn-chat-hi').onclick = runChatHiBatch;
+    panel.querySelector('#author-folder-btn').onclick = () => openAuthorFolderOrganizer();
+    panel.querySelector('#btn-add-to-folder').onclick = () => openAddSelectedToFolderDialog();
+    panel.querySelector('#btn-chat-hi').onclick = () => runChatHiBatch('hi');
+    panel.querySelector('#btn-chat-custom').onclick = openCustomGreetingDialog;
     panel.querySelector('#btn-chat-hi-stop').onclick = () => { chatHiStopRequested = true; updateStatus('正在停止批量打招呼…'); };
+    panel.querySelector('#btn-select-visible').onclick = selectAllVisibleRoles;
+    panel.querySelector('#btn-favorite-selected').onclick = bulkFavoriteSelectedRoles;
     panel.querySelector('#role-search').addEventListener('input', () => { if (activeTab === 'roles') renderFilteredRoles(); });
     panel.querySelectorAll('[data-role-filter]').forEach(item => {
       item.addEventListener('click', () => {
         activeRoleFilter = item.dataset.roleFilter || 'all';
         selectedRoleIds.clear();
+        if (activeRoleFilter === 'trending') { renderTrendInline(); syncRoleActionVisibility(); updateChatHiButtonLabel(); panel.querySelectorAll('[data-role-filter]').forEach(node => node.classList.toggle('filter-active', node === item)); return; }
         renderFilteredRoles();
+        syncRoleActionVisibility();
         updateChatHiButtonLabel();
         panel.querySelectorAll('[data-role-filter]').forEach(node => node.classList.toggle('filter-active', node === item));
         if (activeRoleFilter === 'fav-unchatted') {
@@ -750,13 +922,13 @@
     dragHandle.classList.add('is-ball');
     dragHandle.classList.remove('is-left-bar', 'is-right-bar');
     dragHandle.innerHTML = '<span class="handle-dots">●</span>';
-    restoreFloatingState();
+    await restoreFloatingState();
   }
 
   // 悬浮控件位置与面板尺寸独立持久化，不与扫描缓存相互影响。
   const FLOATING_STATE_KEY = 'mufycard_floating_state_v1';
   function readFloatingState() {
-    try { return JSON.parse(W.localStorage.getItem(FLOATING_STATE_KEY) || 'null'); } catch (_) { return null; }
+    try { const raw = W.localStorage.getItem(FLOATING_STATE_KEY); return raw ? JSON.parse(raw) : null; } catch (_) { return null; }
   }
   function saveFloatingState() {
     if (!dragHandle || !panel) return;
@@ -772,12 +944,24 @@
       panelOpen: !panel.hidden,
       savedAt: Date.now()
     };
-    try { W.localStorage.setItem(FLOATING_STATE_KEY, JSON.stringify(state)); } catch (_) {}
-    try { localStorage.setItem(FLOATING_STATE_KEY, JSON.stringify(state)); } catch (_) {}
+    const serialized = JSON.stringify(state);
+    try { W.localStorage.setItem(FLOATING_STATE_KEY, serialized); } catch (_) {}
+    try { if (typeof GM !== 'undefined' && typeof GM.setValue === 'function') Promise.resolve(GM.setValue(FLOATING_STATE_KEY, serialized)).catch(() => {}); else if (typeof GM_setValue === 'function') GM_setValue(FLOATING_STATE_KEY, serialized); } catch (_) {}
   }
-  function restoreFloatingState() {
-    const st = readFloatingState();
+  async function restoreFloatingState() {
+    let st = readFloatingState();
+    // 网页 localStorage 可能被浏览器清理；独立脚本存储作为位置恢复备份。
+    if (!st) {
+      try {
+        let raw = null;
+        if (typeof GM !== 'undefined' && typeof GM.getValue === 'function') raw = await GM.getValue(FLOATING_STATE_KEY, null);
+        if ((raw === null || raw === undefined) && typeof GM_getValue === 'function') raw = await GM_getValue(FLOATING_STATE_KEY, null);
+        st = typeof raw === 'string' ? JSON.parse(raw) : raw;
+        if (st && typeof st === 'object') { try { W.localStorage.setItem(FLOATING_STATE_KEY, JSON.stringify(st)); } catch (_) {} }
+      } catch (_) { st = null; }
+    }
     const top = Math.max(8, Math.min(window.innerHeight - 108, Number(st?.handleTop ?? window.innerHeight / 2 - 50)));
+    if (!st) { snapToEdge('right', top, false); return; }
     if (st?.handleMode !== 'ball') {
       snapToEdge(st?.handleSide === 'left' ? 'left' : 'right', top, false);
     } else {
@@ -822,9 +1006,7 @@
     overlay.querySelector('[data-kind="masks"]').onclick=()=>{overlay.remove();exportMaskInfo();};
     overlay.querySelector('[data-kind="wardrobe"]').onclick=()=>{overlay.remove();exportWardrobeBackup();};
   }
-  function downloadJson(filename, data) {
-    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.documentElement.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
-  }
+  function downloadJson(filename, data) { return backupDownload(filename, data); }
   function exportMaskInfo() {
     downloadJson(`MufyCard面具信息_${new Date().toISOString().slice(0,10)}.json`, {exportedAt:new Date().toISOString(),localMasks,remoteMasks});
     showToast('已导出面具信息。','ok');
@@ -852,9 +1034,7 @@
     const table = `<table border="1"><thead><tr>${rows[0].map(v=>`<th>${excelEscape(v)}</th>`).join('')}</tr></thead><tbody>${rows.slice(1).map(row=>`<tr>${row.map(v=>`<td>${excelEscape(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
     const html = `<!doctype html><html><head><meta charset="utf-8"></head><body>${table}</body></html>`;
     const blob = new Blob(['\ufeff', html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
-    const url = URL.createObjectURL(blob); const a = document.createElement('a');
-    a.href = url; a.download = `MufyCard角色信息_${new Date().toISOString().slice(0,10)}.xls`;
-    document.documentElement.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1500);
+    downloadBlobFile(`MufyCard角色信息_${new Date().toISOString().slice(0,10)}.xls`,blob);
     showToast(`已导出 ${count} 条角色记录。`, 'ok');
   }
 
@@ -1021,6 +1201,7 @@
     activeRoleFilter = 'all';
     persistentRemove(SCAN_CACHE_KEY);
     persistentRemove(SCAN_CACHE_STABLE_KEY);
+    try { await writeSharedScanTombstone(); } catch (e) { console.error('[MufyCard] 跨版本清空标记写入失败', e); }
     clearResumeState();
     const main = panel.querySelector('#btn-scan');
     const pause = panel.querySelector('#btn-pause');
@@ -1059,6 +1240,7 @@
       activeRoleFilter = 'all';
       persistentRemove(SCAN_CACHE_KEY);
       persistentRemove(SCAN_CACHE_STABLE_KEY);
+      try { await writeSharedScanTombstone(); } catch (e) { console.error('[MufyCard] 跨版本重新扫描标记写入失败', e); }
       clearResumeState();
       renderFilteredRoles();
       updateReport();
@@ -1069,6 +1251,8 @@
     const previousScannedIds = new Set();
     const savedResume = forceFreshScan ? null : await loadResumeState();
     scanRunning = true;
+    // 每次启动角色卡扫描时，同时读取趋势榜第一页；不翻页、不影响原扫描流程。
+    void scanTrendFirstPage(true);
     scanPaused = false;
     pauseWaiters = [];
     btn.disabled = true;
@@ -1086,7 +1270,10 @@
     listContainer.innerHTML = '';
     if (!savedResume || savedResume.phase !== 'details') saveResumeState({ phase: 'list' });
 
-    // 与 MufyLink 的分页思路一致：优先读取分页元数据，并兼容多种列表包装结构。
+    // 从角色详情中兼容提取标签字段；不同接口版本可能使用不同命名。
+    function extractRoleTags(source) { return extractTagsFromAny(source); }
+
+    // 优先读取分页元数据，并兼容多种列表包装结构。
     function extractRows(data, depth = 0) {
       if (Array.isArray(data)) return data;
       if (!data || typeof data !== 'object' || depth > 5) return [];
@@ -1143,7 +1330,7 @@
       return '';
     }
 
-    // 作者字段严格按 MufyLink 的 normalize/authorNameFrom 方式解析；不把角色自身的 name 当成作者名。
+    // 作者字段按页面实际返回字段解析；不把角色自身的 name 当成作者名。
     function extractAuthorInfo(root) {
       if (!root || typeof root !== 'object') return { name: '', id: '' };
       const explicitNameKeys = ['authorName', 'creatorName', 'userName', 'ownerName', 'createdByName', 'createdByNickname', 'authorNickname', 'authorNickName', 'creatorNickname', 'creatorNickName', 'creatorUsername'];
@@ -1342,7 +1529,7 @@
         saveRemoteMasks();
         if (activeTab === 'masks') renderMaskPage();
       } catch (e) {
-        console.warn('[MufyCard 找卡助手 3.3.7 预览版 6.6] 面具名称读取失败，继续扫描角色。', e);
+        console.warn('[MufyCard 找卡助手 4.1.1 预览十六] 面具名称读取失败，继续扫描角色。', e);
       }
 
       for (let i = 0; i < detailRoles.length; i++) {
@@ -1370,6 +1557,8 @@
           if (detailError) throw detailError;
           await waitIfPaused();
           const d = detailData?.data?.data || detailData?.data || detailData?.character || detailData;
+          const foundTags = extractRoleTags(d);
+          if (foundTags.length) role.tags = foundTags;
           const detailLooksLikeCharacter = Boolean(d && typeof d === 'object' && !Array.isArray(d) &&
             (d.id || d.characterId || d.name || d.characterName || d.authorId || d.authorName));
           const statusText = String(d?.status ?? d?.linkStatus ?? d?.state ?? '').toLowerCase();
@@ -1383,7 +1572,7 @@
           const authorInfo = extractAuthorInfo(d);
           if (authorInfo.name && authorInfo.name !== role.name) role.authorName = authorInfo.name;
           if (authorInfo.id) role.authorId = authorInfo.id;
-          // 按 MufyLink 的实际补全方式：作者只有 ID 时，调用 /api/users/profiles?userId=...
+          // 作者只有 ID 时，调用站点用户资料接口补全作者名称。
           if ((!role.authorName || role.authorName === '未知作者' || role.authorName === role.name) && role.authorId) {
             try {
               const profileData = await apiRequest(`/api/users/profiles?userId=${encodeURIComponent(role.authorId)}`);
@@ -1392,7 +1581,7 @@
                 .find(v => typeof v === 'string' && v.trim());
               if (profileName && profileName.trim() !== role.name) role.authorName = profileName.trim();
             } catch (profileError) {
-              console.debug('[MufyCard 找卡助手 3.3.7 预览版 6.6] 作者资料读取失败：', role.authorId, profileError);
+              console.debug('[MufyCard 找卡助手 4.1.1 预览十六] 作者资料读取失败：', role.authorId, profileError);
             }
           }
           if (role.authorName === role.name) role.authorName = '未知作者';
@@ -1431,7 +1620,7 @@
       notifyScanComplete(roles.length);
     } catch (e) {
       if (scanCancelRequested) return;
-      console.error('[MufyCard 找卡助手 3.3.7 预览版 6.6] 扫描失败：', e);
+      console.error('[MufyCard 找卡助手 4.1.1 预览十六] 扫描失败：', e);
       updateStatus(`❌ 扫描失败：${e.message || e}`, 'err');
       window.alert(`扫描失败：${e.message || e}`);
     } finally {
@@ -1467,6 +1656,7 @@
     panel.querySelector('#roles-toolbar').style.display = tab === 'roles' ? 'flex' : 'none';
     panel.querySelector('#archive-toolbar').style.display = tab === 'archives' ? 'flex' : 'none';
     panel.querySelector('#mask-toolbar').style.display = tab === 'masks' ? 'flex' : 'none';
+    syncRoleActionVisibility();
     if (tab === 'roles') renderFilteredRoles();
     else if (tab === 'archives') renderArchivePage();
     else renderMaskPage();
@@ -1487,7 +1677,7 @@
   const MUSIC_COVER_KEY = 'mufycard_music_cover_v1';
   // 可在脚本中预置歌曲：{title:'歌曲名', url:'https://.../song.mp3', cover:''}
   const PRESET_MUSIC_TRACKS = [];
-  let musicTracks = []; let musicIndex = 0; let musicMode = 'sequence'; let musicCover = ''; let musicSeekTimer = 0; let musicRestoreTime = 0; let musicRestorePending = false; let musicSeeking = false;
+  let musicTracks = []; let musicIndex = 0; let musicMode = 'sequence'; let musicCover = ''; let musicCoverSize = 35; let musicSeekTimer = 0; let musicRestoreTime = 0; let musicRestorePending = false; let musicSeeking = false; let musicAdvancing = false;
   const emptyWardrobe = () => ({ user: { categories: ['韩系','日系'], items: [] }, char: { categories: ['韩系','日系'], items: [] } });
   function openWardrobeDB() { return new Promise((resolve,reject)=>{ if(!W.indexedDB){reject(new Error('IndexedDB 不可用'));return;} const req=W.indexedDB.open(WARDROBE_DB,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('data'))req.result.createObjectStore('data');};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error); }); }
   async function readWardrobeDB() { const db=await openWardrobeDB(); return new Promise((resolve,reject)=>{const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get('wardrobe');req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error);tx.oncomplete=()=>db.close();}); }
@@ -1503,48 +1693,67 @@
   }
   const COMMANDS_KEY = 'mufycard_command_library_v1';
   let commandItems = [];
+  let commandCategoryFilter = '全部';
+  let commandMultiSelect = false;
+  const commandSelected = new Set();
   try { const saved = JSON.parse(W.localStorage.getItem(COMMANDS_KEY) || '[]'); if (Array.isArray(saved)) commandItems = saved.filter(x => x && typeof x.name === 'string' && typeof x.text === 'string'); } catch (_) {}
-  function saveCommandItems() { try { W.localStorage.setItem(COMMANDS_KEY, JSON.stringify(commandItems)); return true; } catch (e) { console.error('[MufyCard] 指令库保存失败', e); showToast('保存失败：本地存储空间可能不足。', 'err'); return false; } }
+  async function loadCommandItemsPersistent(){
+    if(commandItems.length)return;
+    try{let raw=null;if(typeof GM!=='undefined'&&typeof GM.getValue==='function')raw=await GM.getValue(COMMANDS_KEY,null);if((raw===null||raw===undefined)&&typeof GM_getValue==='function')raw=await GM_getValue(COMMANDS_KEY,null);const arr=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(arr)){commandItems=arr.filter(x=>x&&typeof x.name==='string'&&typeof x.text==='string');try{W.localStorage.setItem(COMMANDS_KEY,JSON.stringify(commandItems));}catch(_){} }}catch(e){console.debug('[MufyCard] 指令库持久化读取失败',e);}
+  }
+  async function saveCommandItems(){
+    const serialized=JSON.stringify(commandItems);let saved=false;
+    try{W.localStorage.setItem(COMMANDS_KEY,serialized);saved=W.localStorage.getItem(COMMANDS_KEY)===serialized;}catch(e){console.warn('[MufyCard] 指令库 localStorage 写入失败，尝试独立存储',e);}
+    try{if(typeof GM!=='undefined'&&typeof GM.setValue==='function'){await GM.setValue(COMMANDS_KEY,serialized);if(typeof GM.getValue==='function'&&(await GM.getValue(COMMANDS_KEY,null))===serialized)saved=true;}}catch(e){console.warn('[MufyCard] 指令库 GM 存储失败',e);}
+    try{if(!saved&&typeof GM_setValue==='function'){await GM_setValue(COMMANDS_KEY,serialized);if(typeof GM_getValue==='function'&&(await GM_getValue(COMMANDS_KEY,null))===serialized)saved=true;}}catch(e){console.warn('[MufyCard] 指令库旧版 GM 存储失败',e);}
+    if(!saved){showToast('保存失败：网页存储和脚本独立存储均不可用。请先导出备份后再试。','err');return false;}return true;
+  }
+  function commandCategories(){return [...new Set(commandItems.map(x=>String(x.category||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh'));}
+  function commandMatchesCategory(item, category=commandCategoryFilter){return category==='全部'||(category==='未分类'?!String(item.category||'').trim():String(item.category||'').trim()===category);}
+  function commandMarkup(items){
+    if(!items.length)return `<div style="color:var(--dim);font-size:12px;text-align:center;padding:28px 8px">${commandItems.length?'没有找到匹配的指令。':'还没有保存指令，点击右上角 ＋ 添加第一条。'}</div>`;
+    return items.map(x=>`<div class="command-swipe" data-command-wrap="${escapeHtml(x.id)}"><div class="command-swipe-actions"><button type="button" data-command-pin="${escapeHtml(x.id)}">${x.pinned?'取消置顶':'置顶'}</button></div><article class="command-card" data-command-id="${escapeHtml(x.id)}">${commandMultiSelect?`<input type="checkbox" class="command-select" data-command-select="${escapeHtml(x.id)}" ${commandSelected.has(x.id)?'checked':''} aria-label="选择${escapeHtml(x.name)}">`:''}<div class="command-card-main"><div class="command-card-name">${x.pinned?'📌 ':''}${escapeHtml(x.name)}</div><div class="command-card-preview">${escapeHtml(x.text)}</div>${x.category?`<div class="command-card-tag">${escapeHtml(x.category)}</div>`:'<div class="command-card-tag">未分类</div>'}</div><button type="button" data-command-copy="${escapeHtml(x.id)}">复制</button><button type="button" data-command-edit="${escapeHtml(x.id)}">编辑</button></article></div>`).join('');
+  }
   function openCommandPage() { wardrobeView = 'commands'; renderCommandPage(); }
   function renderCommandPage(query = '') {
     const page = panel.querySelector('#wardrobe-page');
     ['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id => panel.querySelector('#'+id).style.display='none');
     panel.querySelector('#more-page').classList.remove('active'); page.classList.add('active');
     panel.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.id === 'tab-more'));
-    const q = String(query || '').trim().toLowerCase();
-    const filtered = commandItems.filter(x => !q || `${x.name} ${x.text} ${x.category || ''}`.toLowerCase().includes(q));
-    page.innerHTML = `<div class="wardrobe-head"><button id="command-back" type="button">← 返回</button><strong>💲指令库</strong><button id="command-add" type="button" title="新增指令">＋</button></div><div class="wardrobe-tools"><input id="command-search" type="search" placeholder="搜索指令名称、正文或分类…" value="${escapeHtml(query)}" style="flex:1;min-width:0;background:#202027;color:var(--fg);border:1px solid var(--border);border-radius:7px;padding:8px"></div><div class="command-list" id="command-list">${filtered.length ? filtered.map(x => `<article class="command-card" data-command-id="${escapeHtml(x.id)}"><div class="command-card-main"><div class="command-card-name">${escapeHtml(x.name)}</div><div class="command-card-preview">${escapeHtml(x.text)}</div>${x.category ? `<div class="command-card-tag">${escapeHtml(x.category)}</div>` : ''}</div><button type="button" data-command-copy="${escapeHtml(x.id)}">复制</button><button type="button" data-command-edit="${escapeHtml(x.id)}">编辑</button></article>`).join('') : '<div style="color:var(--dim);font-size:12px;text-align:center;padding:28px 8px">'+(commandItems.length ? '没有找到匹配的指令。' : '还没有保存指令，点击右上角 ＋ 添加第一条。')+'</div>'}</div>`;
-    page.querySelector('#command-back').onclick = showMorePage;
-    page.querySelector('#command-add').onclick = () => editCommandItem(null, query);
-    // 搜索时只更新结果列表，不重建整个页面或替换输入框；
-    // 否则 iOS 虚拟键盘可能因焦点反复丢失而出现重复字符/无法连续输入。
-    page.querySelector('#command-search').addEventListener('input', e => {
-      const q = String(e.target.value || '').trim().toLowerCase();
-      const list = page.querySelector('#command-list');
-      const matches = commandItems.filter(x => !q || `${x.name} ${x.text} ${x.category || ''}`.toLowerCase().includes(q));
-      list.innerHTML = matches.length ? matches.map(x => `<article class="command-card" data-command-id="${escapeHtml(x.id)}"><div class="command-card-main"><div class="command-card-name">${escapeHtml(x.name)}</div><div class="command-card-preview">${escapeHtml(x.text)}</div>${x.category ? `<div class="command-card-tag">${escapeHtml(x.category)}</div>` : ''}</div><button type="button" data-command-copy="${escapeHtml(x.id)}">复制</button><button type="button" data-command-edit="${escapeHtml(x.id)}">编辑</button></article>`).join('') : '<div style="color:var(--dim);font-size:12px;text-align:center;padding:28px 8px">'+(commandItems.length ? '没有找到匹配的指令。' : '还没有保存指令，点击右上角 ＋ 添加第一条。')+'</div>';
-      bindCommandResultActions(page, q);
-    });
-    bindCommandResultActions(page, query);
+    const categories=['全部','未分类',...commandCategories()];
+    const q=String(query||'').trim().toLowerCase();
+    const filtered=commandItems.filter(x=>commandMatchesCategory(x)&&(!q||`${x.name} ${x.text} ${x.category||''}`.toLowerCase().includes(q))).sort((a,b)=>(!!b.pinned-!!a.pinned)||(Number(b.updatedAt)||0)-(Number(a.updatedAt)||0));
+    page.innerHTML=`<div class="wardrobe-head"><button id="command-back" type="button">← 返回</button><strong>💲指令库</strong><button id="command-add" type="button" title="新增指令">＋</button></div><div class="wardrobe-tools" style="display:flex;gap:6px;flex-wrap:wrap"><input id="command-search" type="search" placeholder="搜索指令名称、正文或分类…" value="${escapeHtml(query)}" style="flex:1 1 100%;min-width:0;background:#202027;color:var(--fg);border:1px solid var(--border);border-radius:7px;padding:8px"><select id="command-category-filter" style="flex:1;min-width:0;background:#202027;color:var(--fg);border:1px solid var(--border);border-radius:7px;padding:7px">${categories.map(c=>`<option value="${escapeHtml(c)}" ${c===commandCategoryFilter?'selected':''}>${escapeHtml(c==='全部'?'全部分类':c)}</option>`).join('')}</select><button id="command-multi" type="button">${commandMultiSelect?'退出多选':'多选'}</button>${commandMultiSelect?`<button id="command-select-category" type="button">一键勾选</button><button id="command-copy-selected" type="button">一键复制（${commandSelected.size}）</button>`:''}</div><div class="command-list" id="command-list">${commandMarkup(filtered)}</div>`;
+    page.querySelector('#command-back').onclick=showMorePage;
+    page.querySelector('#command-add').onclick=()=>editCommandItem(null,query);
+    page.querySelector('#command-multi').onclick=()=>{commandMultiSelect=!commandMultiSelect;if(!commandMultiSelect)commandSelected.clear();renderCommandPage(query);};
+    page.querySelector('#command-category-filter').onchange=e=>{commandCategoryFilter=e.target.value;commandSelected.clear();renderCommandPage(query);};
+    page.querySelector('#command-search').addEventListener('input',e=>{const q=e.target.value;const list=page.querySelector('#command-list');const matches=commandItems.filter(x=>commandMatchesCategory(x)&&(!q.trim()||`${x.name} ${x.text} ${x.category||''}`.toLowerCase().includes(q.trim().toLowerCase()))).sort((a,b)=>(!!b.pinned-!!a.pinned)||(Number(b.updatedAt)||0)-(Number(a.updatedAt)||0));list.innerHTML=commandMarkup(matches);bindCommandResultActions(page,q);});
+    page.querySelector('#command-select-category')?.addEventListener('click',()=>{const group=commandItems.filter(x=>commandMatchesCategory(x));const allSelected=group.length>0&&group.every(x=>commandSelected.has(x.id));if(allSelected)group.forEach(x=>commandSelected.delete(x.id));else group.forEach(x=>commandSelected.add(x.id));renderCommandPage(query);});
+    page.querySelector('#command-copy-selected')?.addEventListener('click',async()=>{const ordered=commandItems.filter(x=>commandMatchesCategory(x)&&commandSelected.has(x.id)).sort((a,b)=>(!!b.pinned-!!a.pinned)||(Number(b.updatedAt)||0)-(Number(a.updatedAt)||0));if(!ordered.length){showToast('请先勾选要复制的指令。','err');return;}try{await copyText(ordered.map(x=>x.text).join('\n\n'));showToast(`已按当前分类顺序复制 ${ordered.length} 条指令。`,'ok');}catch(_){showToast('复制失败，请检查剪贴板权限。','err');}});
+    bindCommandResultActions(page,query);
   }
-  function bindCommandResultActions(page, query='') {
-    page.querySelectorAll('[data-command-copy]').forEach(btn => btn.onclick = async () => { const item=commandItems.find(x=>x.id===btn.dataset.commandCopy); if(!item)return; try { if(W.navigator.clipboard?.writeText) await W.navigator.clipboard.writeText(item.text); else { const ta=document.createElement('textarea');ta.value=item.text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();if(!ok)throw new Error('copy failed'); } showToast('已复制指令。','ok'); } catch(_) { showToast('复制失败，请检查浏览器剪贴板权限。','err'); } });
-    page.querySelectorAll('[data-command-edit]').forEach(btn => btn.onclick = () => editCommandItem(btn.dataset.commandEdit, query));
+  function bindCommandResultActions(page,query=''){
+    page.querySelectorAll('[data-command-copy]').forEach(btn=>btn.onclick=async()=>{const item=commandItems.find(x=>x.id===btn.dataset.commandCopy);if(!item)return;try{await copyText(item.text);showToast('已复制指令。','ok');}catch(_){showToast('复制失败，请检查浏览器剪贴板权限。','err');}});
+    page.querySelectorAll('[data-command-edit]').forEach(btn=>btn.onclick=()=>editCommandItem(btn.dataset.commandEdit,query));
+    page.querySelectorAll('[data-command-select]').forEach(cb=>cb.onchange=()=>{if(cb.checked)commandSelected.add(cb.dataset.commandSelect);else commandSelected.delete(cb.dataset.commandSelect);const copyBtn=page.querySelector('#command-copy-selected');if(copyBtn)copyBtn.textContent=`一键复制（${commandSelected.size}）`;});
+    page.querySelectorAll('[data-command-pin]').forEach(btn=>btn.onclick=async e=>{e.stopPropagation();const item=commandItems.find(x=>x.id===btn.dataset.commandPin);if(!item)return;item.pinned=!item.pinned;item.updatedAt=Date.now();if(await saveCommandItems())renderCommandPage(query);});
+    page.querySelectorAll('[data-command-wrap]').forEach(wrap=>{const card=wrap.querySelector('.command-card');let sx=0,sy=0,dx=0,tracking=false;card.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;dx=0;tracking=true;},{passive:true});card.addEventListener('touchmove',e=>{if(!tracking)return;const t=e.touches[0];dx=t.clientX-sx;const dy=t.clientY-sy;if(Math.abs(dy)>Math.abs(dx)){tracking=false;return;}if(dx<0)card.style.transform=`translateX(${Math.max(-62,dx)}px)`;},{passive:true});card.addEventListener('touchend',()=>{if(!tracking)return;tracking=false;card.style.transform='';if(dx<-35)card.classList.add('swiped');else if(dx>35)card.classList.remove('swiped');});});
   }
-  function editCommandItem(id, query='') {
-    const existing = id ? commandItems.find(x=>x.id===id) : null;
-    const overlay=document.createElement('div'); overlay.className='wardrobe-detail-backdrop';
-    overlay.innerHTML=`<section class="wardrobe-detail"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>${existing?'编辑指令':'新增指令'}</strong><button type="button" data-close>×</button></div><label>指令名称<input id="command-name" type="text" maxlength="80" placeholder="例如：防止角色 OOC" value="${escapeHtml(existing?.name||'')}"></label><label>指令内容<textarea id="command-text" placeholder="粘贴或输入完整指令……" style="min-height:150px">${escapeHtml(existing?.text||'')}</textarea></label><label>分类（选填）<input id="command-category" type="text" maxlength="40" placeholder="例如：OOC、文风、剧情控制" value="${escapeHtml(existing?.category||'')}"></label><div class="detail-actions">${existing?'<button type="button" data-delete>删除</button>':''}<button type="button" data-save>保存</button><button type="button" data-cancel>取消</button></div></section>`;
-    panel.appendChild(overlay); const close=()=>overlay.remove(); overlay.querySelector('[data-close]').onclick=close; overlay.querySelector('[data-cancel]').onclick=close;
-    overlay.querySelector('[data-save]').onclick=()=>{const name=overlay.querySelector('#command-name').value.trim(),text=overlay.querySelector('#command-text').value.trim(),category=overlay.querySelector('#command-category').value.trim();if(!name||!text){showToast('请填写指令名称和指令内容。','err');return;}const value={id:existing?.id||('cmd-'+Date.now()+'-'+Math.random().toString(16).slice(2)),name,text,category,updatedAt:Date.now()};if(existing){const i=commandItems.findIndex(x=>x.id===existing.id);if(i>=0)commandItems[i]=value;}else commandItems.unshift(value);if(saveCommandItems()){close();renderCommandPage(query);showToast('指令已保存。','ok');}};
-    const del=overlay.querySelector('[data-delete]');if(del)del.onclick=()=>{if(!confirm(`确定删除指令「${existing.name}」吗？`))return;commandItems=commandItems.filter(x=>x.id!==existing.id);if(saveCommandItems()){close();renderCommandPage(query);showToast('指令已删除。','ok');}};
+  function editCommandItem(id,query=''){
+    const existing=id?commandItems.find(x=>x.id===id):null;
+    const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
+    overlay.innerHTML=`<section class="wardrobe-detail"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>${existing?'编辑指令':'新增指令'}</strong><button type="button" data-close>×</button></div><label>指令名称<input id="command-name" type="text" maxlength="80" placeholder="例如：防止角色 OOC" value="${escapeHtml(existing?.name||'')}"></label><label>指令内容<textarea id="command-text" placeholder="粘贴或输入完整指令……" style="min-height:150px">${escapeHtml(existing?.text||'')}</textarea></label><label>分类（选填）<input id="command-category" type="text" maxlength="40" list="command-category-options" placeholder="例如：OOC、文风、剧情控制" value="${escapeHtml(existing?.category||'')}"><datalist id="command-category-options">${commandCategories().map(c=>`<option value="${escapeHtml(c)}"></option>`).join('')}</datalist></label><div class="detail-actions">${existing?'<button type="button" data-delete>删除</button>':''}<button type="button" data-save>保存</button><button type="button" data-cancel>取消</button></div></section>`;
+    panel.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('[data-close]').onclick=close;overlay.querySelector('[data-cancel]').onclick=close;
+    overlay.querySelector('[data-save]').onclick=async()=>{const name=overlay.querySelector('#command-name').value.trim(),text=overlay.querySelector('#command-text').value.trim(),category=overlay.querySelector('#command-category').value.trim();if(!name||!text){showToast('请填写指令名称和指令内容。','err');return;}const value={id:existing?.id||('cmd-'+Date.now()+'-'+Math.random().toString(16).slice(2)),name,text,category,pinned:!!existing?.pinned,updatedAt:Date.now()};if(existing){const i=commandItems.findIndex(x=>x.id===existing.id);if(i>=0)commandItems[i]=value;}else commandItems.unshift(value);if(await saveCommandItems()){close();if(category)commandCategoryFilter=category;renderCommandPage(query);showToast('指令已保存。','ok');}};
+    const del=overlay.querySelector('[data-delete]');if(del)del.onclick=async()=>{if(!confirm(`确定删除指令「${existing.name}」吗？`))return;commandItems=commandItems.filter(x=>x.id!==existing.id);commandSelected.delete(existing.id);if(await saveCommandItems()){close();renderCommandPage(query);showToast('指令已删除。','ok');}};
   }
 
-  // ================= 4.1 Preview 3：小u表情包 =================
+  // ================= 4.1 Preview 4：小u表情包 =================
   const STICKER_KEY='mufycard_stickers_v1';
   let stickerData={categories:['默认'],items:[]},stickerCategory='默认',stickerMulti=false,stickerSelected=new Set();
   try{const x=JSON.parse(W.localStorage.getItem(STICKER_KEY)||'null');if(x&&Array.isArray(x.categories)&&Array.isArray(x.items))stickerData=x;}catch(_){}
-  function saveStickers(){try{W.localStorage.setItem(STICKER_KEY,JSON.stringify(stickerData));return true;}catch(_){showToast('表情包保存失败，可能是本地空间不足。','err');return false;}}
+  function saveStickers(){const raw=JSON.stringify(stickerData);let pageSaved=false;try{W.localStorage.setItem(STICKER_KEY,raw);pageSaved=true;}catch(e){console.warn('[MufyCard] 表情包网页存储失败，转存脚本空间',e);}const gmWrite=mirrorToScriptStorage(STICKER_KEY,raw);if(!pageSaved&&typeof GM==='undefined'&&typeof GM_setValue!=='function'){showToast('表情包保存失败：当前浏览器存储空间不足。','err');return false;}void gmWrite;return true;}
   function openStickerPage(){stickerCategory='默认';stickerMulti=false;stickerSelected.clear();renderStickerPage();}
   function renderStickerPage(){const page=panel.querySelector('#wardrobe-page');['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id=>panel.querySelector('#'+id).style.display='none');panel.querySelector('#more-page').classList.remove('active');page.classList.add('active');panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));const cats=['全部',...stickerData.categories];const items=stickerData.items.filter(x=>stickerCategory==='全部'||x.category===stickerCategory);page.innerHTML=`<div class="wardrobe-head"><button id="st-back">← 返回</button><strong>👀 小u表情包</strong><div style="display:flex;gap:6px"><button id="st-add">＋ 导入</button></div></div><div class="wardrobe-tools"><button id="st-newcat">＋ 分类</button><button id="st-multi">${stickerMulti?'退出多选':'多选'}</button>${stickerMulti?'<button id="st-all">全选</button><button id="st-move">批量移动</button><button id="st-delete">批量删除</button><span>已选 '+stickerSelected.size+'</span>':''}</div><div class="sticker-layout"><nav class="sticker-cats">${cats.map(c=>`<button class="sticker-cat ${c===stickerCategory?'active':''}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('')}</nav><div class="sticker-content"><div class="sticker-grid">${items.length?items.map(x=>`<article class="sticker-card" data-sid="${escapeHtml(x.id)}">${stickerMulti?`<input class="sticker-select" type="checkbox" ${stickerSelected.has(x.id)?'checked':''}>`:''}<div class="sticker-preview"><img loading="lazy" src="${escapeHtml(x.url)}" alt="${escapeHtml(x.description)}" onerror="this.style.display='none';this.parentElement.textContent='图片加载失败'"/></div><div class="sticker-actions"><button class="sticker-copy" data-copy-sticker="${escapeHtml(x.id)}">一键复制</button><button class="sticker-edit" data-edit-sticker="${escapeHtml(x.id)}">编辑</button></div></article>`).join(''):'<div style="grid-column:1/-1;text-align:center;color:var(--dim);padding:30px 8px">这个分类还没有表情包</div>'}</div></div></div>`;
     page.querySelector('#st-back').onclick=showMorePage;page.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{stickerCategory=b.dataset.cat;stickerSelected.clear();renderStickerPage();});page.querySelector('#st-newcat').onclick=()=>{const n=prompt('请输入分类名称');if(!n||!n.trim())return;const name=n.trim();if(stickerData.categories.includes(name)){showToast('分类已存在。','err');return;}stickerData.categories.push(name);stickerCategory=name;saveStickers();renderStickerPage();};page.querySelector('#st-add').onclick=()=>showStickerImportChoices();page.querySelector('#st-multi').onclick=()=>{stickerMulti=!stickerMulti;stickerSelected.clear();renderStickerPage();};const all=page.querySelector('#st-all');if(all)all.onclick=()=>{items.forEach(x=>stickerSelected.add(x.id));renderStickerPage();};const del=page.querySelector('#st-delete');if(del)del.onclick=()=>{if(!stickerSelected.size)return;if(!confirm(`确定删除选中的 ${stickerSelected.size} 个表情包？`))return;stickerData.items=stickerData.items.filter(x=>!stickerSelected.has(x.id));stickerSelected.clear();saveStickers();renderStickerPage();};const move=page.querySelector('#st-move');if(move)move.onclick=()=>{if(!stickerSelected.size)return;const opts=stickerData.categories.map((c,i)=>`${i+1}. ${c}`).join('\n');const n=prompt('输入目标分类序号：\n'+opts);const idx=Number(n)-1;if(!Number.isInteger(idx)||idx<0||idx>=stickerData.categories.length)return;const cat=stickerData.categories[idx];stickerData.items.forEach(x=>{if(stickerSelected.has(x.id))x.category=cat;});stickerSelected.clear();saveStickers();stickerCategory=cat;renderStickerPage();};page.querySelectorAll('.sticker-card').forEach(card=>{const cb=card.querySelector('.sticker-select');if(cb)cb.onchange=()=>{cb.checked?stickerSelected.add(card.dataset.sid):stickerSelected.delete(card.dataset.sid);};});page.querySelectorAll('[data-copy-sticker]').forEach(b=>b.onclick=async()=>{const x=stickerData.items.find(i=>i.id===b.dataset.copySticker);if(!x)return;const text=`$表情包：${x.description}：${x.url}`;try{await copyText(text);showToast('表情包内容已复制。','ok');}catch(_){showToast('复制失败，请检查剪贴板权限。','err');}});page.querySelectorAll('[data-edit-sticker]').forEach(b=>b.onclick=()=>editSticker(b.dataset.editSticker));}
@@ -1609,29 +1818,379 @@
     input.onchange=async()=>{const file=input.files?.[0];if(!file)return;try{let raw='';if(/\.docx$/i.test(file.name)){if(typeof JSZip==='undefined')throw new Error('DOCX 解析组件未加载，请刷新页面后重试。');const zip=await JSZip.loadAsync(file);const doc=zip.file('word/document.xml');if(!doc)throw new Error('DOCX 文件中没有找到正文。');const xml=await doc.async('string');const parsed=new DOMParser().parseFromString(xml,'application/xml');raw=[...parsed.getElementsByTagName('w:p')].map(p=>[...p.getElementsByTagName('w:t')].map(t=>t.textContent||'').join('')).join('\n');}else{raw=await file.text();}if(!parseStickerLines(raw).length)throw new Error('没有识别到有效条目，请确认每行格式为「描述：URL」。');stickerImportForm('file',raw,file.name);}catch(e){showToast('文件读取失败：'+(e.message||'未知错误'),'err');}};input.click();
   }
   function editSticker(id){const x=stickerData.items.find(i=>i.id===id);if(!x)return;const d=prompt('编辑描述：',x.description);if(d===null)return;const u=prompt('编辑图片 URL：',x.url);if(u===null)return;let url;try{url=new URL(u.trim());if(!/^https?:$/.test(url.protocol))throw 0;}catch(_){showToast('URL 格式不正确。','err');return;}const c=prompt('所属分类：',x.category);if(c===null||!c.trim())return;const cat=c.trim();if(!stickerData.categories.includes(cat))stickerData.categories.push(cat);x.description=d.trim();x.url=url.href;x.category=cat;saveStickers();stickerCategory=cat;renderStickerPage();}
-  async function copyText(text){if(W.navigator.clipboard?.writeText)return W.navigator.clipboard.writeText(text);const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();if(!ok)throw new Error('copy failed');}
+  async function copyText(text){let copied=false;if(W.navigator.clipboard?.writeText){try{await W.navigator.clipboard.writeText(String(text));return true;}catch(_){}}const ta=document.createElement('textarea');ta.value=String(text);ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='0';ta.style.top='0';ta.style.width='1px';ta.style.height='1px';ta.style.opacity='0.01';document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);try{copied=document.execCommand('copy');}finally{ta.remove();}if(!copied)throw new Error('copy failed');return true;}
 
-  // ================= 4.1 Preview 3：善用备忘录 =================
-  const NOTES_KEY='mufycard_notes_v1';let noteItems=[];
+  // ================= 4.1：善用备忘录 =================
+  const NOTES_KEY='mufycard_notes_v1';let noteItems=[];let noteCategoryFilter='全部';
   try{const x=JSON.parse(W.localStorage.getItem(NOTES_KEY)||'[]');if(Array.isArray(x))noteItems=x;}catch(_){}
-  function saveNotes(){try{W.localStorage.setItem(NOTES_KEY,JSON.stringify(noteItems));return true;}catch(_){showToast('备忘录保存失败。','err');return false;}}
+  function saveNotes(){const raw=JSON.stringify(noteItems);let pageSaved=false;try{W.localStorage.setItem(NOTES_KEY,raw);pageSaved=true;}catch(e){console.warn('[MufyCard] 备忘录网页存储失败，转存脚本空间',e);}void mirrorToScriptStorage(NOTES_KEY,raw);if(!pageSaved&&typeof GM==='undefined'&&typeof GM_setValue!=='function'){showToast('备忘录保存失败：当前浏览器存储空间不足。','err');return false;}return true;}
+
+  // ================= 小u新头像：独立头像库 =================
+  const AVATAR_DB = 'mufycard_avatar_library_db_v1';
+  const AVATAR_KEY = 'mufycard_avatar_library_v1';
+  let avatarData = { categories: ['默认'], items: [] };
+  let avatarCategory = '全部';
+  let avatarMulti = false;
+  const avatarSelected = new Set();
+  let avatarLoadPromise = null;
+  function openAvatarDB() {
+    return new Promise((resolve, reject) => {
+      if (!W.indexedDB) { reject(new Error('IndexedDB 不可用')); return; }
+      const req = W.indexedDB.open(AVATAR_DB, 1);
+      req.onupgradeneeded = () => { if (!req.result.objectStoreNames.contains('data')) req.result.createObjectStore('data'); };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error('头像库数据库打开失败'));
+    });
+  }
+  async function readAvatarDB() {
+    const db = await openAvatarDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction('data', 'readonly');
+      const req = tx.objectStore('data').get('avatars');
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+      tx.oncomplete = () => db.close();
+    });
+  }
+  async function writeAvatarDB(value) {
+    const db = await openAvatarDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction('data', 'readwrite');
+      tx.objectStore('data').put(value, 'avatars');
+      tx.oncomplete = () => { db.close(); resolve(true); };
+      tx.onerror = () => { const error = tx.error; db.close(); reject(error); };
+      tx.onabort = () => { const error = tx.error; db.close(); reject(error || new Error('头像库保存事务中断')); };
+    });
+  }
+  function normalizeAvatarData(value) {
+    const categories = Array.isArray(value?.categories) ? value.categories.map(x => String(x || '').trim()).filter(Boolean) : [];
+    const items = Array.isArray(value?.items) ? value.items.filter(x => x && typeof x === 'object' && (x.url || x.image)).map((x, i) => ({
+      id: String(x.id || `avatar-${Date.now()}-${i}-${Math.random().toString(36).slice(2,6)}`),
+      name: String(x.name || '未命名头像'), url: String(x.url || x.image || ''), category: String(x.category || '默认'),
+      order: Number.isFinite(Number(x.order)) ? Number(x.order) : i, createdAt: x.createdAt || Date.now()
+    })) : [];
+    return { categories: [...new Set(['默认', ...categories])], items };
+  }
+  async function loadAvatarData() {
+    if (avatarLoadPromise) return avatarLoadPromise;
+    avatarLoadPromise = (async () => {
+      try {
+        const saved = await readAvatarDB();
+        if (saved) { avatarData = normalizeAvatarData(saved); return; }
+      } catch (error) { console.warn('[MufyCard] 头像库 IndexedDB 读取失败，尝试备用存储', error); }
+      try {
+        const raw = await persistentReadAsync(AVATAR_KEY, null);
+        if (raw) avatarData = normalizeAvatarData(typeof raw === 'string' ? JSON.parse(raw) : raw);
+      } catch (error) { console.warn('[MufyCard] 头像库备用数据读取失败', error); }
+    })();
+    return avatarLoadPromise;
+  }
+  async function saveAvatarData() {
+    avatarData.items.forEach((item, index) => { item.order = index; });
+    try { await writeAvatarDB(avatarData); return true; }
+    catch (error) {
+      console.warn('[MufyCard] 头像库 IndexedDB 保存失败，尝试脚本存储', error);
+      const ok = await persistentWrite(AVATAR_KEY, JSON.stringify(avatarData));
+      if (!ok) showToast('头像保存失败：本地存储不可用或空间不足。', 'err');
+      return ok;
+    }
+  }
+  function avatarVisibleItems() {
+    return avatarData.items.filter(item => avatarCategory === '全部' || item.category === avatarCategory).sort((a,b) => Number(a.order||0) - Number(b.order||0));
+  }
+  function renderAvatarPage() {
+    const page = panel.querySelector('#wardrobe-page');
+    ['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id => panel.querySelector('#'+id).style.display='none');
+    panel.querySelector('#more-page').classList.remove('active'); page.classList.add('active');
+    panel.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.id === 'tab-more'));
+    const cats = ['全部', ...avatarData.categories];
+    const items = avatarVisibleItems();
+    const selectedVisible = items.filter(x => avatarSelected.has(x.id)).length;
+    page.innerHTML = `<div class="wardrobe-head"><button id="avatar-back" type="button">← 返回</button><strong>💤小u新头像</strong><span aria-hidden="true"></span></div>
+      <div class="avatar-tools"><button id="avatar-url-add" type="button">图片 URL</button><button class="avatar-file-picker" id="avatar-file-button" type="button">上传图片</button><input id="avatar-file-input" type="file" accept="image/*" aria-label="选择要上传的头像图片" style="display:none"><button id="avatar-category-add" type="button">＋ 分类</button><button id="avatar-category-manage" type="button">分类管理</button><button id="avatar-import" type="button">导入</button><button id="avatar-multi" type="button" class="${avatarMulti?'avatar-multi-active':''}">${avatarMulti?'退出多选':'多选'}</button>${avatarMulti?`<button id="avatar-all" type="button">${items.length && selectedVisible===items.length?'取消全选':'全选'}</button><button id="avatar-move" type="button">批量移动</button><button id="avatar-delete" type="button">批量删除</button><small>已选 ${selectedVisible}</small>`:''}<span>${items.length} 张</span></div>
+      <div class="avatar-layout"><nav class="avatar-cats">${cats.map(c=>`<button type="button" class="avatar-cat ${c===avatarCategory?'active':''}" data-avatar-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('')}</nav>
+      <div class="avatar-grid" id="avatar-grid">${items.length ? items.map(item=>`<article class="avatar-card ${avatarSelected.has(item.id)?'is-selected':''}" data-avatar-id="${escapeHtml(item.id)}">${avatarMulti?`<input class="avatar-select" type="checkbox" data-avatar-select="${escapeHtml(item.id)}" ${avatarSelected.has(item.id)?'checked':''}>`:''}<div class="avatar-image-wrap"><img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.name)}" loading="eager" decoding="async" onerror="this.dataset.failed='1';this.alt='图片加载失败';this.parentElement.classList.add('avatar-image-failed')"><button class="avatar-drag" type="button" title="按住拖动调整位置" aria-label="拖动调整位置">⠿</button></div><div class="avatar-name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</div><div class="avatar-card-actions"><button class="avatar-copy" type="button" data-avatar-copy="${escapeHtml(item.id)}">一键复制</button><button class="avatar-edit" type="button" data-avatar-edit="${escapeHtml(item.id)}">编辑</button></div></article>`).join('') : '<div class="avatar-empty">这个分类还没有头像。可以通过图片 URL 或上传图片添加。</div>'}</div></div>`;
+    page.querySelector('#avatar-back').onclick = showMorePage;
+    page.querySelector('#avatar-url-add').onclick = addAvatarByUrl;
+    const avatarFileInput=page.querySelector('#avatar-file-input');
+    const avatarFileButton=page.querySelector('#avatar-file-button');
+    if(avatarFileButton && avatarFileInput) avatarFileButton.addEventListener('click', event=>{ event.preventDefault(); event.stopPropagation(); avatarFileInput.click(); });
+    if(avatarFileInput) avatarFileInput.addEventListener('change', event=>{ const file=event.target.files&&event.target.files[0]; if(file) void addAvatarByFile(file); event.target.value=''; });
+    page.querySelector('#avatar-category-add').onclick = addAvatarCategory;
+    page.querySelector('#avatar-category-manage').onclick = manageAvatarCategories;
+    page.querySelector('#avatar-import').onclick = importAvatarLibrary;
+    page.querySelector('#avatar-multi').onclick = () => { avatarMulti=!avatarMulti; avatarSelected.clear(); renderAvatarPage(); };
+    page.querySelectorAll('[data-avatar-cat]').forEach(button => button.onclick = () => { avatarCategory = button.dataset.avatarCat; avatarSelected.clear(); renderAvatarPage(); });
+    const allButton=page.querySelector('#avatar-all');
+    if(allButton) allButton.onclick=()=>{ if(items.length && items.every(x=>avatarSelected.has(x.id))) items.forEach(x=>avatarSelected.delete(x.id)); else items.forEach(x=>avatarSelected.add(x.id)); renderAvatarPage(); };
+    const moveButton=page.querySelector('#avatar-move');
+    if(moveButton) moveButton.onclick=()=>{ if(!avatarSelected.size)return; const opts=avatarData.categories.map((c,i)=>`${i+1}. ${c}`).join('\n'); const n=prompt('输入目标分类序号：\n'+opts); if(n===null)return; const idx=Number(n)-1; if(!Number.isInteger(idx)||idx<0||idx>=avatarData.categories.length){showToast('分类序号无效。','err');return;} const cat=avatarData.categories[idx]; avatarData.items.forEach(x=>{if(avatarSelected.has(x.id))x.category=cat;}); avatarSelected.clear(); void saveAvatarData().then(()=>{avatarCategory=cat;renderAvatarPage();showToast('已批量移动头像。','ok');}); };
+    const deleteButton=page.querySelector('#avatar-delete');
+    if(deleteButton) deleteButton.onclick=()=>{ if(!avatarSelected.size)return; if(!confirm(`确定删除选中的 ${avatarSelected.size} 张头像吗？`))return; avatarData.items=avatarData.items.filter(x=>!avatarSelected.has(x.id)); avatarSelected.clear(); void saveAvatarData().then(ok=>{if(ok){renderAvatarPage();showToast('选中的头像已删除。','ok');}}); };
+    page.querySelectorAll('[data-avatar-select]').forEach(cb=>cb.onchange=()=>{cb.checked?avatarSelected.add(cb.dataset.avatarSelect):avatarSelected.delete(cb.dataset.avatarSelect);cb.closest('.avatar-card')?.classList.toggle('is-selected',cb.checked);const small=page.querySelector('.avatar-tools small');if(small)small.textContent='已选 '+items.filter(x=>avatarSelected.has(x.id)).length;const all=page.querySelector('#avatar-all');if(all)all.textContent=items.length&&items.every(x=>avatarSelected.has(x.id))?'取消全选':'全选';});
+    // 页面级事件委托，复制和编辑按钮在移动端也能稳定响应。
+    page.addEventListener('click', async event => {
+      const copyButton = event.target.closest('[data-avatar-copy]');
+      const editButton = event.target.closest('[data-avatar-edit]');
+      if (copyButton) {
+        event.preventDefault(); event.stopPropagation();
+        const item = avatarData.items.find(x => x.id === copyButton.dataset.avatarCopy); if (!item) return;
+        try { await copyText(item.url); showToast('图片 URL 已复制。','ok'); }
+        catch (_) { showToast('复制失败：浏览器未授予剪贴板权限。','err'); }
+        return;
+      }
+      if (editButton) { event.preventDefault(); event.stopPropagation(); editAvatar(editButton.dataset.avatarEdit); }
+    }, true);
+    bindAvatarReorder(page.querySelector('#avatar-grid'));
+  }
+  async function openAvatarPage() {
+    await loadAvatarData();
+    avatarCategory = '全部';
+    avatarMulti = false; avatarSelected.clear();
+    renderAvatarPage();
+  }
+  function addAvatarCategory() {
+    const name = prompt('请输入新头像分类名称：');
+    if (!name || !name.trim()) return;
+    const category = name.trim();
+    if (avatarData.categories.includes(category)) { showToast('这个分类已经存在。','err'); return; }
+    avatarData.categories.push(category); avatarCategory = category; void saveAvatarData(); renderAvatarPage();
+  }
+  function manageAvatarCategories() {
+    const categories = avatarData.categories;
+    if (!categories.length) { showToast('目前没有可管理的分类。','err'); return; }
+    const list = categories.map((name,index)=>`${index+1}. ${name}`).join('\n');
+    const choice = prompt(`输入要管理的分类序号：\n${list}`);
+    if (choice === null) return;
+    const index = Number(choice)-1;
+    if (!Number.isInteger(index) || index<0 || index>=categories.length) { showToast('分类序号无效。','err'); return; }
+    const oldName = categories[index];
+    const action = prompt(`分类：${oldName}\n输入 1 重命名，输入 2 删除。`, '1');
+    if (action === '1') {
+      const nextName = prompt('请输入新的分类名称：', oldName);
+      if (nextName === null || !nextName.trim()) return;
+      const clean = nextName.trim();
+      if (clean !== oldName && categories.includes(clean)) { showToast('这个分类名称已经存在。','err'); return; }
+      categories[index] = clean;
+      avatarData.items.forEach(item=>{if(item.category===oldName)item.category=clean;});
+      if (avatarCategory===oldName) avatarCategory=clean;
+    } else if (action === '2') {
+      if (!confirm(`删除分类「${oldName}」？其中的头像会移动到「默认」，不会删除头像图片。`)) return;
+      avatarData.categories.splice(index,1);
+      avatarData.items.forEach(item=>{if(item.category===oldName)item.category='默认';});
+      if (avatarCategory===oldName) avatarCategory='全部';
+    } else return;
+    void saveAvatarData().then(()=>renderAvatarPage());
+  }
+  function addAvatarByUrl() {
+    const urlText = prompt('请输入头像图片 URL（http 或 https）：');
+    if (urlText === null || !urlText.trim()) return;
+    let url;
+    try { url = new URL(urlText.trim()); if (!/^https?:$/.test(url.protocol)) throw new Error('协议不支持'); }
+    catch (_) { showToast('图片 URL 格式不正确。','err'); return; }
+    const name = prompt('给这张头像起个名字：', '新头像');
+    if (name === null) return;
+    const category = avatarCategory === '全部' ? (avatarData.categories[0] || '默认') : avatarCategory;
+    avatarData.items.push({ id:`avatar-${Date.now()}-${Math.random().toString(36).slice(2,7)}`, name:name.trim()||'新头像', url:url.href, category, order:avatarData.items.length, createdAt:Date.now() });
+    void saveAvatarData().then(ok => { if(ok)showToast('头像已添加。','ok'); renderAvatarPage(); });
+  }
+  async function addAvatarByFile(file) {
+    if (!file) return;
+    try {
+      if (!file.type || !/^image\//i.test(file.type)) { showToast('请选择图片文件。','err'); return; }
+      if (file.size > 20 * 1024 * 1024) { showToast('图片超过 20MB，请先压缩后再上传。','err'); return; }
+      // 安卓 Via / Edge 对超大 DataURL 与部分图片格式的处理差异较大：
+      // 优先将图片缩放并转为通用 JPEG，显著降低 IndexedDB 存储体积；失败时回退原文件读取。
+      async function makeCompactDataUrl(sourceFile) {
+        let bitmap = null;
+        let objectUrl = '';
+        try {
+          if (typeof W.createImageBitmap === 'function') bitmap = await W.createImageBitmap(sourceFile);
+          else if (typeof URL !== 'undefined' && URL.createObjectURL) {
+            objectUrl = URL.createObjectURL(sourceFile);
+            bitmap = await new Promise((resolve, reject) => {
+              const img = new Image();
+              img.onload = () => resolve(img);
+              img.onerror = () => reject(new Error('浏览器无法解码这张图片'));
+              img.src = objectUrl;
+            });
+          }
+          if (bitmap && W.document && W.document.createElement) {
+            const width = Number(bitmap.width || bitmap.naturalWidth || 0);
+            const height = Number(bitmap.height || bitmap.naturalHeight || 0);
+            if (width > 0 && height > 0) {
+              const scale = Math.min(1, 1600 / Math.max(width, height));
+              const canvas = W.document.createElement('canvas');
+              canvas.width = Math.max(1, Math.round(width * scale));
+              canvas.height = Math.max(1, Math.round(height * scale));
+              const ctx = canvas.getContext('2d');
+              if (ctx) {
+                ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+                const blob = await new Promise(resolve => {
+                  if (canvas.toBlob) canvas.toBlob(resolve, 'image/webp', 0.86);
+                  else resolve(null);
+                });
+                if (blob && blob.size) return await new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onload = () => resolve(String(reader.result || ''));
+                  reader.onerror = () => reject(reader.error || new Error('压缩图片读取失败'));
+                  reader.readAsDataURL(blob);
+                });
+              }
+            }
+          }
+        } finally {
+          try { if (bitmap && typeof bitmap.close === 'function') bitmap.close(); } catch (_) {}
+          try { if (objectUrl) URL.revokeObjectURL(objectUrl); } catch (_) {}
+        }
+        return await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result || ''));
+          reader.onerror = () => reject(reader.error || new Error('图片读取失败'));
+          reader.onabort = () => reject(new Error('图片读取已取消'));
+          reader.readAsDataURL(sourceFile);
+        });
+      }
+      const dataUrl = await makeCompactDataUrl(file);
+      if (!/^data:image\/(?:jpeg|png|gif|webp|bmp|svg\+xml);base64,/i.test(dataUrl)) throw new Error('浏览器没有读取到有效图片数据');
+      // 保存前先让当前浏览器实际解码一次，避免把无法显示的内容写进头像库。
+      await new Promise((resolve, reject) => {
+        const test = new Image();
+        test.onload = () => resolve(true);
+        test.onerror = () => reject(new Error('图片已读取，但当前浏览器无法显示该图片格式'));
+        test.src = dataUrl;
+      });
+      const name = prompt('给这张头像起个名字：', file.name.replace(/\.[^.]+$/, ''));
+      if (name === null) return;
+      const category = avatarCategory === '全部' ? (avatarData.categories[0] || '默认') : avatarCategory;
+      avatarData.items.push({ id:`avatar-${Date.now()}-${Math.random().toString(36).slice(2,7)}`, name:name.trim()||'新头像', url:dataUrl, category, order:avatarData.items.length, createdAt:Date.now() });
+      const ok = await saveAvatarData();
+      if(ok){ renderAvatarPage(); showToast('本地头像已上传并保存。','ok'); }
+      else {
+        avatarData.items.pop();
+        showToast('图片已读取，但浏览器本地存储失败。请减少图片数量或检查存储权限。','err');
+      }
+    } catch(error) { console.error('[MufyCard] 头像上传失败',error); showToast(`头像上传失败：${error?.message||error}`,'err'); }
+  }
+
+  function editAvatar(id) {
+    const item = avatarData.items.find(x=>x.id===id); if(!item)return;
+    const next = prompt('编辑头像图片 URL：\n输入新的 http/https URL；留空后可选择删除。', /^https?:\/\//i.test(item.url) ? item.url : item.url);
+    if(next===null)return;
+    const value=next.trim();
+    if(!value){
+      if(!confirm(`URL 留空。确定删除头像「${item.name}」吗？`))return;
+      avatarData.items=avatarData.items.filter(x=>x.id!==id); avatarSelected.delete(id);
+      void saveAvatarData().then(ok=>{if(ok){renderAvatarPage();showToast('头像已删除。','ok');}}); return;
+    }
+    try { const parsed=new URL(value); if(!/^https?:$/.test(parsed.protocol))throw new Error('协议不支持'); item.url=parsed.href; }
+    catch(_){showToast('图片 URL 格式不正确，请使用 http 或 https 地址。','err');return;}
+    void saveAvatarData().then(ok=>{if(ok)showToast('图片 URL 已更新。','ok');renderAvatarPage();});
+  }
+  function changeAvatarUrl(id) {
+    const item = avatarData.items.find(x=>x.id===id); if(!item)return;
+    const next = prompt('输入这张头像的图片 URL（http/https）。如果是本地上传的图片，替换为 URL 后将改为使用网络图片：', /^https?:\/\//i.test(item.url) ? item.url : '');
+    if(next===null)return;
+    const value=next.trim();
+    if(!value){showToast('图片 URL 不能为空；如需保留本地图片，请取消操作。','err');return;}
+    try { const parsed=new URL(value); if(!/^https?:$/.test(parsed.protocol))throw new Error('协议不支持'); item.url=parsed.href; }
+    catch(_){showToast('图片 URL 格式不正确，请使用 http 或 https 地址。','err');return;}
+    void saveAvatarData().then(ok=>{if(ok)showToast('图片 URL 已更新。','ok');renderAvatarPage();});
+  }
+  function bindAvatarReorder(grid) {
+    if(!grid)return;
+    let dragging=null, pointerId=null, moved=false;
+    const cards=()=>[...grid.querySelectorAll('.avatar-card')];
+    const finish=async()=>{
+      if(!dragging)return;
+      dragging.classList.remove('is-dragging');
+      const ids=cards().map(x=>x.dataset.avatarId);
+      const orderMap=new Map(ids.map((id,i)=>[id,i]));
+      const visibleSet=new Set(ids);
+      avatarData.items.forEach(item=>{if(visibleSet.has(item.id))item.order=orderMap.get(item.id);});
+      const visibleItems=avatarData.items.filter(x=>visibleSet.has(x.id)).sort((a,b)=>a.order-b.order);
+      const hiddenItems=avatarData.items.filter(x=>!visibleSet.has(x.id));
+      avatarData.items=[...visibleItems,...hiddenItems];
+      dragging=null; pointerId=null;
+      await saveAvatarData();
+      if(moved)showToast('头像排列已保存。','ok');
+    };
+    grid.querySelectorAll('.avatar-card').forEach(card=>{
+      const handle=card.querySelector('.avatar-drag');
+      handle.addEventListener('pointerdown',e=>{
+        e.preventDefault(); e.stopPropagation();
+        dragging=card; pointerId=e.pointerId; moved=false;
+        card.classList.add('is-dragging');
+        try{grid.setPointerCapture(e.pointerId);}catch(_){}
+      });
+    });
+    grid.addEventListener('pointermove',e=>{
+      if(!dragging || (pointerId!==null && e.pointerId!==pointerId))return;
+      const target=cards().find(card=>{
+        if(card===dragging)return false;
+        const r=card.getBoundingClientRect();
+        return e.clientX>=r.left && e.clientX<=r.right && e.clientY>=r.top && e.clientY<=r.bottom;
+      });
+      if(!target)return;
+      const rect=target.getBoundingClientRect();
+      const before=e.clientY<rect.top+rect.height/2 || (Math.abs(e.clientY-rect.top-rect.height/2)<rect.height*.25 && e.clientX<rect.left+rect.width/2);
+      grid.insertBefore(dragging,before?target:target.nextSibling); moved=true;
+    });
+    grid.addEventListener('pointerup',e=>{if(pointerId===null||e.pointerId===pointerId)void finish();});
+    grid.addEventListener('pointercancel',()=>void finish());
+    grid.addEventListener('lostpointercapture',()=>{if(dragging)void finish();});
+  }
+  function importAvatarLibrary() {
+    const input=document.createElement('input'); input.type='file'; input.accept='.json,application/json';
+    input.onchange=()=>{
+      const file=input.files?.[0]; if(!file)return;
+      const reader=new FileReader(); reader.onload=async()=>{
+        try {
+          const parsed=JSON.parse(String(reader.result||''));
+          if(!Array.isArray(parsed.items)||!Array.isArray(parsed.categories))throw new Error('文件格式不正确');
+          const imported=normalizeAvatarData(parsed);
+          if(!confirm(`备份中有 ${imported.items.length} 张头像。选择“确定”将合并导入，重复 ID 会跳过；取消则不导入。`))return;
+          const ids=new Set(avatarData.items.map(x=>x.id));
+          imported.items.forEach(item=>{if(ids.has(item.id))return;ids.add(item.id);avatarData.items.push(item);});
+          imported.categories.forEach(category=>{if(!avatarData.categories.includes(category))avatarData.categories.push(category);});
+          const ok=await saveAvatarData(); if(ok){showToast('头像库备份已合并导入。','ok');renderAvatarPage();}
+        } catch(error) { showToast(`导入失败：${error.message||error}`,'err'); }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+
   function openNotesPage(){renderNotesPage();}
   function noteTitle(n){return (n.title||n.body?.split(/\r?\n/)[0]||'新备忘录').trim().slice(0,80);}
+  function noteCategories(){return [...new Set(noteItems.map(n=>String(n.category||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh'));}
   function renderNotesPage(query=''){
     const page=panel.querySelector('#wardrobe-page');
     ['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id=>panel.querySelector('#'+id).style.display='none');
     panel.querySelector('#more-page').classList.remove('active');page.classList.add('active');
     panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));
-    const q=query.toLowerCase();
-    const list=noteItems.filter(n=>!q||`${n.title||''} ${n.body||''}`.toLowerCase().includes(q)).sort((a,b)=>(!!b.pinned-!!a.pinned)||(b.updatedAt||0)-(a.updatedAt||0));
-    page.innerHTML=`<div class="wardrobe-head"><button id="notes-back">← 返回</button><strong>📝 善用备忘录</strong><button id="notes-add">＋</button></div><div class="wardrobe-tools"><input id="notes-search" type="search" placeholder="搜索备忘录…" value="${escapeHtml(query)}" style="flex:1;min-width:0;background:#202027;color:var(--fg);border:1px solid var(--border);border-radius:7px;padding:8px"></div><div class="note-list">${list.length?list.map(n=>`<div class="note-swipe" data-swipe-wrap="${escapeHtml(n.id)}"><div class="note-swipe-actions"><button type="button" data-note-pin="${escapeHtml(n.id)}">${n.pinned?'取消置顶':'置顶'}</button><button type="button" data-note-delete="${escapeHtml(n.id)}">删除</button></div><article class="note-row" data-note="${escapeHtml(n.id)}"><div class="note-title">${n.pinned?'📌 ':''}${escapeHtml(noteTitle(n))}</div><div class="note-preview">${escapeHtml((n.body||'').replace(/\s+/g,' ').slice(0,100))}</div><div class="note-meta">${new Date(n.updatedAt||Date.now()).toLocaleString()}</div></article></div>`).join(''):'<div style="text-align:center;color:var(--dim);padding:30px">还没有备忘录，点击右上角 ＋ 开始记录。</div>'}</div>`;
+    const q=String(query||'').toLowerCase();
+    const categories=['全部','未分类',...noteCategories()];
+    const list=noteItems.filter(n=>(noteCategoryFilter==='全部'||(noteCategoryFilter==='未分类'?!String(n.category||'').trim():String(n.category||'').trim()===noteCategoryFilter))&&(!q||`${n.title||''} ${n.body||''} ${n.category||''}`.toLowerCase().includes(q))).sort((a,b)=>(!!b.pinned-!!a.pinned)||(b.updatedAt||0)-(a.updatedAt||0));
+    const noteEmptyMarkup = noteItems.length ? '<div style="text-align:center;color:var(--dim);padding:30px">这个分类下还没有备忘录。</div>' : '<div style="text-align:center;color:var(--dim);padding:30px">还没有备忘录，点击右上角 ＋ 开始记录。</div>';
+    page.innerHTML=`<div class="wardrobe-head"><button id="notes-back">← 返回</button><strong>📝 善用备忘录</strong><button id="notes-add">＋</button></div><div class="wardrobe-tools" style="display:flex;gap:6px;flex-wrap:wrap"><input id="notes-search" type="search" placeholder="搜索备忘录…" value="${escapeHtml(query)}" style="flex:1 1 100%;min-width:0;background:#202027;color:var(--fg);border:1px solid var(--border);border-radius:7px;padding:8px"><select id="notes-category-filter" style="flex:1;min-width:0;background:#202027;color:var(--fg);border:1px solid var(--border);border-radius:7px;padding:7px">${categories.map(c=>`<option value="${escapeHtml(c)}" ${c===noteCategoryFilter?'selected':''}>${escapeHtml(c==='全部'?'全部分类':c)}</option>`).join('')}</select></div><div class="note-list">${list.length?list.map(n=>`<div class="note-swipe" data-swipe-wrap="${escapeHtml(n.id)}"><div class="note-swipe-actions"><button type="button" data-note-pin="${escapeHtml(n.id)}">${n.pinned?'取消置顶':'置顶'}</button><button type="button" data-note-category="${escapeHtml(n.id)}">分类</button><button type="button" data-note-delete="${escapeHtml(n.id)}">删除</button></div><article class="note-row" data-note="${escapeHtml(n.id)}"><div class="note-title">${n.pinned?'📌 ':''}${escapeHtml(noteTitle(n))}</div><div class="note-preview">${escapeHtml((n.body||'').replace(/\s+/g,' ').slice(0,100))}</div><div class="note-meta">${escapeHtml(n.category||'未分类')} · ${new Date(n.updatedAt||Date.now()).toLocaleString()}</div></article></div>`).join(''):noteEmptyMarkup}</div>`;
     page.querySelector('#notes-back').onclick=showMorePage;
     page.querySelector('#notes-add').onclick=()=>editNote(null);
+    page.querySelector('#notes-category-filter').onchange=e=>{noteCategoryFilter=e.target.value;renderNotesPage(query);};
     page.querySelector('#notes-search').oninput=e=>{const input=e.target;const pos=input.selectionStart;renderNotesPage(input.value);const next=page.querySelector('#notes-search');next.focus();next.setSelectionRange(pos,pos);};
     page.querySelectorAll('[data-note]').forEach(row=>row.onclick=()=>{if(row.classList.contains('swiped')){row.classList.remove('swiped');return;}editNote(row.dataset.note);});
     page.querySelectorAll('[data-note-pin]').forEach(btn=>btn.onclick=()=>{const n=noteItems.find(x=>x.id===btn.dataset.notePin);if(!n)return;n.pinned=!n.pinned;n.updatedAt=Date.now();saveNotes();renderNotesPage(query);});
+    page.querySelectorAll('[data-note-category]').forEach(btn=>btn.onclick=()=>showNoteCategoryPicker(btn.dataset.noteCategory,query));
     page.querySelectorAll('[data-note-delete]').forEach(btn=>btn.onclick=()=>{const n=noteItems.find(x=>x.id===btn.dataset.noteDelete);if(!n)return;if(!confirm('确定删除这篇备忘录？'))return;noteItems=noteItems.filter(x=>x.id!==n.id);saveNotes();renderNotesPage(query);});
-    page.querySelectorAll('[data-swipe-wrap]').forEach(wrap=>{const row=wrap.querySelector('.note-row');let sx=0,sy=0,dx=0,tracking=false;row.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;dx=0;tracking=true;},{passive:true});row.addEventListener('touchmove',e=>{if(!tracking)return;const t=e.touches[0];dx=t.clientX-sx;const dy=t.clientY-sy;if(Math.abs(dy)>Math.abs(dx)){tracking=false;return;}if(dx<0)row.style.transform=`translateX(${Math.max(-124,dx)}px)`;},{passive:true});row.addEventListener('touchend',()=>{if(!tracking)return;tracking=false;row.style.transform='';if(dx<-45)row.classList.add('swiped');else if(dx>45)row.classList.remove('swiped');});});
+    page.querySelectorAll('[data-swipe-wrap]').forEach(wrap=>{const row=wrap.querySelector('.note-row');let sx=0,sy=0,dx=0,tracking=false;row.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;dx=0;tracking=true;},{passive:true});row.addEventListener('touchmove',e=>{if(!tracking)return;const t=e.touches[0];dx=t.clientX-sx;const dy=t.clientY-sy;if(Math.abs(dy)>Math.abs(dx)){tracking=false;return;}if(dx<0)row.style.transform=`translateX(${Math.max(-186,dx)}px)`;},{passive:true});row.addEventListener('touchend',()=>{if(!tracking)return;tracking=false;row.style.transform='';if(dx<-45)row.classList.add('swiped');else if(dx>45)row.classList.remove('swiped');});});
+  }
+  function showNoteCategoryPicker(id,query=''){
+    const note=noteItems.find(n=>n.id===id);if(!note)return;
+    const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
+    const cats=noteCategories();
+    overlay.innerHTML=`<section class="wardrobe-detail"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>设置备忘录分类</strong><button type="button" data-close>×</button></div><label>选择分类<select id="note-category-choice" style="width:100%;background:#202027;color:var(--fg);border:1px solid var(--border);border-radius:7px;padding:8px"><option value="">不分类</option>${cats.map(c=>`<option value="${escapeHtml(c)}" ${String(note.category||'')===c?'selected':''}>${escapeHtml(c)}</option>`).join('')}</select></label><label>或新建分类<input id="note-category-new" maxlength="40" placeholder="输入新分类名称"></label><div class="detail-actions"><button type="button" data-save>保存</button><button type="button" data-cancel>取消</button></div></section>`;
+    panel.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('[data-close]').onclick=close;overlay.querySelector('[data-cancel]').onclick=close;
+    overlay.querySelector('[data-save]').onclick=()=>{const created=overlay.querySelector('#note-category-new').value.trim();note.category=created||overlay.querySelector('#note-category-choice').value||'';note.updatedAt=Date.now();saveNotes();close();renderNotesPage(query);showToast(note.category?`已归入「${note.category}」。`:'已设为不分类。','ok');};
   }
   function editNote(id){
     const isNew=!id;
@@ -1651,6 +2210,20 @@
     editor.querySelector('[data-back]').onclick=()=>{clearTimeout(timer);save();editor.remove();renderNotesPage();};title.focus();
   }
 
+  // 点击顶部「更多」标签只切换可见区域，不重置当前子页面。
+  // 只有子页面左上角的「返回」才会调用 showMorePage() 并回到更多列表。
+  function showMoreTab() {
+    ['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id => panel.querySelector('#'+id).style.display='none');
+    const more = panel.querySelector('#more-page');
+    const child = panel.querySelector('#wardrobe-page');
+    if (wardrobeView === 'more') {
+      more.classList.add('active'); child.classList.remove('active');
+    } else {
+      more.classList.remove('active'); child.classList.add('active');
+    }
+    panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));
+    panel.querySelector('#tab-more').classList.add('active');
+  }
   function showMorePage() {
     wardrobeView = 'more';
     ['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id => panel.querySelector('#'+id).style.display='none');
@@ -1788,21 +2361,32 @@
   function loadMusicState(){
     try{musicTracks=JSON.parse(W.localStorage.getItem(MUSIC_TRACKS_KEY)||'[]').filter(t=>t&&t.url).map(t=>({...t,preset:false}));}catch(_){musicTracks=[];}
     musicTracks=[...PRESET_MUSIC_TRACKS.map((t,i)=>({...t,id:'preset-'+i,preset:true})),...musicTracks];
-    try{const st=JSON.parse(W.localStorage.getItem(MUSIC_STATE_KEY)||'{}');musicIndex=Math.max(0,Number(st.index)||0);musicMode=['sequence','list','single','shuffle'].includes(st.mode)?st.mode:'sequence';musicRestoreTime=Math.max(0,Number(st.time)||0);musicCover=W.localStorage.getItem(MUSIC_COVER_KEY)||'';}catch(_){}
-    if(wardrobeAudio){wardrobeAudio.loop=(musicMode==='single');const saved=musicTracks[musicIndex];if(saved?.url && (!wardrobeAudio.src || wardrobeAudio.src!==saved.url)){wardrobeAudio.src=saved.url;musicRestorePending=true;}}
+    try{const st=JSON.parse(W.localStorage.getItem(MUSIC_STATE_KEY)||'{}');musicIndex=Math.max(0,Number(st.index)||0);musicMode=['sequence','single','shuffle'].includes(st.mode)?st.mode:(st.mode==='list'?'sequence':'sequence');musicRestoreTime=Math.max(0,Number(st.time)||0);musicCover=W.localStorage.getItem(MUSIC_COVER_KEY)||'';musicCoverSize=Math.min(100,Math.max(25,Number(st.coverSize)||35));}catch(_){}
+    if(wardrobeAudio){syncMusicNativeLoop();const saved=musicTracks[musicIndex];if(saved?.url && (!wardrobeAudio.src || wardrobeAudio.src!==saved.url)){wardrobeAudio.src=saved.url;musicRestorePending=true;}}
   }
-  function saveMusicState(){try{W.localStorage.setItem(MUSIC_STATE_KEY,JSON.stringify({index:musicIndex,mode:musicMode,time:wardrobeAudio?.currentTime||0}));}catch(_){}}
-  function saveCustomTracks(){try{W.localStorage.setItem(MUSIC_TRACKS_KEY,JSON.stringify(musicTracks.filter(t=>!t.preset).map(({id,title,url,cover})=>({id,title,url,cover:cover||''}))));}catch(_){showToast('歌曲列表保存失败，可能是本地存储空间不足。','err');}}
-  function openMusicPage(){loadMusicState();wardrobeView='music';const page=panel.querySelector('#wardrobe-page');['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id=>panel.querySelector('#'+id).style.display='none');panel.querySelector('#more-page').classList.remove('active');page.classList.add('active');panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));renderMusicPage();}
+  function saveMusicState(){const raw=JSON.stringify({index:musicIndex,mode:musicMode,time:wardrobeAudio?.currentTime||0,coverSize:musicCoverSize});try{W.localStorage.setItem(MUSIC_STATE_KEY,raw);}catch(_){}void mirrorToScriptStorage(MUSIC_STATE_KEY,raw);}
+  function saveCustomTracks(){const raw=JSON.stringify(musicTracks.filter(t=>!t.preset).map(({id,title,url,cover})=>({id,title,url,cover:cover||''})));let ok=false;try{W.localStorage.setItem(MUSIC_TRACKS_KEY,raw);ok=true;}catch(e){console.warn('[MufyCard] 音乐列表网页存储失败，转存脚本空间',e);}void mirrorToScriptStorage(MUSIC_TRACKS_KEY,raw);if(!ok&&typeof GM==='undefined'&&typeof GM_setValue!=='function')showToast('歌曲列表保存失败：当前浏览器存储空间不足。','err');}
+  async function openMusicPage(){loadMusicState();if(!musicCover){const dbCover=await loadMusicCoverFromDB();if(dbCover)musicCover=dbCover;}wardrobeView='music';const page=panel.querySelector('#wardrobe-page');['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id=>panel.querySelector('#'+id).style.display='none');panel.querySelector('#more-page').classList.remove('active');page.classList.add('active');panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));renderMusicPage();}
   function renderMusicPage(){
     const page=panel.querySelector('#wardrobe-page');const current=musicTracks[musicIndex];
-    page.innerHTML=`<div class="wardrobe-head"><button id="music-back" type="button">← 返回</button><strong>♫ 音乐播放器</strong><span aria-hidden="true"></span></div><div style="padding:12px;overflow:auto;min-height:0;flex:1;text-align:center"><div id="music-vinyl" style="width:min(54vw,210px);height:min(54vw,210px);margin:8px auto 16px;border-radius:50%;background:radial-gradient(circle at 34% 27%,#1b1724 0%,#121019 35%,#0d0b13 68%,#09080e 86%,#191324 94%,#0d0b12 100%);display:flex;align-items:center;justify-content:center;${!wardrobeAudio?.paused?'animation:music-spin 4s linear infinite;':''}box-shadow:0 5px 24px #0008;position:relative;overflow:hidden"><div id="music-cover-art" style="width:35%;height:35%;border-radius:50%;background:${musicCover?'center/cover no-repeat url("'+escapeHtml(musicCover)+'")':'radial-gradient(circle at 32% 28%,#b6a0ed 0%,#8b73cb 42%,#5a467f 78%,#34283f 100%)'};border:2px solid #282231;box-shadow:inset 0 1px 3px #ffffff24,0 1px 4px #0007;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:13px">${musicCover?'':'♫'}</div></div><style>@keyframes music-spin{to{transform:rotate(360deg)}}#music-progress{appearance:none;-webkit-appearance:none;height:14px;background:transparent;cursor:pointer;display:block;margin:0 auto}#music-progress::-webkit-slider-runnable-track{height:2px;border-radius:999px;background:linear-gradient(to right,#a894e8 0%,#a894e8 var(--music-pct,0%),#514d5b var(--music-pct,0%),#514d5b 100%)}#music-progress::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:#d8cef9;border:0;margin-top:-4px;box-shadow:0 0 0 2px #17151e}#music-progress::-moz-range-track{height:2px;border-radius:999px;background:#514d5b}#music-progress::-moz-range-progress{height:3px;border-radius:999px;background:#a894e8}#music-progress::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:#d8cef9;border:0}#music-prev,#music-next,#music-play{border:0!important;background:transparent!important;box-shadow:none!important;color:#eee9ff!important;font-size:25px;line-height:1;padding:7px 10px!important;min-width:42px;min-height:40px;border-radius:0!important}#music-play{font-size:27px!important}#music-url-row{display:flex;gap:7px;margin:0 0 12px}#music-url-input{flex:1;min-width:0;background:#252331!important;color:#f4f1ff!important;border:1px solid #514965!important;border-radius:8px;padding:10px 9px!important;font-size:12px}#music-url-import{background:#302a48!important;border:1px solid #665a91!important;color:#f2efff!important;border-radius:8px;padding:8px 10px!important;font-size:12px;white-space:nowrap}#music-mode{background:#252331!important;border:1px solid #514965!important;color:#e7defe!important;border-radius:999px!important;padding:7px 14px!important;font-size:12px!important;box-shadow:none!important}#music-list button[data-delete-track]{border:0!important;background:transparent!important;box-shadow:none!important;color:#fff!important;font-size:22px;line-height:1;padding:3px 8px!important;min-width:34px}</style><div id="music-current-title" style="font-size:16px;font-weight:700;overflow-wrap:anywhere">${escapeHtml(current?.title||'尚未选择歌曲')}</div><div id="music-time" style="font-size:11px;color:#aaa;margin:8px 0">00:00 / 00:00</div><input id="music-progress" type="range" min="0" max="1000" value="0" aria-label="播放进度" style="width:100%;accent-color:#a894e8"><div style="display:flex;justify-content:center;align-items:center;gap:10px;margin:12px 0"><button id="music-prev" type="button" aria-label="上一首" title="上一首">‹‹</button><button id="music-play" type="button" aria-label="${wardrobeAudio?.paused?'播放':'暂停'}" title="${wardrobeAudio?.paused?'播放':'暂停'}">${wardrobeAudio?.paused?'▶':'Ⅱ'}</button><button id="music-next" type="button" aria-label="下一首" title="下一首">››</button></div><div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button id="music-mode" type="button">${musicMode==='sequence'?'⇢ 顺序播放':musicMode==='list'?'↻ 列表循环':musicMode==='single'?'① 单曲循环':'🔀 随机播放'}</button></div><div id="music-url-row"><input id="music-url-input" type="url" placeholder="粘贴音乐 URL…" aria-label="音乐 URL"><button id="music-url-import" type="button">导入音乐 URL</button></div><div id="music-status" aria-live="polite" style="display:none"></div><div style="text-align:left;border-top:1px solid #484454;padding-top:10px"><strong>播放列表（${musicTracks.length}）</strong><div id="music-list" style="display:grid;gap:6px;margin-top:8px">${musicTracks.length?musicTracks.map((t,i)=>`<div style="display:flex;align-items:center;gap:6px;padding:7px;border:1px solid #484454;border-radius:8px;background:${i===musicIndex?'#8b7bff22':'#ffffff05'}"><button type="button" data-play-track="${i}" style="flex:1;text-align:left;border:0;background:transparent;min-width:0;overflow-wrap:anywhere">${i===musicIndex?'♫ ':''}${escapeHtml(t.title||'未命名歌曲')}${t.preset?' · 预设':''}</button>${!t.preset?`<button type="button" data-delete-track="${i}" aria-label="删除歌曲" title="删除歌曲">×</button>`:''}</div>`).join(''):'<div style="color:#aaa;font-size:12px">还没有歌曲，可以添加音频直链。</div>'}</div></div></div>`;
+    page.innerHTML=`<div class="wardrobe-head"><button id="music-back" type="button">← 返回</button><strong>♫ 音乐播放器</strong><span aria-hidden="true"></span></div><div style="padding:12px;overflow:auto;min-height:0;flex:1;text-align:center"><div id="music-vinyl" style="width:min(54vw,210px);height:min(54vw,210px);margin:8px auto 16px;border-radius:50%;background:radial-gradient(circle at 34% 27%,#1b1724 0%,#121019 35%,#0d0b13 68%,#09080e 86%,#191324 94%,#0d0b12 100%);display:flex;align-items:center;justify-content:center;${!wardrobeAudio?.paused?'animation:music-spin 4s linear infinite;':''}box-shadow:0 5px 24px #0008;position:relative;overflow:hidden"><div id="music-cover-center" aria-hidden="true" style="width:35%;height:35%;border-radius:50%;background:radial-gradient(circle at 32% 28%,#b6a0ed 0%,#8b73cb 42%,#5a467f 78%,#34283f 100%);border:2px solid #282231;box-shadow:inset 0 1px 3px #ffffff24,0 1px 4px #0007;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:13px;position:relative;z-index:1">♫</div><div id="music-cover-art" role="button" tabindex="0" aria-label="自定义唱片图片" title="点击自定义图片" style="position:absolute;inset:0;width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2;cursor:pointer;overflow:hidden;background:transparent">${musicCover?'<img id="music-cover-image" src="'+escapeHtml(musicCover)+'" alt="唱片图片" style="display:block;width:'+musicCoverSize+'%;height:'+musicCoverSize+'%;max-width:none;object-fit:cover;border-radius:50%;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)">':''}</div></div><style>@keyframes music-spin{to{transform:rotate(360deg)}}#music-progress{appearance:none;-webkit-appearance:none;height:14px;background:transparent;cursor:pointer;display:block;margin:0 auto}#music-progress::-webkit-slider-runnable-track{height:2px;border-radius:999px;background:linear-gradient(to right,#a894e8 0%,#a894e8 var(--music-pct,0%),#514d5b var(--music-pct,0%),#514d5b 100%)}#music-progress::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:#d8cef9;border:0;margin-top:-4px;box-shadow:0 0 0 2px #17151e}#music-progress::-moz-range-track{height:2px;border-radius:999px;background:#514d5b}#music-progress::-moz-range-progress{height:3px;border-radius:999px;background:#a894e8}#music-progress::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:#d8cef9;border:0}#music-prev,#music-next,#music-play{border:0!important;background:transparent!important;box-shadow:none!important;color:#eee9ff!important;font-size:25px;line-height:1;padding:7px 10px!important;min-width:42px;min-height:40px;border-radius:0!important}#music-play{font-size:27px!important}#music-url-row{display:flex;gap:7px;margin:0 0 12px}#music-url-input{flex:1;min-width:0;background:#252331!important;color:#f4f1ff!important;border:1px solid #514965!important;border-radius:8px;padding:10px 9px!important;font-size:12px}#music-url-import{background:#302a48!important;border:1px solid #665a91!important;color:#f2efff!important;border-radius:8px;padding:8px 10px!important;font-size:12px;white-space:nowrap}#music-mode{background:#252331!important;border:1px solid #514965!important;color:#e7defe!important;border-radius:999px!important;padding:7px 14px!important;font-size:12px!important;box-shadow:none!important}#music-list button[data-delete-track]{border:0!important;background:transparent!important;box-shadow:none!important;color:#fff!important;font-size:22px;line-height:1;padding:3px 8px!important;min-width:34px}</style><div id="music-current-title" style="font-size:16px;font-weight:700;overflow-wrap:anywhere">${escapeHtml(current?.title||'尚未选择歌曲')}</div><div id="music-time" style="font-size:11px;color:#aaa;margin:8px 0">00:00 / 00:00</div><input id="music-progress" type="range" min="0" max="1000" value="0" aria-label="播放进度" style="width:100%;accent-color:#a894e8"><div style="display:flex;justify-content:center;align-items:center;gap:10px;margin:12px 0"><button id="music-prev" type="button" aria-label="上一首" title="上一首">‹‹</button><button id="music-play" type="button" aria-label="${wardrobeAudio?.paused?'播放':'暂停'}" title="${wardrobeAudio?.paused?'播放':'暂停'}">${wardrobeAudio?.paused?'▶':'Ⅱ'}</button><button id="music-next" type="button" aria-label="下一首" title="下一首">››</button></div><div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button id="music-mode" type="button">${musicMode==='sequence'?'⇢ 顺序播放':musicMode==='single'?'① 单曲循环':'🔀 随机播放'}</button></div><div id="music-url-row"><input id="music-url-input" type="url" placeholder="粘贴音乐 URL…" aria-label="音乐 URL"><button id="music-url-import" type="button">导入音乐 URL</button></div><div id="music-status" aria-live="polite" style="display:none"></div><div style="text-align:left;border-top:1px solid #484454;padding-top:10px"><strong>播放列表（${musicTracks.length}）</strong><div id="music-list" style="display:grid;gap:6px;margin-top:8px">${musicTracks.length?musicTracks.map((t,i)=>`<div style="display:flex;align-items:center;gap:6px;padding:7px;border:1px solid #484454;border-radius:8px;background:${i===musicIndex?'#8b7bff22':'#ffffff05'}"><button type="button" data-play-track="${i}" style="flex:1;text-align:left;border:0;background:transparent;min-width:0;overflow-wrap:anywhere">${i===musicIndex?'♫ ':''}${escapeHtml(t.title||'未命名歌曲')}${t.preset?' · 预设':''}</button>${!t.preset?`<button type="button" data-delete-track="${i}" aria-label="删除歌曲" title="删除歌曲">×</button>`:''}</div>`).join(''):'<div style="color:#aaa;font-size:12px">还没有歌曲，可以添加音频直链。</div>'}</div></div></div>`;
     page.querySelector('#music-back').onclick=showMorePage;
+    const coverArt=page.querySelector('#music-cover-art');
+    const coverImage=page.querySelector('#music-cover-image');if(coverImage)coverImage.onerror=()=>{coverImage.remove();if(coverArt)coverArt.textContent='图片加载失败';showToast('图片已保存，但当前浏览器无法读取该图片数据。','err');};
+    const openCoverMenu=()=>{
+      const menu=document.createElement('div');menu.className='wardrobe-detail-backdrop';
+      menu.innerHTML=`<section class="wardrobe-detail" style="max-width:330px"><div style="display:flex;justify-content:space-between;align-items:center"><strong>唱片中心图片</strong><button type="button" data-close>×</button></div><div style="display:grid;gap:10px;margin-top:14px"><button type="button" data-import-cover>导入图片</button><label style="font-size:12px;color:#d7d3e2">图片覆盖唱片比例：<span id="cover-size-label">${musicCoverSize}%</span><input id="cover-size-range" type="range" min="25" max="100" step="1" value="${musicCoverSize}" style="width:100%"></label><button type="button" data-reset-cover>恢复默认</button></div></section>`;
+      page.appendChild(menu);menu.querySelector('[data-close]').onclick=()=>menu.remove();menu.addEventListener('click',e=>{if(e.target===menu)menu.remove();});
+      const range=menu.querySelector('#cover-size-range');range.oninput=()=>{musicCoverSize=Number(range.value);menu.querySelector('#cover-size-label').textContent=musicCoverSize+'%';const img=coverArt?.querySelector('#music-cover-image');if(img){img.style.width=musicCoverSize+'%';img.style.height=musicCoverSize+'%';}saveMusicState();};
+      menu.querySelector('[data-import-cover]').onclick=()=>{const input=document.createElement('input');input.type='file';input.accept='image/*';input.onchange=async()=>{const file=input.files&&input.files[0];if(!file)return;if(!/^image\/(png|jpeg|webp|gif|avif)$/i.test(file.type)){showToast('请选择 PNG、JPG、WEBP、GIF 或 AVIF 图片。','err');return;}if(file.size>12*1024*1024){showToast('图片过大，请选择 12MB 以内的图片。','err');return;}try{const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result||''));reader.onerror=()=>reject(reader.error);reader.readAsDataURL(file);});await saveMusicCoverToDB(dataUrl);musicCover=dataUrl;musicCoverSize=Math.max(25,Math.min(100,musicCoverSize||35));menu.remove();renderMusicPage();showToast('唱片中心图片已保存。','ok');}catch(err){console.error('[MufyCard] 唱片图片保存失败',err);showToast('图片保存失败，请尝试更小的图片。','err');}};input.click();};
+      menu.querySelector('[data-reset-cover]').onclick=async()=>{musicCover='';musicCoverSize=35;try{await saveMusicCoverToDB('');}catch(_){}try{W.localStorage.removeItem(MUSIC_COVER_KEY);}catch(_){}saveMusicState();menu.remove();renderMusicPage();showToast('已恢复默认紫色唱片中心。','ok');};
+    };
+    if(coverArt){coverArt.onclick=openCoverMenu;coverArt.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openCoverMenu();}};}
     page.querySelector('#music-prev').onclick=()=>playMusicAt(musicMode==='shuffle'?randomMusicIndex():musicIndex-1,true);
     page.querySelector('#music-next').onclick=()=>playMusicAt(musicMode==='shuffle'?randomMusicIndex():musicIndex+1,true);
-    page.querySelector('#music-play').onclick=async()=>{if(!wardrobeAudio.src&&musicTracks[musicIndex]){wardrobeAudio.src=musicTracks[musicIndex].url;wardrobeAudio.loop=(musicMode==='single');}if(!wardrobeAudio.src){showToast('请先添加或选择一首歌曲。','err');return;}if(wardrobeAudio.paused){try{await wardrobeAudio.play();}catch(_){page.querySelector('#music-status').textContent='无法播放：请检查音频直链，或再次点击播放。';page.querySelector('#music-status').style.display='block';}}else wardrobeAudio.pause();renderMusicPage();};
-    page.querySelector('#music-mode').onclick=(e)=>{e.preventDefault();e.stopPropagation();musicMode=musicMode==='sequence'?'list':musicMode==='list'?'single':musicMode==='single'?'shuffle':'sequence';wardrobeAudio.loop=(musicMode==='single');saveMusicState();const labels={sequence:'⇢ 顺序播放',list:'↻ 列表循环',single:'① 单曲循环',shuffle:'🔀 随机播放'};const btn=page.querySelector('#music-mode');if(btn)btn.textContent=labels[musicMode];};
-    page.querySelector('#music-url-import').onclick=()=>{const input=page.querySelector('#music-url-input');const url=(input?.value||'').trim();if(!url){showToast('请先粘贴音乐 URL。','err');input?.focus();return;}try{const u=new URL(url);if(!/^https?:$/.test(u.protocol))throw 0;const title=prompt('请输入歌曲名称（不填则使用“未命名歌曲”）')||'未命名歌曲';musicTracks.push({id:'custom-'+Date.now(),title:title.trim()||'未命名歌曲',url:u.href,preset:false});saveCustomTracks();musicIndex=musicTracks.length-1;wardrobeAudio.src=musicTracks[musicIndex].url;saveMusicState();renderMusicPage();}catch(_){showToast('链接格式不正确，请使用 http/https 音频直链。','err');}};
+    page.querySelector('#music-play').onclick=async()=>{if(!wardrobeAudio.src&&musicTracks[musicIndex]){wardrobeAudio.src=musicTracks[musicIndex].url;syncMusicNativeLoop();}if(!wardrobeAudio.src){showToast('请先添加或选择一首歌曲。','err');return;}if(wardrobeAudio.paused){try{await wardrobeAudio.play();}catch(err){showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src);}}else wardrobeAudio.pause();renderMusicPage();};
+    page.querySelector('#music-mode').onclick=(e)=>{e.preventDefault();e.stopPropagation();musicMode=musicMode==='sequence'?'shuffle':musicMode==='shuffle'?'single':'sequence';syncMusicNativeLoop();saveMusicState();const labels={sequence:'⇢ 顺序播放',single:'① 单曲循环',shuffle:'🔀 随机播放'};const btn=page.querySelector('#music-mode');if(btn)btn.textContent=labels[musicMode];};
+    page.querySelector('#music-url-import').onclick=async()=>{const input=page.querySelector('#music-url-input');const url=(input?.value||'').trim();if(!url){showToast('请先粘贴音乐 URL。','err');input?.focus();return;}try{const u=new URL(url,location.href);if(!/^https?:$/.test(u.protocol))throw new Error('protocol');const title=prompt('请输入歌曲名称（不填则使用“未命名歌曲”）')||'未命名歌曲';musicTracks.push({id:'custom-'+Date.now(),title:title.trim()||'未命名歌曲',url:u.href,preset:false});musicIndex=musicTracks.length-1;saveCustomTracks();wardrobeAudio.pause();syncMusicNativeLoop();wardrobeAudio.src=u.href;wardrobeAudio.load();saveMusicState();try{await wardrobeAudio.play();}catch(err){showMusicPlaybackError(err,u.href);}renderMusicPage();}catch(_){showToast('链接格式不正确，请使用 http/https 音频直链。','err');}};
     page.querySelectorAll('[data-play-track]').forEach(b=>b.onclick=()=>playMusicAt(Number(b.dataset.playTrack),true));
     page.querySelectorAll('[data-delete-track]').forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.deleteTrack),t=musicTracks[idx];if(!t||t.preset)return;if(!confirm(`删除歌曲「${t.title}」？`))return;const wasCurrent=idx===musicIndex;musicTracks.splice(idx,1);if(idx<musicIndex)musicIndex--;if(wasCurrent){wardrobeAudio.pause();wardrobeAudio.removeAttribute('src');wardrobeAudio.load();musicIndex=Math.min(musicIndex,Math.max(0,musicTracks.length-1));if(musicTracks[musicIndex])wardrobeAudio.src=musicTracks[musicIndex].url;}saveCustomTracks();saveMusicState();renderMusicPage();});
     const seek=page.querySelector('#music-progress');
@@ -1822,11 +2406,35 @@
     seek.addEventListener('change',endSeek);seek.addEventListener('pointerup',endSeek);seek.addEventListener('touchend',endSeek,{passive:true});
     updateMusicProgress();if(!musicSeekTimer)musicSeekTimer=W.setInterval(updateMusicProgress,500);
   }
+  function showMusicPlaybackError(err,url){const code=wardrobeAudio?.error?.code;const detail=err?.name==='NotAllowedError'?'浏览器阻止了自动播放，请点击播放按钮。':code===3?'音频格式或编码不受当前浏览器支持。':code===4?'链接不是可直接播放的音频文件，或服务器拒绝了请求。':code===2?'网络读取失败，请检查链接或网络。':'无法启动播放，请确认这是可公开访问的音频直链。';const st=panel?.querySelector('#music-status');if(st){st.textContent=detail;st.style.display='block';}console.warn('[MufyCard] 音频播放失败',url,err,code);}
+  async function saveMusicCoverToDB(value){const db=await openWardrobeDB();return new Promise((resolve,reject)=>{const tx=db.transaction('data','readwrite');tx.objectStore('data').put(value,'musicCover');tx.oncomplete=()=>{db.close();resolve(true);};tx.onerror=()=>{const e=tx.error;db.close();reject(e);};tx.onabort=()=>{const e=tx.error;db.close();reject(e||new Error('图片保存事务中断'));};});}
+  async function loadMusicCoverFromDB(){try{const db=await openWardrobeDB();return await new Promise((resolve,reject)=>{const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get('musicCover');req.onsuccess=()=>resolve(req.result||'');req.onerror=()=>reject(req.error);tx.oncomplete=()=>db.close();});}catch(_){return '';}}
+  function syncMusicNativeLoop(){if(wardrobeAudio)wardrobeAudio.loop=(musicMode==='single'||musicTracks.length===1);}
   function randomMusicIndex(){if(musicTracks.length<=1)return 0;let next=musicIndex;for(let tries=0;tries<8&&next===musicIndex;tries++)next=Math.floor(Math.random()*musicTracks.length);return next===musicIndex?(musicIndex+1)%musicTracks.length:next;}
-  function playMusicAt(index,autoplay){if(!musicTracks.length){showToast('播放列表为空。','err');return;}if(musicMode==='shuffle'&&(index<0||index>=musicTracks.length))index=randomMusicIndex();else{if(index<0)index=musicMode==='list'?musicTracks.length-1:0;if(index>=musicTracks.length)index=musicMode==='list'?0:musicTracks.length-1;}musicIndex=index;const t=musicTracks[musicIndex];wardrobeAudio.loop=(musicMode==='single');wardrobeAudio.src=t.url;wardrobeAudio.load();saveMusicState();renderMusicPage();if(autoplay)wardrobeAudio.play().then(()=>renderMusicPage()).catch(()=>{const st=panel.querySelector('#music-status');if(st){st.textContent='歌曲已选择，但无法自动播放；请点击播放并检查链接。';st.style.display='block';}});}
+  async function advanceMusicAfterEnded(){
+    if(!wardrobeAudio||!musicTracks.length||musicAdvancing)return;
+    musicAdvancing=true;
+    try{
+      const nextIndex=musicMode==='shuffle'?randomMusicIndex():(musicIndex+1)%musicTracks.length;
+      musicIndex=nextIndex;
+      const nextTrack=musicTracks[musicIndex];
+      if(!nextTrack?.url)return;
+      syncMusicNativeLoop();
+      // Assigning src starts resource selection; calling load() immediately afterwards
+      // can cancel a queued play request in some mobile browsers.
+      wardrobeAudio.src=nextTrack.url;
+      saveMusicState();
+      try{
+        const playPromise=wardrobeAudio.play();
+        if(playPromise&&typeof playPromise.then==='function')await playPromise;
+        renderMusicPage();
+      }catch(err){showMusicPlaybackError(err,nextTrack.url);renderMusicPage();}
+    }finally{musicAdvancing=false;}
+  }
+  function playMusicAt(index,autoplay){if(!musicTracks.length){showToast('播放列表为空。','err');return;}if(musicMode==='shuffle'&&(index<0||index>=musicTracks.length))index=randomMusicIndex();else{if(index<0)index=musicMode==='sequence'?musicTracks.length-1:0;if(index>=musicTracks.length)index=musicMode==='sequence'?0:musicTracks.length-1;}musicIndex=index;const t=musicTracks[musicIndex];syncMusicNativeLoop();wardrobeAudio.src=t.url;wardrobeAudio.load();saveMusicState();renderMusicPage();if(autoplay)wardrobeAudio.play().then(()=>renderMusicPage()).catch(err=>showMusicPlaybackError(err,t.url));}
   function updateMusicProgress(){if(!wardrobeAudio||wardrobeView!=='music')return;const p=panel.querySelector('#music-progress'),time=panel.querySelector('#music-time');if(!p||!time)return;const d=wardrobeAudio.duration||0,c=wardrobeAudio.currentTime||0;if(!musicSeeking){p.value=d?String(Math.round(c/d*1000)):'0';p.style.setProperty('--music-pct',`${d?Math.round(c/d*1000)/10:0}%`);}const fmt=n=>`${Math.floor(n/60).toString().padStart(2,'0')}:${Math.floor(n%60).toString().padStart(2,'0')}`;time.textContent=`${fmt(c)} / ${fmt(d)}`;const vinyl=panel.querySelector('#music-vinyl');if(vinyl)vinyl.style.animationPlayState=wardrobeAudio.paused?'paused':'running';const play=panel.querySelector('#music-play');if(play)play.textContent=wardrobeAudio.paused?'▶':'Ⅱ';play.setAttribute('aria-label',wardrobeAudio.paused?'播放':'暂停');play.title=wardrobeAudio.paused?'播放':'暂停';saveMusicState();}
   loadMusicState();
-  if(wardrobeAudio){wardrobeAudio.addEventListener('loadedmetadata',()=>{if(musicRestorePending&&musicRestoreTime>0&&Number.isFinite(wardrobeAudio.duration)){try{wardrobeAudio.currentTime=Math.min(musicRestoreTime,Math.max(0,wardrobeAudio.duration-1));}catch(_){} }musicRestorePending=false;});wardrobeAudio.addEventListener('ended',()=>{if(musicMode==='single'){if(!wardrobeAudio.loop){wardrobeAudio.currentTime=0;wardrobeAudio.play().catch(()=>{});}}else if(musicMode==='shuffle')playMusicAt(randomMusicIndex(),true);else if(musicMode==='list'||musicIndex<musicTracks.length-1)playMusicAt(musicIndex+1,true);else saveMusicState();});wardrobeAudio.addEventListener('play',()=>{const v=panel.querySelector('#music-vinyl');if(v)v.style.animationPlayState='running';});wardrobeAudio.addEventListener('pause',()=>{const v=panel.querySelector('#music-vinyl');if(v)v.style.animationPlayState='paused';});}
+  if(wardrobeAudio){wardrobeAudio.addEventListener('loadedmetadata',()=>{if(musicRestorePending&&musicRestoreTime>0&&Number.isFinite(wardrobeAudio.duration)){try{wardrobeAudio.currentTime=Math.min(musicRestoreTime,Math.max(0,wardrobeAudio.duration-1));}catch(_){} }musicRestorePending=false;});wardrobeAudio.addEventListener('ended',()=>{if(musicMode==='single')return;if(musicTracks.length>1)void advanceMusicAfterEnded();else if(musicTracks.length===1){try{wardrobeAudio.currentTime=0;const p=wardrobeAudio.play();if(p&&p.catch)p.catch(err=>showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src));}catch(err){showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src);}}else saveMusicState();});wardrobeAudio.addEventListener('error',()=>{if(wardrobeAudio.error)showMusicPlaybackError(null,wardrobeAudio.currentSrc||wardrobeAudio.src);});wardrobeAudio.addEventListener('play',()=>{const v=panel.querySelector('#music-vinyl');if(v)v.style.animationPlayState='running';});wardrobeAudio.addEventListener('pause',()=>{const v=panel.querySelector('#music-vinyl');if(v)v.style.animationPlayState='paused';});}
   function showWardrobeDetail(id) {
     const page=panel.querySelector('#wardrobe-page'), group=wardrobeData[wardrobeType], item=group.items.find(i=>i.id===id);if(!item)return;
     const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
@@ -1907,12 +2515,42 @@
       renderMaskPage();
     } catch (e) {
       remoteMasks = previousRemoteMasks || remoteMasks;
-      console.warn('[MufyCard 3.3.6 预览版 6] 面具刷新失败：', e);
+      console.warn('[MufyCard 4.1.1 正式版] 面具刷新失败：', e);
       if (status) status.textContent = `刷新失败：${e?.message || e}（旧缓存已保留）`;
       if (activeTab === 'masks') renderMaskPage();
     } finally {
       if (button) { button.disabled = false; button.textContent = '↻ 扫描/刷新网站面具'; }
     }
+  }
+
+  async function importLocalMasksFromFile() {
+    const input = document.createElement('input'); input.type = 'file'; input.accept = '.json,application/json';
+    input.onchange = async () => {
+      const file = input.files?.[0]; if (!file) return;
+      try {
+        const parsed = JSON.parse(await file.text());
+        const candidates = Array.isArray(parsed) ? parsed : (Array.isArray(parsed?.localMasks) ? parsed.localMasks : Array.isArray(parsed?.data?.localMasks) ? parsed.data.localMasks : Array.isArray(parsed?.masks) ? parsed.masks : Array.isArray(parsed?.data?.masks) ? parsed.data.masks : null);
+        if (!candidates) throw new Error('没有找到面具数组；请使用 MufyCard 导出的面具 JSON 文件。');
+        const signature = item => [item.remark,item.maskName,item.gender,item.description,item.favorite,item.command].map(v=>String(v||'').trim()).join('\u241f');
+        const existing = new Set(localMasks.map(signature));
+        const incoming = candidates.filter(x => x && typeof x === 'object').map((x,i) => ({
+          ...x,
+          remark: String(x.remark ?? x.note ?? ''),
+          maskName: String(x.maskName ?? x.name ?? ''),
+          gender: String(x.gender ?? ''),
+          description: String(x.description ?? x.desc ?? ''),
+          favorite: String(x.favorite ?? x.likes ?? ''),
+          command: String(x.command ?? x.instruction ?? ''),
+          localId: `local-import-${Date.now()}-${i}-${Math.random().toString(36).slice(2,7)}`,
+          source: 'local', createdAt: x.createdAt || new Date().toISOString()
+        })).filter(x => x.remark || x.maskName || x.description || x.favorite || x.command || x.gender);
+        const unique = incoming.filter(x => { const sig=signature(x); if(existing.has(sig)) return false; existing.add(sig); return true; });
+        if (!unique.length) { showToast('文件中没有可新增的面具（可能已全部导入）。', 'err'); return; }
+        localMasks = [...unique.reverse(), ...localMasks];
+        if (await saveLocalMasks()) { maskView='local'; expandedMaskId=''; renderMaskPage(); showToast(`已导入 ${unique.length} 个本地面具，重复项已自动跳过。`, 'ok'); }
+      } catch (e) { showToast(`面具导入失败：${e?.message || e}`, 'err'); }
+    };
+    input.click();
   }
 
   function renderMaskPage() {
@@ -1956,11 +2594,20 @@
         const boundDetail = document.createElement('div');
         const boundLabel = document.createElement('label'); boundLabel.textContent = '已绑定的角色卡'; boundDetail.appendChild(boundLabel);
         const boundValue = document.createElement('div'); boundValue.textContent = boundRoles.length ? boundRoles.map(r => r.name || `角色 ${r.id}`).join('、') : '暂未从已扫描角色中识别到'; boundDetail.appendChild(boundValue); detail.appendChild(boundDetail);
-        if (m._source === '本地面具') {
+        {
           const actions = document.createElement('div'); actions.className = 'mask-actions';
-          const edit = document.createElement('button'); edit.textContent = '编辑'; edit.onclick = e => { e.stopPropagation(); renderMaskForm(m); };
-          const del = document.createElement('button'); del.textContent = '删除本地面具'; del.onclick = async e => { e.stopPropagation(); if (confirm(`确定删除本地面具「${m.remark || m.maskName || '未命名'}」吗？`)) { localMasks = localMasks.filter(x => x.localId !== m.localId); await saveLocalMasks(); expandedMaskId=''; renderMaskPage(); } };
-          actions.append(edit,del); detail.appendChild(actions);
+          const copy = document.createElement('button'); copy.textContent = '一键复制全部内容'; copy.onclick = async e => { e.stopPropagation(); const text = [['备注',m.remark],['名称',m.maskName],['性别',m.gender],['我的描述',m.description],['我的喜好',m.favorite],['指令',m.command],['已绑定的角色卡',boundRoles.map(r=>r.name||`角色 ${r.id}`).join('、')]].map(([k,v])=>`${k}：${v||''}`).join('\n'); try { await copyText(text); showToast('面具内容已全部复制。','ok'); } catch (_) { showToast('复制失败，请检查剪贴板权限。','err'); } };
+          actions.appendChild(copy);
+          if (m._source === '已缓存面具') {
+            const save = document.createElement('button'); save.textContent = '保存到本地'; save.onclick = async e => { e.stopPropagation(); await saveOneCachedMask(m, save); };
+            actions.appendChild(save);
+          }
+          if (m._source === '本地面具') {
+            const edit = document.createElement('button'); edit.textContent = '编辑'; edit.onclick = e => { e.stopPropagation(); renderMaskForm(m); };
+            const del = document.createElement('button'); del.textContent = '删除本地面具'; del.onclick = async e => { e.stopPropagation(); if (confirm(`确定删除本地面具「${m.remark || m.maskName || '未命名'}」吗？`)) { localMasks = localMasks.filter(x => x.localId !== m.localId); await saveLocalMasks(); expandedMaskId=''; renderMaskPage(); } };
+            actions.append(edit,del);
+          }
+          detail.appendChild(actions);
         }
         card.appendChild(detail);
       }
@@ -1971,6 +2618,31 @@
   function setMaskView(view) {
     maskView = view === 'remote' ? 'remote' : 'local';
     renderMaskPage();
+  }
+
+  async function saveOneCachedMask(remote, button) {
+    if (!remote || remote._source !== '已缓存面具') return;
+    const remoteId = String(remote.maskId || '');
+    const fallbackKey = `${String(remote.maskName || '').trim()}|${String(remote.description || '').trim()}|${String(remote.gender || '').trim()}`;
+    const duplicate = localMasks.some(item => {
+      const sameId = remoteId && String(item.originalRemoteMaskId || item.maskId || '') === remoteId;
+      const sameContent = !remoteId && `${String(item.maskName || '').trim()}|${String(item.description || '').trim()}|${String(item.gender || '').trim()}` === fallbackKey;
+      return sameId || sameContent;
+    });
+    if (duplicate) { showToast('这份面具已经保存到本地，无需重复保存。', 'ok'); return; }
+    if (button) { button.disabled = true; button.textContent = '保存中…'; }
+    try {
+      const copy = { ...remote };
+      delete copy._key; delete copy._source;
+      localMasks.unshift({ ...copy, localId:`local-import-${remoteId || Date.now()}-${Math.random().toString(36).slice(2,7)}`, originalRemoteMaskId:remoteId, source:'local', createdAt:new Date().toISOString() });
+      if (!(await saveLocalMasks())) { localMasks.shift(); throw new Error('本地存储写入失败'); }
+      showToast('当前面具已保存到本地面具。', 'ok');
+      renderMaskPage();
+    } catch (error) {
+      console.error('[MufyCard] 保存单个已缓存面具失败', error);
+      showToast(`保存到本地失败：${error?.message || error}`, 'err');
+      if (button) { button.disabled = false; button.textContent = '保存到本地'; }
+    }
   }
 
   function renderMaskForm(mask = null) {
@@ -2009,9 +2681,13 @@
   const BACKUP_SCHEMA = 'mufycard-full-backup-v1';
   const PERSONA_KEY = 'mufycard_persona_saved_v1';
   const PERSONA_LIBRARY_KEY = 'mufycard_persona_library_v1';
+  function downloadBlobFile(name, blob) {
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.rel='noopener';a.style.display='none';
+    document.body.appendChild(a);try{a.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,view:W}));}catch(_){try{a.click();}catch(__){}}
+    a.remove();setTimeout(()=>{try{URL.revokeObjectURL(url);}catch(_){}},60000);return url;
+  }
   function backupDownload(name, data) {
-    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json;charset=utf-8'});
-    const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; document.documentElement.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),2500);
+    return downloadBlobFile(name,new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'}));
   }
   function getPageLocalData() {
     const out={};
@@ -2027,7 +2703,7 @@
   async function readWardrobeBackupDB(){try{return await readWardrobeDB();}catch(_){return null;}}
   async function makeFullBackup(){
     await scanCacheWriteQueue.catch(()=>{});
-    const payload={format:BACKUP_SCHEMA,app:'MufyCard',version:'4.1.0',createdAt:new Date().toISOString(),accountScope:ACCOUNT_CACHE_ID,stores:{pageLocalStorage:getPageLocalData(),gm:await getGMData(),indexedDB:{[WARDROBE_DB]:{wardrobe:await readWardrobeBackupDB()}}}};
+    const payload={format:BACKUP_SCHEMA,app:'MufyCard',version:'4.1.1',createdAt:new Date().toISOString(),accountScope:ACCOUNT_CACHE_ID,stores:{pageLocalStorage:getPageLocalData(),gm:await getGMData(),indexedDB:{[WARDROBE_DB]:{wardrobe:await readWardrobeBackupDB()}}}};
     return payload;
   }
   function showBackupChoices(){
@@ -2121,6 +2797,155 @@
     return {id:'persona-'+Date.now()+'-'+Math.random().toString(36).slice(2,8),world,species,gender:g,job:role,relation,trait,hook,status:situation,description,createdAt:new Date().toISOString()};
   }
   let personaSaved=[];try{const v=JSON.parse(W.localStorage.getItem(PERSONA_KEY)||'[]');if(Array.isArray(v))personaSaved=v;}catch(_){}
+  // 趋势榜只读取用户确认过的 POST /api/characters/query 第一页，不自动翻页。
+  const TREND_CACHE_KEY = 'mufycard_trending_page1_cache_v1';
+  let trendCache = null;
+  const trendSelectedIds = new Set();
+  try { const saved = JSON.parse(W.localStorage.getItem(TREND_CACHE_KEY) || 'null'); if (saved && Array.isArray(saved.items)) trendCache = saved; } catch (_) {}
+  function renderTrendInline() {
+    const items = Array.isArray(trendCache?.items) ? trendCache.items : [];
+    listContainer.innerHTML = ''; listContainer.classList.remove('archive-list');
+    if (!items.length) { listContainer.innerHTML = '<div style="text-align:center;color:#aaa6bb;padding:24px 10px;font-size:12px">尚未获取趋势榜数据。开始扫描角色卡时会自动读取趋势榜第一页（16 个角色）。</div>'; return; }
+    const heading=document.createElement('div'); heading.style.cssText='padding:7px 9px;color:var(--dim);font-size:11px;border-bottom:1px solid var(--border)'; heading.textContent=`趋势榜第一页 · ${items.length} 个角色 · 更新于 ${new Date(trendCache.savedAt).toLocaleString()}`; listContainer.appendChild(heading);
+    items.forEach((item,index)=>{ const holder=document.createElement('div'); holder.innerHTML=renderTrendCard(item,index); listContainer.appendChild(holder.firstElementChild); });
+    bindTrendCardActions(listContainer);
+    updateSelectVisibleButtonLabel(); updateRoleBulkButtonState();
+  }
+
+  function bindTrendCardActions(root) {
+    root.querySelectorAll('[data-trend-select]').forEach(box=>box.addEventListener('change',()=>{
+      const id=String(box.dataset.trendSelect||''); if(box.checked)trendSelectedIds.add(id);else trendSelectedIds.delete(id);
+      updateSelectVisibleButtonLabel(); updateRoleBulkButtonState();
+    }));
+    root.querySelectorAll('[data-trend-star]').forEach(button=>button.addEventListener('click',async()=>{
+      const item=trendCache?.items?.find(x=>String(x.characterId)===String(button.dataset.trendStar));
+      if(item) await toggleTrendFavorite(item,button);
+      updateRoleBulkButtonState();
+    }));
+  }
+
+  // 趋势榜与普通扫描列表共用 scannedRoles 的收藏状态。
+  // 新的趋势榜角色收藏成功后也加入扫描缓存，使其立即出现在「收藏未聊」中；
+  // 已存在的角色只更新 isFav，不覆盖聊天记录、存档或其他扫描信息。
+  function syncTrendFavoriteToScannedRole(item, target) {
+    const id = String(item?.characterId ?? item?.id ?? '');
+    if (!id) return null;
+    let role = scannedRoles.find(row => String(row.id ?? row.characterId) === id);
+    if (!role && target) {
+      role = {
+        id,
+        name: String(item.name || '未命名角色'),
+        url: `https://chat.mufy.ai/chat?roleId=${encodeURIComponent(id)}`,
+        authorName: String(item.creatorName || '未知作者'),
+        authorId: String(item.creatorId || ''),
+        tags: Array.isArray(item.tags) ? item.tags.map(String) : [],
+        isFav: true,
+        lastSessionId: null,
+        hasChatHistory: false,
+        maskId: null,
+        maskName: '无面具',
+        linkStatus: 'unknown',
+        _fromTrend: true
+      };
+      scannedRoles.push(role);
+    } else if (role) {
+      role.isFav = !!target;
+      if ((!role.name || role.name === '未命名') && item.name) role.name = String(item.name);
+      if ((!role.authorName || role.authorName === '未知作者') && item.creatorName) role.authorName = String(item.creatorName);
+      if ((!Array.isArray(role.tags) || !role.tags.length) && Array.isArray(item.tags)) role.tags = item.tags.map(String);
+    }
+    return role;
+  }
+
+  async function persistTrendFavoriteSync() {
+    try { W.localStorage.setItem(TREND_CACHE_KEY, JSON.stringify(trendCache)); } catch (e) { console.error('[MufyCard] 保存趋势榜收藏状态失败', e); }
+    await saveScanCache();
+    updateReport();
+    populateAuthorSelect();
+    updateRoleBulkButtonState();
+    if (activeRoleFilter !== 'trending') renderFilteredRoles();
+  }
+
+  async function toggleTrendFavorite(item, button) {
+    if(button.disabled)return;
+    const target=!item.isFav; button.disabled=true;
+    try{
+      await apiRequest('/api/characters/follow','POST',{characterId:item.characterId,isFavorite:target});
+      item.isFav=target;
+      syncTrendFavoriteToScannedRole(item, target);
+      await persistTrendFavoriteSync();
+      button.classList.toggle('is-fav',target); button.textContent=target?'★':'☆'; button.setAttribute('aria-label',target?'取消收藏':'收藏');
+      showToast(target?`「${item.name}」已收藏，并已同步到「收藏未聊/收藏已聊」统计。`:`已取消收藏「${item.name}」，扫描列表已同步。`,'ok');
+    }catch(error){showToast(`「${item.name}」收藏失败：${error?.message||error}`,'err');}
+    finally{button.disabled=false;}
+  }
+
+  function openTrendPage() {
+    wardrobeView = 'trend';
+    renderTrendPage();
+  }
+
+  function renderTrendPage(message = '') {
+    const page = panel.querySelector('#wardrobe-page');
+    ['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id => panel.querySelector('#'+id).style.display='none');
+    panel.querySelector('#more-page').classList.remove('active');
+    page.classList.add('active');
+    panel.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.id === 'tab-more'));
+    const items = Array.isArray(trendCache?.items) ? trendCache.items : [];
+    const savedAt = trendCache?.savedAt ? new Date(trendCache.savedAt).toLocaleString() : '尚未扫描';
+    page.innerHTML = `<div class="wardrobe-head"><button id="trend-back" type="button">← 返回</button><strong>📈 趋势榜</strong><span aria-hidden="true"></span></div>
+      <div class="trend-toolbar"><button id="trend-scan" type="button">↻ 扫描第一页</button><span class="trend-summary" id="trend-summary">${items.length ? `已缓存 ${items.length} / ${Number(trendCache.total)||'未知'} 条` : '尚未获取趋势榜数据'}</span></div>
+      <div class="status" id="trend-status" style="padding:6px 9px">${escapeHtml(message || (items.length ? `上次扫描：${savedAt} · 仅保存第一页` : '点击「扫描第一页」读取趋势榜前 16 个角色。'))}</div>
+      <div class="trend-list" id="trend-list">${items.length ? items.map(renderTrendCard).join('') : '<div style="text-align:center;color:#aaa6bb;padding:28px 10px;font-size:12px">暂无趋势榜缓存，点击上方按钮开始扫描。</div>'}</div>`;
+    page.querySelector('#trend-back').onclick = showMorePage;
+    page.querySelector('#trend-scan').onclick = scanTrendFirstPage;
+    const trendList=page.querySelector('#trend-list'); if(items.length && trendList){ bindTrendCardActions(trendList); }
+  }
+
+  // 趋势榜复用普通扫描角色卡的 row / row-top / role-title-wrap / role-select / role-name / fav-btn / row-meta / role-tags 结构；仅省略趋势榜不需要的面具、链接和链接状态，不单独增加头像或收藏操作栏。
+  function renderTrendCard(item) {
+    const id = String(item.characterId || item.id || '');
+    const name = String(item.name || '未命名角色');
+    const isFav = Boolean(item.isFav);
+    const tags = Array.isArray(item.tags) && item.tags.length
+      ? `<div class="role-tags">${item.tags.map(tag => `<span class="role-tag">${escapeHtml(tag)}</span>`).join('')}</div>`
+      : '';
+    return `<div class="row"><div class="row-top"><div class="role-title-wrap"><input class="role-select" type="checkbox" data-trend-select="${escapeHtml(id)}" aria-label="选择角色 ${escapeHtml(name)}" ${trendSelectedIds.has(id) ? 'checked' : ''}><span class="role-name">${escapeHtml(name)}</span></div><button type="button" class="fav-btn ${isFav ? 'is-fav' : ''}" data-trend-star="${escapeHtml(id)}" aria-label="${isFav ? '取消收藏' : '收藏'}">${isFav ? '★' : '☆'}</button></div><div class="row-meta"><div>作者：${escapeHtml(item.creatorName || '未知作者')}</div>${tags}</div></div>`;
+  }
+
+  async function scanTrendFirstPage(background = false) {
+    const page = panel.querySelector('#wardrobe-page');
+    const button = page?.querySelector('#trend-scan');
+    const status = page?.querySelector('#trend-status');
+    const list = page?.querySelector('#trend-list');
+    if (!background && (!button || !status || !list)) return;
+    if (button && !background) { button.disabled = true; button.textContent = '正在扫描…'; }
+    if (status && !background) status.textContent = '正在请求趋势榜第一页（16 条）…';
+    try {
+      const result = await apiRequest('/api/characters/query', 'POST', {
+        pageNum: 1, pageSize: 16, sortBy: 'trending', genderText: '全性别', tags: [], search: '', showNsfw: false
+      });
+      const rows = Array.isArray(result?.data) ? result.data : [];
+      if (!rows.length) throw new Error('接口请求成功，但没有返回角色列表。');
+      trendCache = {
+        page: Number(result.page || 1), pageSize: Number(result.pageSize || 16), total: Number(result.total || rows.length), hasNext: Boolean(result.hasNext), savedAt: new Date().toISOString(),
+        items: rows.map(item => ({ characterId:String(item.characterId||''), name:String(item.name||'未命名角色'), description:String(item.description||''), creatorId:String(item.creatorId||''), creatorName:String(item.creatorName||'未知作者'), avatarUrl:String(item.avatarUrl||''), backgroundUrl:String(item.backgroundUrl||''), totalChats:Number(item.totalChats||0), totalLikes:Number(item.totalLikes||0), totalFollowers:Number(item.totalFollowers||0), totalShares:Number(item.totalShares||0), tags:Array.isArray(item.tags)?item.tags.map(String):[], isFav:Boolean(item.isFollowed ?? item.isFavorite ?? item.isFav ?? false), updatedAt:String(item.updatedAt||'') }))
+      };
+      W.localStorage.setItem(TREND_CACHE_KEY, JSON.stringify(trendCache));
+      updateReport();
+      if (activeRoleFilter === 'trending') renderTrendInline();
+      if (status && !background) status.textContent = `扫描完成：获取 ${rows.length} / ${trendCache.total} 条。只读取第一页。`;
+      if (!background) showToast(`趋势榜第一页扫描完成，共获取 ${rows.length} 个角色。`, 'ok');
+      else console.info(`[MufyCard] 随角色卡扫描同步读取趋势榜第一页：${rows.length} 条`);
+    } catch (error) {
+      console.error('[MufyCard] 趋势榜第一页扫描失败：', error);
+      if (status && !background) status.textContent = `扫描失败：${error?.message || error}`;
+      if (!background) showToast(`趋势榜扫描失败：${error?.message || error}`, 'err');
+    } finally {
+      if (button && !background) { button.disabled = false; button.textContent = '↻ 重新扫描第一页'; }
+    }
+  }
+
   function openPersonaPage(){renderPersonaPage();}
   function renderPersonaPage(){
     const page=panel.querySelector('#wardrobe-page');
@@ -2308,7 +3133,7 @@
     selectBox.className = 'role-select';
     selectBox.checked = selectedRoleIds.has(String(role.id));
     selectBox.setAttribute('aria-label', `选择角色 ${role.name}`);
-    selectBox.addEventListener('change', () => { if (selectBox.checked) selectedRoleIds.add(String(role.id)); else selectedRoleIds.delete(String(role.id)); updateChatHiButtonLabel(); });
+    selectBox.addEventListener('change', () => { if (selectBox.checked) selectedRoleIds.add(String(role.id)); else selectedRoleIds.delete(String(role.id)); updateChatHiButtonLabel(); updateSelectVisibleButtonLabel(); });
     const roleName = document.createElement('span');
     roleName.className = 'role-name';
     roleName.textContent = role.name || '未命名';
@@ -2324,7 +3149,8 @@
     const meta = document.createElement('div');
     meta.className = 'row-meta';
     const roleUrl = `https://chat.mufy.ai/chat?roleId=${encodeURIComponent(role.id)}`;
-    meta.innerHTML = `<div>作者：${escapeHtml(role.authorName)}</div><a class="role-link" href="${escapeHtml(roleUrl)}">查看原角色卡 ↗</a><div>面具：<span class="mask-tag">${escapeHtml(role.maskName)}</span></div>`;
+    const tagMarkup = Array.isArray(role.tags) && role.tags.length ? `<div class="role-tags">${role.tags.map(tag => `<span class="role-tag">${escapeHtml(tag)}</span>`).join('')}</div>` : '';
+    meta.innerHTML = `<div>作者：${escapeHtml(role.authorName)}</div><a class="role-link" href="${escapeHtml(roleUrl)}">查看原角色卡 ↗</a><div>面具：<span class="mask-tag">${escapeHtml(role.maskName)}</span></div>${tagMarkup}`;
     const roleLink = meta.querySelector('.role-link');
     roleLink.setAttribute('href', `https://chat.mufy.ai/chat?roleId=${encodeURIComponent(role.id)}`);
     roleLink.addEventListener('click', event => {
@@ -2359,13 +3185,9 @@
     return status === 'deleted' || status === 'invalid' || status === 'expired';
   }
 
-  function renderFilteredRoles() {
-    if (!listContainer) return;
-    listContainer.classList.remove('archive-list');
+  function getFilteredRoleTargets() {
     const query = String(panel.querySelector('#role-search')?.value || '').trim().toLocaleLowerCase();
-    listContainer.innerHTML = '';
     const byCategory = role => {
-      // 已下架/失效角色只允许出现在「失效/删除」分类，避免污染收藏、未收藏及聊天分类。
       if (activeRoleFilter !== 'deleted' && roleIsDeleted(role)) return false;
       switch (activeRoleFilter) {
         case 'fav': return !!role.isFav;
@@ -2378,11 +3200,123 @@
         default: return true;
       }
     };
-    const filtered = scannedRoles.filter(role => byCategory(role) && (
-      !query ||
-      String(role.name || '').toLocaleLowerCase().includes(query) ||
-      String(role.authorName || '').toLocaleLowerCase().includes(query)
+    return scannedRoles.filter(role => byCategory(role) && (
+      !query || String(role.name || '').toLocaleLowerCase().includes(query) || String(role.authorName || '').toLocaleLowerCase().includes(query) || (Array.isArray(role.tags) && role.tags.some(tag => String(tag).toLocaleLowerCase().includes(query)))
     ));
+  }
+
+  function syncRoleActionVisibility() {
+    const chatRow = panel?.querySelector('#chat-bulk');
+    if (chatRow) chatRow.hidden = !(activeTab === 'roles' && activeRoleFilter === 'fav-unchatted');
+    const roleActions = panel?.querySelector('.role-action-row');
+    const roleSearch = panel?.querySelector('.role-search-row');
+    if (roleActions) { roleActions.hidden = false; const folder=roleActions.querySelector('#btn-add-to-folder'); const author=roleActions.querySelector('#author-folder-btn'); const select=roleActions.querySelector('#btn-select-visible'); const fav=roleActions.querySelector('#btn-favorite-selected'); if(activeRoleFilter==='trending'){ roleActions.style.gridTemplateColumns='repeat(2,minmax(0,1fr))'; if(folder)folder.style.display='none'; if(author)author.style.display='none'; if(select)select.style.display=''; if(fav)fav.style.display=''; } else { roleActions.style.gridTemplateColumns=''; if(folder)folder.style.display=''; if(author)author.style.display=''; if(select)select.style.display=''; if(fav)fav.style.display=''; } }
+    if (roleSearch) roleSearch.hidden = activeRoleFilter === 'trending';
+    updateSelectVisibleButtonLabel();
+    updateRoleBulkButtonState();
+  }
+
+  function updateSelectVisibleButtonLabel() {
+    const button = panel?.querySelector('#btn-select-visible');
+    if (!button) return;
+    const visible = activeRoleFilter === 'trending' ? (trendCache?.items || []) : getFilteredRoleTargets();
+    const selectedCount = visible.reduce((count, role) => count + ((activeRoleFilter === 'trending' ? trendSelectedIds : selectedRoleIds).has(String(role.id ?? role.characterId)) ? 1 : 0), 0);
+    button.textContent = `一键勾选（${selectedCount}）`;
+    button.setAttribute('aria-label', `一键勾选，当前筛选结果已选 ${selectedCount} 个`);
+  }
+
+  function updateRoleBulkButtonState() {
+    const button = panel?.querySelector('#btn-favorite-selected');
+    if (!button) return;
+    const count = activeRoleFilter === 'trending' ? (trendCache?.items || []).filter(r => trendSelectedIds.has(String(r.characterId)) && !r.isFav).length : scannedRoles.filter(r => selectedRoleIds.has(String(r.id)) && !r.isFav && !roleIsDeleted(r)).length;
+    button.textContent = `一键收藏（${count}）`;
+    button.disabled = count === 0;
+    const folderButton = panel?.querySelector('#btn-add-to-folder');
+    if (folderButton) folderButton.disabled = activeRoleFilter === 'trending' || !scannedRoles.some(r => selectedRoleIds.has(String(r.id)) && !roleIsDeleted(r));
+  }
+
+  function selectAllVisibleRoles() {
+    if (activeRoleFilter === 'trending') {
+      const targets = trendCache?.items || []; if (!targets.length) { showToast('趋势榜暂无可勾选角色。', 'err'); return; }
+      const allSelected = targets.every(role => trendSelectedIds.has(String(role.characterId)));
+      targets.forEach(role => { const id=String(role.characterId); if(allSelected) trendSelectedIds.delete(id); else trendSelectedIds.add(id); });
+      renderTrendInline(); updateSelectVisibleButtonLabel(); updateRoleBulkButtonState();
+      showToast(allSelected ? '已取消趋势榜全部角色勾选。' : `已勾选趋势榜 ${targets.length} 个角色。`, 'ok'); return;
+    }
+    const targets = getFilteredRoleTargets();
+    if (!targets.length) { showToast('当前分类或搜索结果中没有可勾选的角色。', 'err'); return; }
+    const allVisibleSelected = targets.every(role => selectedRoleIds.has(String(role.id)));
+    if (allVisibleSelected) {
+      targets.forEach(role => selectedRoleIds.delete(String(role.id)));
+      renderFilteredRoles();
+      updateChatHiButtonLabel();
+      updateSelectVisibleButtonLabel();
+      showToast(`已取消当前筛选结果中的 ${targets.length} 个角色勾选。`, 'ok');
+      return;
+    }
+    targets.forEach(role => selectedRoleIds.add(String(role.id)));
+    renderFilteredRoles();
+    updateChatHiButtonLabel();
+    updateSelectVisibleButtonLabel();
+    showToast(`已勾选当前筛选结果中的 ${targets.length} 个角色。再次点击可取消本次筛选结果的勾选。`, 'ok');
+  }
+
+  async function bulkFavoriteSelectedRoles() {
+    if (activeRoleFilter === 'trending') {
+      const targets = (trendCache?.items || []).filter(r => trendSelectedIds.has(String(r.characterId)) && !r.isFav);
+      if (!targets.length) { showToast('请先勾选趋势榜中尚未收藏的角色。', 'err'); return; }
+      if (!window.confirm(`确定将已勾选的 ${targets.length} 个趋势榜角色加入 Mufy 收藏夹吗？此操作会真实修改账号收藏状态。`)) return;
+      const button=panel.querySelector('#btn-favorite-selected'); if(button)button.disabled=true; let succeeded=0; const failed=[];
+      try {
+        for(let i=0;i<targets.length;i++){
+          const role=targets[i];
+          try {
+            await apiRequest('/api/characters/follow','POST',{characterId:role.characterId,isFavorite:true});
+            role.isFav=true;
+            syncTrendFavoriteToScannedRole(role, true);
+            succeeded++;
+          } catch(e) { failed.push(`${role.name}: ${e?.message||e}`); }
+          updateStatus(`趋势榜一键收藏进度：${i+1}/${targets.length} · ${role.name}`);
+          if(i<targets.length-1) await sleep(180);
+        }
+        await persistTrendFavoriteSync();
+        renderTrendInline();
+        updateSelectVisibleButtonLabel();
+        updateRoleBulkButtonState();
+        showToast(`趋势榜一键收藏完成：成功 ${succeeded} 个，已同步扫描列表${failed.length?`，失败 ${failed.length} 个`:''}。`,failed.length?'err':'ok');
+      } finally { updateRoleBulkButtonState(); }
+      return;
+    }
+    const targets = scannedRoles.filter(r => selectedRoleIds.has(String(r.id)) && !r.isFav && !roleIsDeleted(r));
+    if (!targets.length) { showToast('请先一键勾选或手动勾选未收藏的角色。', 'err'); return; }
+    if (!window.confirm(`确定将已勾选的 ${targets.length} 个未收藏角色加入 Mufy 收藏夹吗？此操作会真实修改账号收藏状态。`)) return;
+    const button = panel.querySelector('#btn-favorite-selected');
+    if (button) button.disabled = true;
+    let succeeded = 0; const failed = [];
+    try {
+      for (let i = 0; i < targets.length; i++) {
+        const role = targets[i];
+        try {
+          await apiRequest('/api/characters/follow', 'POST', { characterId: role.id, isFavorite: true });
+          role.isFav = true; succeeded++;
+        } catch (e) { failed.push(`${role.name}: ${e?.message || e}`); }
+        updateStatus(`一键收藏进度：${i + 1}/${targets.length} · ${role.name}`);
+        if (i < targets.length - 1) await sleep(180);
+      }
+      saveScanCache();
+      renderFilteredRoles(); updateReport(); populateAuthorSelect(); updateRoleBulkButtonState();
+      showToast(`一键收藏完成：成功 ${succeeded} 个${failed.length ? `，失败 ${failed.length} 个` : ''}。`, failed.length ? 'err' : 'ok');
+      updateStatus(`一键收藏完成：成功 ${succeeded}，失败 ${failed.length}。`, failed.length ? 'err' : 'ok');
+    } finally { updateRoleBulkButtonState(); }
+  }
+
+  function renderFilteredRoles() {
+    if (!listContainer) return;
+    if (activeRoleFilter === 'trending') { renderTrendInline(); return; }
+    listContainer.classList.remove('archive-list');
+    const filtered = getFilteredRoleTargets();
+    listContainer.innerHTML = '';
+    syncRoleActionVisibility();
     if (!scannedRoles.length) {
       listContainer.innerHTML = '<div style="text-align:center;color:#8e8e9e;padding:20px;font-size:12px;">扫描完成后，可按角色名或作者名搜索</div>';
       return;
@@ -2399,10 +3333,9 @@
   function updateChatHiButtonLabel() {
     const button = panel?.querySelector('#btn-chat-hi');
     if (!button || chatHiRunning) return;
-    const selectedCount = selectedRoleIds.size;
-    button.textContent = selectedCount
-      ? `给已选 ${selectedCount} 个角色发送 hi`
-      : '勾选角色后发送 hi';
+    const selectedCount = scannedRoles.filter(r => selectedRoleIds.has(String(r.id)) && r.isFav && !roleIsDeleted(r) && !roleHasChatHistory(r)).length;
+    button.textContent = selectedCount ? `发送 hi（${selectedCount}）` : '发送 hi';
+    updateRoleBulkButtonState();
   }
 
   function parseSseValue(text, type) {
@@ -2436,10 +3369,10 @@
     }
   }
 
-  async function sendHiToRole(role) {
+  async function sendHiToRole(role, message = 'hi') {
     scanStoredAuth();
     const body = {
-      userInput: 'hi',
+      userInput: String(message || 'hi'),
       // 与网站原生首次发送保持一致：未聊角色使用全零 UUID；已聊角色沿用真实会话 ID。
       sessionId: String(role.lastSessionId || '00000000-0000-0000-0000-000000000000'),
       characterId: String(role.id),
@@ -2479,8 +3412,32 @@
     return sessionId;
   }
 
-  async function runChatHiBatch() {
+  const CUSTOM_GREETING_KEY = 'mufycard_custom_greeting_v1';
+  let customGreetingText = '';
+  try { customGreetingText = String(W.localStorage.getItem(CUSTOM_GREETING_KEY) || ''); } catch (_) {}
+  async function openCustomGreetingDialog() {
+    const overlay = document.createElement('div'); overlay.className = 'wardrobe-detail-backdrop';
+    overlay.innerHTML = `<section class="wardrobe-detail"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>自定义打招呼内容</strong><button type="button" data-close>×</button></div><label>发送文本<textarea id="custom-greeting-text" maxlength="2000" placeholder="输入要发送给已选角色的内容…">${escapeHtml(customGreetingText)}</textarea></label><div style="font-size:10px;color:var(--dim);margin:-4px 0 8px">只会发送给当前「收藏未聊」列表中已勾选的角色。</div><div class="detail-actions"><button type="button" data-send>保存并发送</button><button type="button" data-cancel>取消</button></div></section>`;
+    panel.appendChild(overlay);
+    const close = () => overlay.remove();
+    overlay.querySelector('[data-close]').onclick = close;
+    overlay.querySelector('[data-cancel]').onclick = close;
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    overlay.querySelector('[data-send]').onclick = async () => {
+      const value = overlay.querySelector('#custom-greeting-text').value.trim();
+      if (!value) { showToast('请输入自定义打招呼内容。', 'err'); return; }
+      customGreetingText = value;
+      try { W.localStorage.setItem(CUSTOM_GREETING_KEY, value); } catch (_) {}
+      try { await persistentWrite(CUSTOM_GREETING_KEY, value); } catch (_) {}
+      close();
+      await runChatHiBatch(value);
+    };
+  }
+
+  async function runChatHiBatch(message = 'hi') {
     if (chatHiRunning) return;
+    message = String(message || 'hi').trim().slice(0, 2000);
+    if (!message) { showToast('请先输入要发送的内容。', 'err'); return; }
     if (!scannedRoles.length) { showToast('请先扫描角色列表。', 'err'); return; }
     const visibleUnchatted = scannedRoles.filter(role => role.isFav && !roleIsDeleted(role) && !roleHasChatHistory(role));
     const targets = visibleUnchatted.filter(role => selectedRoleIds.has(String(role.id)));
@@ -2492,13 +3449,14 @@
       showToast('请先在「收藏未聊」列表中勾选一个或多个角色。', 'err');
       return;
     }
-    const confirmed = window.confirm(`即将使用 MUMU-1.5（modelId=25，modelTemplateId=67），仅向你在「收藏未聊」列表中勾选的 ${targets.length} 个角色逐个发送消息“hi”。\n\n已聊过的角色不会被发送。\n\n发送消息会真实写入你的账号，是否继续？`);
+    const previewMessage = message.length > 180 ? `${message.slice(0, 180)}…` : message;
+    const confirmed = window.confirm(`即将使用 MUMU-1.5（modelId=25，modelTemplateId=67），仅向你在「收藏未聊」列表中勾选的 ${targets.length} 个角色逐个发送以下消息：\n\n${previewMessage}\n\n已聊过的角色不会被发送。\n\n发送消息会真实写入你的账号，是否继续？`);
     if (!confirmed) return;
     chatHiRunning = true;
     chatHiStopRequested = false;
     const button = panel.querySelector('#btn-chat-hi');
     const stopButton = panel.querySelector('#btn-chat-hi-stop');
-    if (button) { button.disabled = true; button.textContent = '正在发送 hi…'; }
+    if (button) { button.disabled = true; button.textContent = '正在发送…'; }
     if (stopButton) stopButton.disabled = false;
     let success = 0, failed = 0;
     const errors = [];
@@ -2506,9 +3464,9 @@
       for (let i = 0; i < targets.length; i++) {
         if (chatHiStopRequested) break;
         const role = targets[i];
-        updateStatus(`MUMU-1.5 批量打招呼：${i + 1}/${targets.length} · ${role.name}`);
+        updateStatus(`MUMU-1.5 批量发送：${i + 1}/${targets.length} · ${role.name}`);
         try {
-          await sendHiToRole(role);
+          await sendHiToRole(role, message);
           success++;
           saveScanCache();
         } catch (error) {
@@ -2543,11 +3501,12 @@
     set('count-total', roles.length);
     set('count-fav', roles.filter(r => r.isFav && !roleIsDeleted(r)).length);
     set('count-unfav', roles.filter(r => !r.isFav && !roleIsDeleted(r) && roleHasChatHistory(r)).length);
-    set('count-deleted', roles.filter(r => r.linkStatus === 'deleted').length);
+    set('count-deleted', roles.filter(roleIsDeleted).length);
     set('count-unknown', roles.filter(r => !roleIsDeleted(r) && (!r.linkStatus || r.linkStatus === 'unknown')).length);
     set('count-authors', new Set(roles.filter(r => !roleIsDeleted(r)).map(r => String(r.authorName || '').trim()).filter(n => n && n !== '未知作者')).size);
     set('count-fav-unchatted', roles.filter(r => r.isFav && !roleIsDeleted(r) && !roleHasChatHistory(r)).length);
     set('count-fav-chatted', roles.filter(r => r.isFav && !roleIsDeleted(r) && roleHasChatHistory(r)).length);
+    set('count-trending', Array.isArray(trendCache?.items) ? trendCache.items.length : 0);
     panel?.querySelectorAll('[data-role-filter]').forEach(node => node.classList.toggle('filter-active', node.dataset.roleFilter === activeRoleFilter));
     updateChatHiButtonLabel();
   }
@@ -2645,11 +3604,109 @@
       populateAuthorSelect();
       showToast(`作者「${author}」：成功收藏 ${succeeded} 个${failed.length ? `，失败 ${failed.length} 个` : ''}。`, failed.length ? 'err' : 'ok');
       updateStatus(`批量收藏完成：成功 ${succeeded}，失败 ${failed.length}；正在同步作者收藏夹…`, failed.length ? 'err' : 'ok');
-      if (succeeded > 0) await organizeAuthorFolders(author);
+      // 作者收藏夹整理改为手动选择作者后执行，避免批量收藏时擅自整理全部作者。
     } finally {
       select.disabled = false;
       button.disabled = !select.value;
     }
+  }
+
+  async function scanRoleTags() {
+    const button = panel?.querySelector('#btn-scan-tags');
+    if (!scannedRoles.length) { showToast('请先扫描角色卡列表。', 'err'); return; }
+    if (button?.disabled) return;
+    if (button) { button.disabled = true; button.textContent = '扫描中…'; }
+    let updated = 0, unsupported = 0, failed = 0;
+    try {
+      const targets = scannedRoles.filter(role => !Array.isArray(role.tags) || !role.tags.length);
+      if (!targets.length) { showToast('角色标签已经扫描完成，可以直接搜索标签。'); return; }
+      for (let i = 0; i < targets.length; i++) {
+        const role = targets[i];
+        try {
+          const body = await apiRequest(`/api/characters/get?id=${encodeURIComponent(role.id)}`);
+          const detail = body?.data?.data || body?.data || body?.character || body;
+          const tags = extractTagsFromAny(detail);
+          if (tags.length) { role.tags = tags; updated++; } else unsupported++;
+        } catch (e) { failed++; console.debug('[MufyCard] 标签读取失败：', role.id, e); }
+        if (i % 5 === 0 || i === targets.length - 1) updateStatus(`扫描角色标签：${i + 1}/${targets.length}`);
+        if (i < targets.length - 1) await sleep(120);
+      }
+      saveScanCache(); renderFilteredRoles();
+      if (updated) showToast(`标签扫描完成：${updated} 个角色获取到标签${unsupported ? `，${unsupported} 个角色未返回标签字段` : ''}${failed ? `，${failed} 个读取失败` : ''}。`, failed ? 'err' : 'ok');
+      else showToast(`本次未从角色详情接口读取到标签字段（${unsupported} 个未返回标签，${failed} 个读取失败）。需要检查网页接口返回内容。`, 'err');
+      updateStatus(`标签扫描完成：获取到标签的角色 ${updated} 个；未返回标签 ${unsupported} 个；失败 ${failed} 个。`, failed ? 'err' : 'ok');
+    } finally { if (button) { button.disabled = false; button.textContent = '扫描标签'; } }
+  }
+
+  function extractTagsFromAny(source) {
+    const out = [], seen = new Set(), visited = new Set();
+    const add = v => { const t = String(v ?? '').trim().replace(/^#+/, ''); if (!t || t.length > 60 || seen.has(t.toLocaleLowerCase())) return; seen.add(t.toLocaleLowerCase()); out.push(t); };
+    const read = v => {
+      if (Array.isArray(v)) v.forEach(x => { if (typeof x === 'string' || typeof x === 'number') add(x); else if (x && typeof x === 'object') add(x.name ?? x.tagName ?? x.label ?? x.title ?? x.value ?? x.text ?? x.tag); });
+      else if (typeof v === 'string') v.split(/[，,、;；|]/).forEach(add);
+      else if (v && typeof v === 'object') read(v.list ?? v.items ?? v.tags ?? v.rows ?? []);
+    };
+    const walk = (obj, depth=0) => {
+      if (!obj || typeof obj !== 'object' || depth > 3 || visited.has(obj)) return;
+      visited.add(obj);
+      for (const key of ['tags','tag','tagList','tagNames','characterTags','characterTagList','labels','labelList','categoryTags','roleTags']) read(obj[key]);
+      for (const key of ['character','characterInfo','characterData','role','data','result','detail']) if (obj[key] && typeof obj[key] === 'object') walk(obj[key], depth+1);
+    };
+    walk(source); return out;
+  }
+
+  function openAddSelectedToFolderDialog() {
+    const targets = scannedRoles.filter(r => selectedRoleIds.has(String(r.id)) && !roleIsDeleted(r));
+    if (!targets.length) { showToast('请先勾选要加入收藏夹的有效角色卡。', 'err'); return; }
+    const overlay = document.createElement('div'); overlay.className = 'wardrobe-detail-backdrop';
+    overlay.innerHTML = `<section class="wardrobe-detail"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>加入收藏夹</strong><button type="button" data-close>×</button></div><div style="font-size:11px;color:var(--dim)">已选择 ${targets.length} 张有效角色卡。失效/已删除角色不会加入。</div><label>选择已有收藏夹<select id="target-folder-select"><option value="">正在读取收藏夹…</option></select></label><label>或新建收藏夹（填写名称）<input id="target-folder-name" type="text" maxlength="60" placeholder="例如：喜欢的作者 / 待体验角色"></label><div class="detail-actions"><button type="button" data-submit>确认加入</button><button type="button" data-cancel>取消</button></div></section>`;
+    panel.appendChild(overlay);
+    const close = () => overlay.remove();
+    overlay.querySelector('[data-close]').onclick = close; overlay.querySelector('[data-cancel]').onclick = close;
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    const select = overlay.querySelector('#target-folder-select');
+    (async () => { try { const folders = await requestFavoriteFolders(); select.innerHTML = '<option value="">请选择已有收藏夹</option>' + folders.map(f => `<option value="${escapeHtml(f.id)}">${escapeHtml(f.name || `收藏夹 ${f.id}`)}</option>`).join(''); } catch (e) { select.innerHTML = '<option value="">读取失败，可直接新建</option>'; showToast(`读取收藏夹失败：${e?.message || e}`, 'err'); } })();
+    overlay.querySelector('[data-submit]').onclick = async () => {
+      const name = overlay.querySelector('#target-folder-name').value.trim();
+      const folderId = select.value;
+      if (!name && !folderId) { showToast('请选择已有收藏夹，或填写新收藏夹名称。', 'err'); return; }
+      const submit = overlay.querySelector('[data-submit]'); submit.disabled = true;
+      try {
+        let folder;
+        if (name) folder = await createFavoriteFolder(name);
+        else folder = { id: folderId, name: select.selectedOptions[0]?.textContent || '' };
+        if (!name && !folderId) throw new Error('未选择收藏夹。');
+        let favorited = 0;
+        for (let i = 0; i < targets.length; i++) {
+          const role = targets[i];
+          if (!role.isFav) { await apiRequest('/api/characters/follow', 'POST', { characterId: role.id, isFavorite: true }); role.isFav = true; favorited++; }
+          updateStatus(`正在准备收藏夹内容：${i + 1}/${targets.length}`);
+          if (i < targets.length - 1) await sleep(100);
+        }
+        await addCharactersToFavoriteFolder(folder.id, targets.map(r => r.id));
+        saveScanCache(); updateReport(); renderFilteredRoles();
+        close(); showToast(`已将 ${targets.length} 张角色卡加入「${folder.name || name || '收藏夹'}」。${favorited ? `其中 ${favorited} 张同步加入网站收藏。` : ''}`, 'ok');
+        updateStatus(`收藏夹整理完成：已加入 ${targets.length} 张角色卡。`, 'ok');
+      } catch (e) { submit.disabled = false; showToast(`加入收藏夹失败：${e?.message || e}`, 'err'); updateStatus(`加入收藏夹失败：${e?.message || e}`, 'err'); }
+    };
+  }
+
+  async function openAuthorFolderOrganizer() {
+    const authors = [...new Set(scannedRoles.filter(r => r.isFav && !roleIsDeleted(r)).map(normalizedAuthor).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh'));
+    if (!authors.length) { showToast('当前没有可整理的已收藏角色作者。', 'err'); return; }
+    const counts = new Map();
+    for (const role of scannedRoles) if (role.isFav && !roleIsDeleted(role)) { const a=normalizedAuthor(role); if(a) counts.set(a,(counts.get(a)||0)+1); }
+    const overlay = document.createElement('div'); overlay.className = 'wardrobe-detail-backdrop';
+    overlay.innerHTML = `<section class="wardrobe-detail author-organizer-box"><div class="author-organizer-head" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>选择要整理的作者</strong><button type="button" data-close>×</button></div><input id="author-folder-search" type="search" placeholder="搜索作者名称…" style="flex:0 0 auto;width:100%;margin:0;padding:8px;border:1px solid var(--border);border-radius:7px;background:#15151b;color:var(--fg)"><div class="author-organizer-controls" style="display:flex;gap:6px"><button type="button" data-all>取消全选</button></div><div id="author-folder-checks" class="author-organizer-list">${authors.map(a=>`<label class="author-organizer-row"><input type="checkbox" value="${escapeHtml(a)}" checked><span class="author-name">${escapeHtml(a)}</span><small class="author-count">${counts.get(a)||0} 张</small></label>`).join('')}</div><div class="detail-actions author-organizer-footer"><button type="button" data-run>整理所选作者</button><button type="button" data-cancel>取消</button></div></section>`;
+    panel.appendChild(overlay); const close=()=>overlay.remove();
+    overlay.querySelector('[data-close]').onclick=close; overlay.querySelector('[data-cancel]').onclick=close;
+    overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+    const list=overlay.querySelector('#author-folder-checks'), search=overlay.querySelector('#author-folder-search'), toggle=overlay.querySelector('[data-all]');
+    const syncToggle=()=>{const visible=[...list.querySelectorAll('.author-organizer-row')].filter(row=>row.style.display!=='none').map(row=>row.querySelector('input'));const all=visible.length>0&&visible.every(x=>x.checked);toggle.textContent=all?'取消全选':'全选';};
+    toggle.onclick=()=>{const visible=[...list.querySelectorAll('.author-organizer-row')].filter(row=>row.style.display!=='none').map(row=>row.querySelector('input'));const all=visible.length>0&&visible.every(x=>x.checked);visible.forEach(x=>x.checked=!all);syncToggle();};
+    search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase();list.querySelectorAll('.author-organizer-row').forEach(row=>{row.style.display=row.querySelector('.author-name').textContent.toLocaleLowerCase().includes(q)?'flex':'none';});syncToggle();});
+    list.addEventListener('change',syncToggle); syncToggle();
+    overlay.querySelector('[data-run]').onclick=async()=>{const selected=[...list.querySelectorAll('input:checked')].map(x=>x.value);if(!selected.length){showToast('请至少选择一个作者。','err');return;}close();await organizeAuthorFolders(selected);};
   }
 
   // ================= 作者收藏夹：只复用能确认属于单一作者的旧收藏夹 =================
@@ -2759,17 +3816,20 @@
     return name && name !== '未知作者' && name !== role?.name ? name : '';
   }
 
-  async function organizeAuthorFolders(onlyAuthor = '') {
+  async function organizeAuthorFolders(selectedAuthors = []) {
     const button = panel?.querySelector('#author-folder-btn');
     if (!scannedRoles.length) { showToast('请先扫描角色列表，再整理作者收藏夹。', 'err'); return; }
     if (button?.disabled) return;
+    const selected = new Set((Array.isArray(selectedAuthors) ? selectedAuthors : [selectedAuthors]).map(String));
+    if (!selected.size) { showToast('请至少选择一个作者。', 'err'); return; }
     if (button) { button.disabled = true; button.textContent = '整理中…'; }
     try {
-      const rolesById = new Map(scannedRoles.filter(r => r?.id != null).map(r => [String(r.id), r]));
+      const eligibleRoles = scannedRoles.filter(r => r.isFav && !roleIsDeleted(r));
+      const rolesById = new Map(eligibleRoles.filter(r => r?.id != null).map(r => [String(r.id), r]));
       const groups = new Map();
-      for (const role of scannedRoles) {
+      for (const role of eligibleRoles) {
         const author = normalizedAuthor(role);
-        if (!author || (onlyAuthor && author !== onlyAuthor)) continue;
+        if (!author || !selected.has(author)) continue;
         if (!groups.has(author)) groups.set(author, []);
         groups.get(author).push(String(role.id));
       }
@@ -2835,7 +3895,7 @@
       showToast(`作者收藏夹整理失败：${e?.message || e}`, 'err');
       updateStatus(`作者收藏夹整理失败：${e?.message || e}`, 'err');
     } finally {
-      if (button) { button.disabled = false; button.textContent = '按作者整理收藏夹'; }
+      if (button) { button.disabled = false; button.textContent = '按作者整理'; }
     }
   }
 
@@ -2849,8 +3909,26 @@
     await loadArchiveCache();
     for (const role of scannedRoles) { const cached = archiveCache.get(String(role.id)); if (Array.isArray(cached) && cached.length) { role.hasChatHistory = true; role.archiveCount = cached.length; } }
     if (scannedRoles.length) await saveScanCache();
+    // 只有确认最新扫描快照已写入 GM 独立存储后，才清理网页 localStorage 中重复的大体积旧快照；绝不删除唯一副本。
+    try {
+      let gmSnapshot=null;
+      if(typeof GM!=='undefined'&&typeof GM.getValue==='function')gmSnapshot=await GM.getValue(SCAN_CACHE_STABLE_KEY,null);
+      if(!gmSnapshot&&typeof GM_getValue==='function')gmSnapshot=await GM_getValue(SCAN_CACHE_STABLE_KEY,null);
+      const verified=typeof gmSnapshot==='string'?JSON.parse(gmSnapshot):gmSnapshot;
+      if(verified&&Array.isArray(verified.roles)&&verified.roles.length===scannedRoles.length){
+        const remove=[];for(let i=0;i<W.localStorage.length;i++){const key=W.localStorage.key(i);if(key&&key.startsWith('mufycard_scan_cache_'))remove.push(key);}remove.forEach(key=>{try{W.localStorage.removeItem(key);}catch(_){}});
+      }
+    }catch(e){console.debug('[MufyCard] 旧扫描快照清理跳过（不影响数据）',e);}
     await loadMaskCaches();
-    initUI();
+    const persistentKeys=['mufycard_command_library_v1','mufycard_stickers_v1','mufycard_notes_v1','mufycard_music_tracks_v1','mufycard_music_state_v1'];
+    await Promise.all(persistentKeys.map(restorePageKeyFromScriptStorage));
+    // 恢复到 localStorage 后同步刷新内存态，避免页面初始化早于数据恢复而显示空列表。
+    try{const raw=W.localStorage.getItem('mufycard_stickers_v1');const value=raw?JSON.parse(raw):null;if(value&&Array.isArray(value.categories)&&Array.isArray(value.items))stickerData=value;}catch(_){}
+    try{const raw=W.localStorage.getItem('mufycard_notes_v1');const value=raw?JSON.parse(raw):null;if(Array.isArray(value))noteItems=value;}catch(_){}
+    await Promise.all(persistentKeys.map(migratePageKeyToScriptStorage));
+    await loadCommandItemsPersistent();
+    await initUI();
+    updateReport();
     if (scannedRoles.length) {
       renderFilteredRoles();
       updateReport();
