@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         MufyCard 4.1
+// @name         MufyCard 4.2.3
 // @namespace    local.mufy.custom.scanner
-// @version      4.1.1
-// @description  MufyCard 4.1 正式版
+// @version      4.2.3
+// @description  MufyCard 4.2.3 扩展衣柜导入格式，支持 JSON、Word、PDF 与常见文本格式
 // @updateURL    https://raw.githubusercontent.com/tengbei161-dev/Mufycard-update/refs/heads/main/MufyCard_4_1.meta.js
 // @downloadURL  https://raw.githubusercontent.com/tengbei161-dev/Mufycard-update/refs/heads/main/MufyCard_4_1.user.js
 // @match        https://chat.mufy.ai/*
@@ -197,9 +197,9 @@
     .more-entry { width:100%; text-align:left; padding:12px; margin-bottom:8px; border:1px solid var(--border); border-radius:10px; color:var(--fg); background:#ffffff06; cursor:pointer; }
     .more-entry small { display:block; color:var(--dim); margin-top:3px; }
 .trend-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:8px;border-bottom:1px solid var(--border)}.trend-toolbar button{border:1px solid #55555f;border-radius:7px;padding:6px 9px;background:#34343b;color:#f2f2f4;cursor:pointer}.trend-toolbar button:disabled{opacity:.45}.trend-summary{font-size:11px;color:var(--dim);margin-left:auto}.trend-list{flex:1;min-height:0;overflow:auto;padding:8px;-webkit-overflow-scrolling:touch}
-    .command-list { flex:1 1 0; min-height:0; overflow-y:auto; padding:9px; display:flex; flex-direction:column; gap:8px; }
+    .command-list { flex:1 1 0; height:0; min-height:0; overflow-y:auto; overflow-x:hidden; padding:9px; display:flex; flex-direction:column; gap:8px; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
     .command-card { display:flex; align-items:center; gap:8px; width:100%; min-width:0; padding:10px; border:1px solid var(--border); border-radius:9px; background:#ffffff06; color:var(--fg); }
-    .command-swipe{position:relative;overflow:hidden;border-radius:9px;touch-action:pan-y}.command-swipe-actions{position:absolute;inset:0 0 0 auto;display:flex;align-items:stretch}.command-swipe-actions button{width:62px;min-width:62px;border:0;border-radius:0;background:#55555f;color:#fff;font-size:11px;box-shadow:none}.command-card{position:relative;z-index:1;background:var(--bg);transition:transform .18s ease;will-change:transform}.command-card.swiped{transform:translateX(-62px)}.command-select{flex:0 0 18px;width:18px;height:18px;margin:0 2px 0 0}
+    .command-swipe{position:relative;flex:0 0 auto;width:100%;min-width:0;overflow:hidden;border-radius:9px;touch-action:pan-y}.command-swipe-actions{position:absolute;inset:0 0 0 auto;display:flex;align-items:stretch}.command-swipe-actions button{width:62px;min-width:62px;border:0;border-radius:0;background:#55555f;color:#fff;font-size:11px;box-shadow:none}.command-card{position:relative;z-index:1;background:var(--bg);transition:transform .18s ease;will-change:transform}.command-card.swiped{transform:translateX(-62px)}.command-select{flex:0 0 18px;width:18px;height:18px;margin:0 2px 0 0}
 
     .command-card-main { flex:1; min-width:0; text-align:left; }
     .command-card-name { font-size:13px; font-weight:650; overflow-wrap:anywhere; }
@@ -248,14 +248,21 @@
     .wardrobe-card .wardrobe-copy { display:block; width:100%; margin-top:4px; padding:3px 7px; border:0 !important; background:transparent !important; box-shadow:none !important; color:#aaa4c8 !important; font-size:10px; }
     .wardrobe-detail-backdrop { position:absolute; inset:0; z-index:5; display:flex; align-items:center; justify-content:center; padding:14px; background:#0009; }
     .wardrobe-detail { width:100%; max-height:90%; overflow:auto; border:1px solid var(--border); border-radius:14px; background:#202027; box-shadow:0 12px 36px #0009; padding:10px; }
-    .author-organizer-box { height:min(76vh,560px); max-height:calc(100% - 8px); display:flex; flex-direction:column; overflow:hidden; gap:7px; }
+    .author-organizer-box { max-height:90%; display:flex; flex-direction:column; overflow:auto; gap:7px; }
     .author-organizer-head,.author-organizer-controls,.author-organizer-footer { flex:0 0 auto; }
     .author-organizer-list { flex:1 1 auto; min-height:60px; overflow:auto; overscroll-behavior:contain; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-    .author-organizer-row { min-height:36px; display:flex; align-items:center; gap:8px; padding:5px 3px; border-bottom:1px solid #3b3b46; white-space:nowrap; }
+    .author-organizer-row { box-sizing:border-box; width:100%; min-height:36px; display:grid; grid-template-columns:18px minmax(0,1fr) auto; align-items:center; gap:8px; padding:5px 7px; border-bottom:1px solid #3b3b46; white-space:nowrap; overflow:hidden; }
     .author-organizer-row:last-child { border-bottom:0; }
-    .author-organizer-row input { width:auto !important; flex:0 0 auto; margin:0 !important; }
-    .author-organizer-row .author-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .author-organizer-row .author-count { flex:0 0 auto; margin-left:auto; white-space:nowrap; color:var(--dim); }
+    .author-organizer-row input { width:16px !important; min-width:16px !important; flex:0 0 16px; margin:0 !important; }
+    .author-organizer-row .author-name { display:block; min-width:0; width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .author-organizer-row small,.author-organizer-row .author-count { display:block; min-width:max-content; flex:0 0 auto; margin-left:0; white-space:nowrap; color:var(--dim); }
+    /* 收藏夹/作者分类列表：名称始终在可用区域水平居中，避免被挤到最右侧 */
+    .author-organizer-row .author-name { text-align:center !important; justify-self:stretch; }
+    .author-organizer-row .author-count { text-align:center !important; }
+    .greet-folder-row { box-sizing:border-box; width:100%; min-height:38px; display:grid !important; grid-template-columns:20px minmax(0,1fr) auto; align-items:center; gap:8px; padding:6px 8px; text-align:left !important; justify-content:initial !important; border-bottom:1px solid #3b3b46; }
+    .greet-folder-row input { width:16px !important; min-width:16px !important; margin:0 !important; }
+    .greet-folder-row .greet-folder-name { min-width:0; display:block; text-align:center !important; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .greet-folder-row small { min-width:max-content; text-align:center !important; white-space:nowrap; color:var(--dim); }
     .wardrobe-detail img { width:100%; max-height:220px; object-fit:contain; border-radius:8px; background:#15151b; }
     .wardrobe-detail .detail-desc { white-space:pre-wrap; overflow-wrap:anywhere; font-size:12px; margin:10px 0; }
     .wardrobe-detail input,.wardrobe-detail textarea,.wardrobe-detail select { width:100%; margin:5px 0 8px; padding:8px; border-radius:7px; border:1px solid var(--border); background:#15151b; color:var(--fg); }
@@ -365,6 +372,8 @@
     .archive-role-title { font-size:13px; line-height:1.45; font-weight:700; color:#f2efff; overflow-wrap:anywhere; }
     .archive-action { display:block; width:100%; margin-top:8px; border:1px solid #6558a5; border-radius:7px; background:#3b326c; color:#fff; padding:7px 8px; cursor:pointer; font-size:12px; }
     .archive-action:disabled { opacity:.65; cursor:wait; }
+    .archive-refresh { display:block; width:100%; margin-top:6px; border:1px solid #514965; border-radius:7px; background:#282631; color:#e8e3f4; padding:6px 8px; cursor:pointer; font-size:11px; }
+    .archive-refresh:disabled { opacity:.55; cursor:wait; }
     .archive-entry { display:block; margin-top:7px; padding:9px 10px; border:1px solid #ffffff12; border-radius:7px; background:#171622; color:#d2c9ff; text-decoration:none; overflow-wrap:anywhere; font-size:12px; }
     .archive-error { margin-top:8px; color:#ffb4b4; font-size:11px; }
     .list-container { flex:1; overflow-y:auto; padding:8px; display:flex; flex-direction:column; gap:6px; -webkit-overflow-scrolling:touch; }
@@ -386,7 +395,41 @@
     .role-state.unknown { color:#ffd580; border-color:#79623b; }
     .resize-grip { position:absolute; right:0; bottom:0; width:30px; height:30px; cursor:se-resize; z-index:10; touch-action:none; background:linear-gradient(135deg,transparent 50%,#666 50%,#666 60%,transparent 60%,transparent 70%,#666 70%,#666 80%,transparent 80%); opacity:.6; }
     @media (max-width:520px) { #panel { width:90vw; height:min(600px,72vh); max-height:82vh; } }
-  `;
+  
+    /* 4.1.14：修复唱片显示与连续翻页与标签原有配色，不覆盖全局按钮风格 */
+    #wardrobe-page .music-player-page .music-track-row { position:relative; overflow:hidden; touch-action:pan-y; }
+    #wardrobe-page .music-player-page .music-track-main { display:flex; align-items:center; gap:6px; width:100%; min-width:0; position:relative; z-index:2; background:transparent; }
+    #music-lyrics-stage { background:transparent !important; border-radius:0 !important; color:inherit !important; padding:12px 8px !important; }
+    #music-lyrics-stage #music-lyrics-lines { width:100%; height:100%; overflow-y:auto; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:15px; text-align:center; scrollbar-width:none; }
+    #music-lyrics-stage [data-lyric-line] { flex:0 0 auto; width:100%; color:var(--dim); opacity:.58; font-size:13px; line-height:1.65; transition:color .2s,opacity .2s,font-size .2s; overflow-wrap:anywhere; }
+    #music-lyrics-stage [data-lyric-line].active { color:var(--fg) !important; opacity:1 !important; font-size:16px; font-weight:750; text-shadow:none !important; }
+    #music-lyrics-stage [data-lyric-line] .lyric-text { color:inherit; transition:color .2s,opacity .2s; }
+    #music-lyrics-stage [data-lyric-line].active .lyric-text { color:var(--fg) !important; font-weight:750; }
+    #music-lyrics-panel { display:none !important; }
+    .author-scan-row { display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:7px; align-items:center; padding:9px 5px; border-bottom:1px solid var(--border); min-width:0; }
+    .author-scan-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:650; }
+    .author-scan-row a,.author-scan-row button { min-width:0; padding:6px 8px; border:1px solid #665a91; border-radius:7px; background:#302a48; color:#f2efff !important; text-decoration:none; white-space:nowrap; font-size:11px; }
+    .author-public-card { display:grid; grid-template-columns:48px minmax(0,1fr) auto; gap:8px; align-items:center; padding:7px 4px; border-bottom:1px solid var(--border); }
+    .author-public-card img { width:48px; height:48px; object-fit:cover; border-radius:7px; background:#17151e; }
+    .author-public-card .card-copy { min-width:0; }
+    .author-public-card .card-name { font-size:12px; font-weight:650; overflow-wrap:anywhere; }
+    .author-public-card .card-tags { margin-top:3px; color:var(--dim); font-size:10px; overflow-wrap:anywhere; }
+
+    .tag-role-result-row { box-sizing:border-box; width:100%; display:grid; grid-template-columns:18px minmax(0,1fr) minmax(70px,34%); align-items:center; gap:8px; min-height:38px; padding:6px 8px; border-bottom:1px solid var(--border); overflow:hidden; }
+    .tag-role-result-row input { width:16px!important; min-width:16px!important; margin:0!important; }
+    .tag-role-result-row .tag-role-name { display:block; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .tag-role-result-row .tag-role-tags { display:block; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right; font-size:10px; color:var(--dim); }
+    #tag-role-results { display:block; min-height:0; flex:1 1 auto; overflow:auto; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    #tag-folder-checks { flex:1 1 auto; max-height:none!important; min-height:0; }
+    .author-public-role-row { position:relative; box-sizing:border-box; width:100%; min-width:0; overflow:hidden; }
+    .author-public-role-row .author-public-avatar { width:42px; height:42px; flex:0 0 42px; object-fit:cover; border-radius:7px; background:#17151e; }
+    .author-public-role-row .role-title-wrap { flex:1 1 auto; min-width:0; }
+    .author-public-role-row .role-name { display:block; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .author-public-role-row .row-meta { min-width:0; overflow:hidden; }
+    .author-public-role-row .role-tags { display:flex; flex-wrap:wrap; gap:3px; margin-top:3px; }
+    .author-public-role-row .role-tag { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .author-public-role-row .author-card-check { flex:0 0 16px; width:16px!important; margin:0!important; }
+`;
 
   // ================= 3. DOM 构建 =================
   let host, shadow, dragHandle, panel, listContainer, resizeGrip, statusText, progressFill, progressPercent, phaseLabel;
@@ -826,9 +869,9 @@
           <button id="btn-select-visible" type="button">一键勾选</button>
           <button id="btn-favorite-selected" type="button" disabled>一键收藏（0）</button>
           <button id="btn-add-to-folder" type="button" disabled>加入收藏夹</button>
-          <button id="author-folder-btn" type="button">按作者整理</button>
+          <button id="author-folder-btn" type="button">自动收藏</button>
         </div>
-        <div class="chat-bulk" id="chat-bulk" hidden><button id="btn-chat-hi" type="button">发送 hi</button><button id="btn-chat-hi-stop" type="button" disabled>停止</button><button id="btn-chat-custom" type="button">自定义</button></div>
+        <div class="chat-bulk" id="chat-bulk" hidden><button id="btn-chat-folder-filter" type="button">全部收藏夹</button><button id="btn-chat-hi" type="button">发送 hi</button><button id="btn-chat-hi-stop" type="button" disabled>停止</button><button id="btn-chat-custom" type="button">自定义</button></div>
       </div>
       <div class="archive-toolbar" id="archive-toolbar" style="display:none"><input class="search-box" id="archive-search" type="search" placeholder="搜索已扫描角色…" aria-label="搜索存档角色" /><div class="status" id="archive-status">只显示已完成详情扫描的角色；可逐个读取存档</div></div>
       <div id="mask-toolbar" style="display:none;gap:6px;flex-direction:column;padding:6px 8px 2px"><input class="search-box" id="mask-search" type="search" placeholder="搜索备注、名称或描述…" /><button class="mask-add-btn" id="mask-refresh-btn" type="button">↻ 扫描/刷新网站面具</button><div style="display:flex;gap:6px"><button class="mask-add-btn" id="mask-add-btn" type="button" style="flex:1">＋ 新增本地面具</button><button class="mask-add-btn" id="mask-import-btn" type="button" style="flex:1">⇧ 导入本地面具</button></div><div class="mask-source-tabs"><button id="mask-view-cached" type="button">已缓存面具</button><button id="mask-view-local" class="active" type="button">本地面具</button></div><div class="status" id="mask-status">本地面具与网站缓存分开显示</div></div>
@@ -849,6 +892,9 @@
     wardrobeAudio.style.display = 'none';
     wardrobeAudio.setAttribute('aria-hidden', 'true');
     panel.appendChild(wardrobeAudio);
+    // 4.1.38：audio 节点创建后再绑定事件。原脚本顶层绑定执行时 wardrobeAudio 仍为 null，
+    // 导致 ended 等监听器整块被跳过，自动连续播放入口从未接通。
+    bindMusicAudioEvents();
 
     listContainer = panel.querySelector('#list-container');
     resizeGrip = panel.querySelector('#resize-grip');
@@ -870,7 +916,7 @@
     panel.querySelector('#tab-masks').onclick = () => switchTab('masks');
     panel.querySelector('#tab-more').onclick = () => showMoreTab();
     panel.querySelectorAll('[data-wardrobe]').forEach(b => b.onclick = () => openWardrobe(b.dataset.wardrobe));
-    panel.querySelector('#open-music-page').onclick = openMusicPage;
+    panel.querySelector('#open-music-page').onclick = e => { e.preventDefault(); e.stopPropagation(); openMusicPage(); };
     panel.querySelector('#open-command-page').onclick = openCommandPage;
     panel.querySelector('#open-sticker-page').onclick = openStickerPage;
     panel.querySelector('#open-avatar-page').onclick = openAvatarPage;
@@ -888,6 +934,7 @@
     panel.querySelector('#author-folder-btn').onclick = () => openAuthorFolderOrganizer();
     panel.querySelector('#btn-add-to-folder').onclick = () => openAddSelectedToFolderDialog();
     panel.querySelector('#btn-chat-hi').onclick = () => runChatHiBatch('hi');
+    panel.querySelector('#btn-chat-folder-filter').onclick = openGreetingFolderFilter;
     panel.querySelector('#btn-chat-custom').onclick = openCustomGreetingDialog;
     panel.querySelector('#btn-chat-hi-stop').onclick = () => { chatHiStopRequested = true; updateStatus('正在停止批量打招呼…'); };
     panel.querySelector('#btn-select-visible').onclick = selectAllVisibleRoles;
@@ -1342,11 +1389,11 @@
       };
       const roots = [root, root.character, root.characterInfo, root.characterData, root.role].filter(v => v && typeof v === 'object');
       for (const obj of roots) {
-        for (const key of explicitNameKeys) if (typeof obj[key] === 'string' && obj[key].trim()) return { name: obj[key].trim(), id: String(idKeys.map(k => obj[k]).find(v => v != null && String(v).trim()) || '') };
+        for (const key of explicitNameKeys) if (typeof obj[key] === 'string' && obj[key].trim()) return { name: obj[key].trim(), id: String(['userId','user_id','authorId','creatorId','author_id','creator_id','id','ownerId'].map(k => obj[k]).find(v => v != null && String(v).trim()) || '') };
         const author = obj.author || obj.authorInfo || obj.creator || obj.creatorInfo || obj.user || obj.userInfo || obj.owner || obj.createdBy || obj.createdByUser || obj.profile;
         const name = nameFrom(author);
         if (name) {
-          const id = author && typeof author === 'object' ? (author.id ?? author.userId ?? author.user_id ?? author.authorId ?? author.creatorId ?? '') : '';
+          const id = author && typeof author === 'object' ? (author.userId ?? author.user_id ?? author.authorId ?? author.creatorId ?? author.id ?? '') : '';
           return { name, id: String(id || '') };
         }
       }
@@ -1529,7 +1576,7 @@
         saveRemoteMasks();
         if (activeTab === 'masks') renderMaskPage();
       } catch (e) {
-        console.warn('[MufyCard 找卡助手 4.1.1 预览十六] 面具名称读取失败，继续扫描角色。', e);
+        console.warn('[MufyCard 4.2.3] 面具名称读取失败，继续扫描角色。', e);
       }
 
       for (let i = 0; i < detailRoles.length; i++) {
@@ -1580,8 +1627,11 @@
               const profileName = [profile?.username, profile?.nickname, profile?.nickName, profile?.name, profile?.displayName]
                 .find(v => typeof v === 'string' && v.trim());
               if (profileName && profileName.trim() !== role.name) role.authorName = profileName.trim();
+              // ChatMufy 用户资料接口不保证返回 profileUrl；作者主页实际路由为 /profile/role?id=<UUID>。
+              const profileUserId = String(profile?.userId || profile?.user_id || role.authorId || '').trim();
+              if (profileUserId) role.authorUrl = new URL(`/profile/role?id=${encodeURIComponent(profileUserId)}`, location.origin).href;
             } catch (profileError) {
-              console.debug('[MufyCard 找卡助手 4.1.1 预览十六] 作者资料读取失败：', role.authorId, profileError);
+              console.debug('[MufyCard 4.2.3] 作者资料读取失败：', role.authorId, profileError);
             }
           }
           if (role.authorName === role.name) role.authorName = '未知作者';
@@ -1620,7 +1670,7 @@
       notifyScanComplete(roles.length);
     } catch (e) {
       if (scanCancelRequested) return;
-      console.error('[MufyCard 找卡助手 4.1.1 预览十六] 扫描失败：', e);
+      console.error('[MufyCard 4.2.3] 扫描失败：', e);
       updateStatus(`❌ 扫描失败：${e.message || e}`, 'err');
       window.alert(`扫描失败：${e.message || e}`);
     } finally {
@@ -1675,9 +1725,11 @@
   const MUSIC_TRACKS_KEY = 'mufycard_music_tracks_v1';
   const MUSIC_STATE_KEY = 'mufycard_music_state_v1';
   const MUSIC_COVER_KEY = 'mufycard_music_cover_v1';
+  const MUSIC_CATEGORIES_KEY = 'mufycard_music_categories_v1';
+  let musicCategories = []; let musicSelectedIds = new Set(); let musicMultiSelect = false; let musicActiveCategory = '全部'; let musicLyricsTrackId = ''; let musicLyricsTimer = 0;
   // 可在脚本中预置歌曲：{title:'歌曲名', url:'https://.../song.mp3', cover:''}
   const PRESET_MUSIC_TRACKS = [];
-  let musicTracks = []; let musicIndex = 0; let musicMode = 'sequence'; let musicCover = ''; let musicCoverSize = 35; let musicSeekTimer = 0; let musicRestoreTime = 0; let musicRestorePending = false; let musicSeeking = false; let musicAdvancing = false;
+  let musicTracks = []; let musicIndex = 0; let musicPlaybackRequestId = 0; let musicShuffleBag = []; let musicMode = 'sequence'; let musicCover = ''; let musicCoverSize = 35; let musicSeekTimer = 0; let musicRestoreTime = 0; let musicRestorePending = false; let musicSeeking = false; let musicAdvancing = false;
   const emptyWardrobe = () => ({ user: { categories: ['韩系','日系'], items: [] }, char: { categories: ['韩系','日系'], items: [] } });
   function openWardrobeDB() { return new Promise((resolve,reject)=>{ if(!W.indexedDB){reject(new Error('IndexedDB 不可用'));return;} const req=W.indexedDB.open(WARDROBE_DB,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('data'))req.result.createObjectStore('data');};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error); }); }
   async function readWardrobeDB() { const db=await openWardrobeDB(); return new Promise((resolve,reject)=>{const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get('wardrobe');req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error);tx.oncomplete=()=>db.close();}); }
@@ -1685,11 +1737,27 @@
   function readWardrobe() { try { const v=JSON.parse(W.localStorage.getItem(WARDROBE_KEY)||'null'); if(v&&v.user&&v.char)return normalizeWardrobe(v); } catch(_) {} return emptyWardrobe(); }
   function normalizeWardrobe(v) { const base=emptyWardrobe(); for(const type of ['user','char']){const g=v?.[type];if(!g)continue;base[type].categories=[...new Set((Array.isArray(g.categories)?g.categories:[]).filter(x=>typeof x==='string'&&x.trim()))];base[type].items=(Array.isArray(g.items)?g.items:[]).filter(i=>i&&typeof i.description==='string').map(i=>({...i,id:i.id||('w'+Date.now()+Math.random().toString(16).slice(2)),description:String(i.description),categories:Array.isArray(i.categories)?i.categories:(i.category?[i.category]:[]),image:String(i.image||'')}));}return base; }
   let wardrobeData = readWardrobe();
-  async function initializeWardrobeStorage() { try { const saved=await readWardrobeDB(); if(saved) wardrobeData=normalizeWardrobe(saved); else { await writeWardrobeDB(wardrobeData); } } catch(e) { console.warn('[MufyCard] IndexedDB wardrobe init failed',e); } }
-  void initializeWardrobeStorage();
+  async function initializeWardrobeStorage() {
+    let dbSaved=null;
+    try { dbSaved=await readWardrobeDB(); } catch(e) { console.warn('[MufyCard] IndexedDB wardrobe init failed; trying script storage',e); }
+    if(dbSaved){wardrobeData=normalizeWardrobe(dbSaved);return;}
+    try {
+      const backup=await persistentReadAsync(WARDROBE_KEY,null);
+      const parsed=typeof backup==='string'?JSON.parse(backup):backup;
+      if(parsed&&parsed.user&&parsed.char)wardrobeData=normalizeWardrobe(parsed);
+      try{await writeWardrobeDB(wardrobeData);}catch(e){console.debug('[MufyCard] IndexedDB 不可用，继续使用独立脚本存储',e);}
+    } catch(e) { console.warn('[MufyCard] 衣柜备份恢复失败',e); }
+  }
+  const wardrobeStorageReady=initializeWardrobeStorage();
   async function saveWardrobe() {
-    try { await writeWardrobeDB(wardrobeData); try { W.localStorage.setItem(WARDROBE_KEY, JSON.stringify({...wardrobeData,user:{...wardrobeData.user,items:wardrobeData.user.items.map(i=>({...i,image:''}))},char:{...wardrobeData.char,items:wardrobeData.char.items.map(i=>({...i,image:''}))}})); } catch(_) {} showToast('衣柜已保存到本地。','ok'); return true; }
-    catch(e) { console.error('[MufyCard] 衣柜 IndexedDB 保存失败',e); showToast('衣柜保存失败。请导出备份后重试，或减少图片大小。','err'); return false; }
+    const full=JSON.stringify(wardrobeData);
+    const light=JSON.stringify({...wardrobeData,user:{...wardrobeData.user,items:wardrobeData.user.items.map(i=>({...i,image:''}))},char:{...wardrobeData.char,items:wardrobeData.char.items.map(i=>({...i,image:''}))}});
+    let dbSaved=false,backupSaved=false;
+    try{await writeWardrobeDB(wardrobeData);dbSaved=true;}catch(e){console.warn('[MufyCard] 衣柜 IndexedDB 保存失败，改用脚本独立存储',e);}
+    try{backupSaved=await persistentWrite(WARDROBE_KEY,full);}catch(e){console.warn('[MufyCard] 衣柜独立存储失败',e);}
+    try{W.localStorage.setItem(WARDROBE_KEY,light);}catch(_){}
+    if(dbSaved||backupSaved){showToast('衣柜已保存到本地。','ok');return true;}
+    showToast('衣柜保存失败：浏览器本地存储不可用。请先导出备份后重试。','err');return false;
   }
   const COMMANDS_KEY = 'mufycard_command_library_v1';
   let commandItems = [];
@@ -1697,16 +1765,23 @@
   let commandMultiSelect = false;
   const commandSelected = new Set();
   try { const saved = JSON.parse(W.localStorage.getItem(COMMANDS_KEY) || '[]'); if (Array.isArray(saved)) commandItems = saved.filter(x => x && typeof x.name === 'string' && typeof x.text === 'string'); } catch (_) {}
+  async function readCommandArrayFromStorage(){
+    const candidates=[];
+    try{const raw=W.localStorage.getItem(COMMANDS_KEY);if(raw!==null){const v=JSON.parse(raw);if(Array.isArray(v))candidates.push(v.filter(x=>x&&typeof x.name==='string'&&typeof x.text==='string'));}}catch(e){console.debug('[MufyCard] 指令库 localStorage 数据无效',e);}
+    try{if(typeof GM!=='undefined'&&typeof GM.getValue==='function'){const raw=await GM.getValue(COMMANDS_KEY,null);const v=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(v))candidates.push(v.filter(x=>x&&typeof x.name==='string'&&typeof x.text==='string'));}}catch(e){console.debug('[MufyCard] 指令库 GM.getValue 读取失败',e);}
+    try{if(typeof GM_getValue==='function'){const raw=await GM_getValue(COMMANDS_KEY,null);const v=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(v))candidates.push(v.filter(x=>x&&typeof x.name==='string'&&typeof x.text==='string'));}}catch(e){console.debug('[MufyCard] 指令库 GM_getValue 读取失败',e);}
+    // 非破坏性恢复：空数组不能覆盖另一份非空备份；多份数据不同时暂取条目较多的一份。
+    return candidates.sort((a,b)=>b.length-a.length)[0]||[];
+  }
   async function loadCommandItemsPersistent(){
-    if(commandItems.length)return;
-    try{let raw=null;if(typeof GM!=='undefined'&&typeof GM.getValue==='function')raw=await GM.getValue(COMMANDS_KEY,null);if((raw===null||raw===undefined)&&typeof GM_getValue==='function')raw=await GM_getValue(COMMANDS_KEY,null);const arr=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(arr)){commandItems=arr.filter(x=>x&&typeof x.name==='string'&&typeof x.text==='string');try{W.localStorage.setItem(COMMANDS_KEY,JSON.stringify(commandItems));}catch(_){} }}catch(e){console.debug('[MufyCard] 指令库持久化读取失败',e);}
+    try{const recovered=await readCommandArrayFromStorage();if(recovered.length>=commandItems.length)commandItems=recovered;if(commandItems.length){const serialized=JSON.stringify(commandItems);try{W.localStorage.setItem(COMMANDS_KEY,serialized);}catch(_){}try{if(typeof GM!=='undefined'&&typeof GM.setValue==='function')await GM.setValue(COMMANDS_KEY,serialized);else if(typeof GM_setValue==='function')await GM_setValue(COMMANDS_KEY,serialized);}catch(e){console.debug('[MufyCard] 指令库恢复回写失败',e);}}}catch(e){console.debug('[MufyCard] 指令库持久化读取失败',e);}
   }
   async function saveCommandItems(){
-    const serialized=JSON.stringify(commandItems);let saved=false;
-    try{W.localStorage.setItem(COMMANDS_KEY,serialized);saved=W.localStorage.getItem(COMMANDS_KEY)===serialized;}catch(e){console.warn('[MufyCard] 指令库 localStorage 写入失败，尝试独立存储',e);}
-    try{if(typeof GM!=='undefined'&&typeof GM.setValue==='function'){await GM.setValue(COMMANDS_KEY,serialized);if(typeof GM.getValue==='function'&&(await GM.getValue(COMMANDS_KEY,null))===serialized)saved=true;}}catch(e){console.warn('[MufyCard] 指令库 GM 存储失败',e);}
-    try{if(!saved&&typeof GM_setValue==='function'){await GM_setValue(COMMANDS_KEY,serialized);if(typeof GM_getValue==='function'&&(await GM_getValue(COMMANDS_KEY,null))===serialized)saved=true;}}catch(e){console.warn('[MufyCard] 指令库旧版 GM 存储失败',e);}
-    if(!saved){showToast('保存失败：网页存储和脚本独立存储均不可用。请先导出备份后再试。','err');return false;}return true;
+    const serialized=JSON.stringify(commandItems);let successes=0;
+    try{W.localStorage.setItem(COMMANDS_KEY,serialized);if(W.localStorage.getItem(COMMANDS_KEY)===serialized)successes++;}catch(e){console.warn('[MufyCard] 指令库 localStorage 写入失败',e);}
+    try{if(typeof GM!=='undefined'&&typeof GM.setValue==='function'){await GM.setValue(COMMANDS_KEY,serialized);if(typeof GM.getValue==='function'&&(await GM.getValue(COMMANDS_KEY,null))===serialized)successes++;}}catch(e){console.warn('[MufyCard] 指令库 GM 存储失败',e);}
+    try{if(typeof GM_setValue==='function'){await GM_setValue(COMMANDS_KEY,serialized);if(typeof GM_getValue==='function'&&(await GM_getValue(COMMANDS_KEY,null))===serialized)successes++;}}catch(e){console.warn('[MufyCard] 指令库旧版 GM 存储失败',e);}
+    if(!successes){showToast('保存失败：网页存储和脚本独立存储均不可用。请先导出备份后再试。','err');return false;}return true;
   }
   function commandCategories(){return [...new Set(commandItems.map(x=>String(x.category||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh'));}
   function commandMatchesCategory(item, category=commandCategoryFilter){return category==='全部'||(category==='未分类'?!String(item.category||'').trim():String(item.category||'').trim()===category);}
@@ -1823,7 +1898,41 @@
   // ================= 4.1：善用备忘录 =================
   const NOTES_KEY='mufycard_notes_v1';let noteItems=[];let noteCategoryFilter='全部';
   try{const x=JSON.parse(W.localStorage.getItem(NOTES_KEY)||'[]');if(Array.isArray(x))noteItems=x;}catch(_){}
-  function saveNotes(){const raw=JSON.stringify(noteItems);let pageSaved=false;try{W.localStorage.setItem(NOTES_KEY,raw);pageSaved=true;}catch(e){console.warn('[MufyCard] 备忘录网页存储失败，转存脚本空间',e);}void mirrorToScriptStorage(NOTES_KEY,raw);if(!pageSaved&&typeof GM==='undefined'&&typeof GM_setValue!=='function'){showToast('备忘录保存失败：当前浏览器存储空间不足。','err');return false;}return true;}
+  async function readNotesPersistent(){
+    const candidates=[];
+    try{const raw=W.localStorage.getItem(NOTES_KEY);if(raw!==null){const value=JSON.parse(raw);if(Array.isArray(value))candidates.push(value);}}catch(e){console.debug('[MufyCard] 备忘录网页存储读取失败',e);}
+    try{if(typeof GM!=='undefined'&&typeof GM.getValue==='function'){const raw=await GM.getValue(NOTES_KEY,null);const value=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(value))candidates.push(value);}}catch(e){console.debug('[MufyCard] 备忘录 GM 存储读取失败',e);}
+    try{if(typeof GM_getValue==='function'){const raw=await GM_getValue(NOTES_KEY,null);const value=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(value))candidates.push(value);}}catch(e){console.debug('[MufyCard] 备忘录旧版 GM 存储读取失败',e);}
+    return candidates.sort((a,b)=>b.length-a.length)[0]||[];
+  }
+  // 备忘录采用串行写入：避免连续新增/编辑多条时，异步 GM 存储写入顺序颠倒，旧快照最后覆盖新快照。
+  let notesSaveQueue=Promise.resolve();
+  async function saveNotes(){
+    const raw=JSON.stringify(noteItems);
+    const writeTask=notesSaveQueue.catch(()=>{}).then(async()=>{
+      let pageSaved=false,scriptSaved=false;
+      // localStorage 同步写入，刷新/页面隐藏前也能立即留下最新完整列表。
+      try{W.localStorage.setItem(NOTES_KEY,raw);pageSaved=W.localStorage.getItem(NOTES_KEY)===raw;}catch(e){console.warn('[MufyCard] 备忘录网页存储失败',e);}
+      // GM 写入排队执行，防止多个保存请求并发完成时旧数据反向覆盖新数据。
+      try{
+        if(typeof GM!=='undefined'&&typeof GM.setValue==='function'){
+          await GM.setValue(NOTES_KEY,raw);
+          if(typeof GM.getValue==='function'){const check=await GM.getValue(NOTES_KEY,null);scriptSaved=(typeof check==='string'?check:JSON.stringify(check))===raw;}else scriptSaved=true;
+        }else if(typeof GM_setValue==='function'){
+          await GM_setValue(NOTES_KEY,raw);
+          if(typeof GM_getValue==='function'){const check=await GM_getValue(NOTES_KEY,null);scriptSaved=(typeof check==='string'?check:JSON.stringify(check))===raw;}else scriptSaved=true;
+        }
+      }catch(e){console.warn('[MufyCard] 备忘录脚本存储失败',e);}
+      if(!pageSaved&&!scriptSaved){showToast('备忘录保存失败：浏览器没有成功保存数据。','err');return false;}
+      return true;
+    });
+    notesSaveQueue=writeTask;
+    return writeTask;
+  }
+  // 页面切到后台或刷新时，再同步落一份最新列表到网页存储。
+  function flushNotesToPageStorage(){try{W.localStorage.setItem(NOTES_KEY,JSON.stringify(noteItems));}catch(e){console.warn('[MufyCard] 备忘录刷新前保存失败',e);}}
+  W.addEventListener('pagehide',flushNotesToPageStorage);
+  W.addEventListener('beforeunload',flushNotesToPageStorage);
 
   // ================= 小u新头像：独立头像库 =================
   const AVATAR_DB = 'mufycard_avatar_library_db_v1';
@@ -1929,7 +2038,7 @@
     if(deleteButton) deleteButton.onclick=()=>{ if(!avatarSelected.size)return; if(!confirm(`确定删除选中的 ${avatarSelected.size} 张头像吗？`))return; avatarData.items=avatarData.items.filter(x=>!avatarSelected.has(x.id)); avatarSelected.clear(); void saveAvatarData().then(ok=>{if(ok){renderAvatarPage();showToast('选中的头像已删除。','ok');}}); };
     page.querySelectorAll('[data-avatar-select]').forEach(cb=>cb.onchange=()=>{cb.checked?avatarSelected.add(cb.dataset.avatarSelect):avatarSelected.delete(cb.dataset.avatarSelect);cb.closest('.avatar-card')?.classList.toggle('is-selected',cb.checked);const small=page.querySelector('.avatar-tools small');if(small)small.textContent='已选 '+items.filter(x=>avatarSelected.has(x.id)).length;const all=page.querySelector('#avatar-all');if(all)all.textContent=items.length&&items.every(x=>avatarSelected.has(x.id))?'取消全选':'全选';});
     // 页面级事件委托，复制和编辑按钮在移动端也能稳定响应。
-    page.addEventListener('click', async event => {
+    page.onclick = async event => {
       const copyButton = event.target.closest('[data-avatar-copy]');
       const editButton = event.target.closest('[data-avatar-edit]');
       if (copyButton) {
@@ -1940,7 +2049,7 @@
         return;
       }
       if (editButton) { event.preventDefault(); event.stopPropagation(); editAvatar(editButton.dataset.avatarEdit); }
-    }, true);
+    };
     bindAvatarReorder(page.querySelector('#avatar-grid'));
   }
   async function openAvatarPage() {
@@ -2231,7 +2340,8 @@
     panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));
     panel.querySelector('#tab-more').classList.add('active');
   }
-  function openWardrobe(type) {
+  async function openWardrobe(type) {
+    try{await wardrobeStorageReady;}catch(e){console.warn('[MufyCard] 衣柜存储初始化未完成',e);}
     wardrobeType = type; wardrobeCategory = '全部'; wardrobeView='wardrobe'; renderWardrobe();
   }
   function renderWardrobe() {
@@ -2241,7 +2351,7 @@
     panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));
     const group=wardrobeData[wardrobeType];
     const categories=['全部',...group.categories];
-    page.innerHTML=`<div class="wardrobe-head"><button id="wardrobe-back" type="button">← 返回</button><strong>${wardrobeType==='user'?'🎀 User 衣柜':'👔 Char 衣柜'}</strong><button id="wardrobe-add" type="button" title="新增预设">＋</button></div><div class="wardrobe-tools"><select id="wardrobe-filter" aria-label="筛选分类">${categories.map(c=>`<option ${c===wardrobeCategory?'selected':''}>${escapeHtml(c)}</option>`).join('')}</select><button id="wardrobe-category-add" type="button">＋ 分类</button><button id="wardrobe-category-manage" type="button">分类管理</button><button id="wardrobe-word-import" type="button">导入 Word</button><button id="wardrobe-multiselect" type="button">${wardrobeMultiSelect?'退出多选':'多选'}</button>${wardrobeMultiSelect?`<button id="wardrobe-select-all" type="button">全选</button><button id="wardrobe-bulk-move" type="button">批量移动分类</button><button id="wardrobe-bulk-delete" type="button">批量删除</button><span class="wardrobe-bulk-status">已选 ${wardrobeSelectedIds.size} 件</span>`:''}</div><div class="wardrobe-grid" id="wardrobe-grid"></div>`;;
+    page.innerHTML=`<div class="wardrobe-head"><button id="wardrobe-back" type="button">← 返回</button><strong>${wardrobeType==='user'?'🎀 User 衣柜':'👔 Char 衣柜'}</strong><button id="wardrobe-add" type="button" title="新增预设">＋</button></div><div class="wardrobe-tools"><select id="wardrobe-filter" aria-label="筛选分类">${categories.map(c=>`<option ${c===wardrobeCategory?'selected':''}>${escapeHtml(c)}</option>`).join('')}</select><button id="wardrobe-category-add" type="button">＋ 分类</button><button id="wardrobe-category-manage" type="button">分类管理</button><button id="wardrobe-word-import" type="button">导入衣柜</button><button id="wardrobe-multiselect" type="button">${wardrobeMultiSelect?'退出多选':'多选'}</button>${wardrobeMultiSelect?`<button id="wardrobe-select-all" type="button">全选</button><button id="wardrobe-bulk-move" type="button">批量移动分类</button><button id="wardrobe-bulk-delete" type="button">批量删除</button><span class="wardrobe-bulk-status">已选 ${wardrobeSelectedIds.size} 件</span>`:''}</div><div class="wardrobe-grid" id="wardrobe-grid"></div>`;;
     page.querySelector('#wardrobe-back').onclick=showMorePage;
     page.querySelector('#wardrobe-add').onclick=()=>editWardrobeItem(null);
     page.querySelector('#wardrobe-filter').onchange=e=>{wardrobeCategory=e.target.value;wardrobeSelectedIds.clear();renderWardrobe();};
@@ -2260,7 +2370,7 @@
     const allBtn=page.querySelector('#wardrobe-select-all'); if(allBtn)allBtn.onclick=()=>{const all=items.every(i=>wardrobeSelectedIds.has(i.id));items.forEach(i=>all?wardrobeSelectedIds.delete(i.id):wardrobeSelectedIds.add(i.id));renderWardrobe();};
     const bulkBtn=page.querySelector('#wardrobe-bulk-move'); if(bulkBtn)bulkBtn.onclick=()=>showBulkCategoryDialog();
     const bulkDeleteBtn=page.querySelector('#wardrobe-bulk-delete'); if(bulkDeleteBtn)bulkDeleteBtn.onclick=async()=>{const ids=[...wardrobeSelectedIds];if(!ids.length){showToast('请先勾选需要删除的衣服。','err');return;}if(!confirm(`确定删除选中的 ${ids.length} 件穿搭吗？此操作无法撤销。`))return;group.items=group.items.filter(item=>!ids.includes(item.id));wardrobeSelectedIds.clear();if(await saveWardrobe()){wardrobeMultiSelect=false;renderWardrobe();showToast(`已删除 ${ids.length} 件穿搭。`,'ok');}};
-    page.querySelector('#wardrobe-word-import').onclick=()=>importWardrobeWord();
+    page.querySelector('#wardrobe-word-import').onclick=()=>importWardrobeFile();
   }
   function showWardrobeCategoryManager(){
     const group=wardrobeData[wardrobeType], page=panel.querySelector('#wardrobe-page');
@@ -2290,27 +2400,109 @@
     panel.querySelector('#wardrobe-page').appendChild(overlay);overlay.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>overlay.remove());
     overlay.querySelector('[data-apply]').onclick=async()=>{const cats=[...overlay.querySelectorAll('#bulk-cats input:checked')].map(x=>x.value);if(!cats.length){showToast('请至少选择一个分类。','err');return;}const mode=overlay.querySelector('#bulk-mode').value;for(const item of group.items.filter(i=>ids.includes(i.id))){const old=Array.isArray(item.categories)?item.categories:(item.category?[item.category]:[]);item.categories=mode==='replace'?[...cats]:[...new Set([...old,...cats])];delete item.category;}if(await saveWardrobe()){overlay.remove();wardrobeSelectedIds.clear();wardrobeMultiSelect=false;renderWardrobe();}};
   }
-  async function importWardrobeWord(){
-    const input=document.createElement('input');input.type='file';input.accept='.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document';input.onchange=async()=>{const file=input.files&&input.files[0];if(!file)return;try{const parsed=await parseDocxWardrobe(file);if(!parsed.length)throw new Error('没有识别到衣服条目');const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';overlay.innerHTML=`<section class="wardrobe-detail" style="display:flex;flex-direction:column;max-height:90%;min-height:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex:0 0 auto"><strong>Word 导入预览（识别到 ${parsed.length} 件）</strong><button type="button" data-close aria-label="关闭预览">×</button></div><div style="display:flex;align-items:center;gap:8px;justify-content:space-between;margin:8px 0;flex:0 0 auto"><p style="color:#bdbdca;font-size:12px;line-height:1.4;margin:0;flex:1">请检查图片和描述是否对应。导入后默认不设置分类。</p><button type="button" data-import style="flex:0 0 auto;white-space:nowrap">确认导入</button></div><div style="display:grid;gap:8px;max-height:60vh;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain">${parsed.map((x,i)=>`<div style="display:grid;grid-template-columns:80px minmax(0,1fr);gap:8px;border-bottom:1px solid #484454;padding:6px 0">${x.image?`<img src="${x.image}" style="width:80px;height:85px;object-fit:cover;object-position:center 42%;border-radius:6px">`:'<div style="color:#aaa">无图片</div>'}<div style="font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere">${escapeHtml(x.description.slice(0,600))}</div></div>`).join('')}</div></section>`;panel.querySelector('#wardrobe-page').appendChild(overlay);overlay.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>overlay.remove());overlay.querySelector('[data-import]').onclick=async()=>{const group=wardrobeData[wardrobeType];for(const x of parsed)group.items.unshift({id:'w'+Date.now()+Math.random().toString(16).slice(2),description:x.description,categories:[],image:x.image||''});if(await saveWardrobe()){overlay.remove();wardrobeCategory='全部';wardrobeMultiSelect=false;wardrobeSelectedIds.clear();renderWardrobe();showToast(`已导入 ${parsed.length} 件衣服。`,'ok');}};}catch(e){console.error('[MufyCard] Word 导入失败',e);showToast('Word 解析失败：'+(e&&e.message?e.message:'未知错误')+'。请确认是 .docx 文件。','err');}};input.click();
+  async function importWardrobeFile(){
+    // 接受所有文件，由内容特征决定解析方式；不要只依赖扩展名/MIME（移动端文件提供器经常不给 MIME）。
+    const input=document.createElement('input');
+    input.type='file';
+    input.accept='*/*';
+    input.style.cssText='position:fixed;left:1px;top:1px;width:2px;height:2px;opacity:0.01;z-index:2147483647;pointer-events:none;';
+    input.setAttribute('aria-hidden','true');
+    const cleanup=()=>{try{input.remove();}catch(_){if(input.parentNode)input.parentNode.removeChild(input);}};
+    input.addEventListener('change',async()=>{
+      const file=input.files&&input.files[0];
+      if(!file){cleanup();return;}
+      try{
+        const result=await parseWardrobeImportFile(file);
+        const parsed=result.items||[];
+        const backup=result.backup||null;
+        const total=backup?(['user','char'].reduce((n,t)=>n+(backup[t]?.items?.length||0),0)):parsed.length;
+        const hasBackupCategories=!!backup&&(['user','char'].some(t=>backup[t].categories.length>0));
+        if(!total&&!hasBackupCategories)throw new Error('没有识别到有效的衣服条目或衣柜备份内容');
+        const summary=backup?`User：${backup.user.items.length} 件，Char：${backup.char.items.length} 件`:`当前 ${wardrobeType==='user'?'User':'Char'} 衣柜：${parsed.length} 件`;
+        const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
+        overlay.innerHTML=`<section class="wardrobe-detail" style="display:flex;flex-direction:column;max-height:90%;min-height:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex:0 0 auto"><strong>导入预览（${escapeHtml(file.name||'所选文件')}）</strong><button type="button" data-close aria-label="关闭预览">×</button></div><div style="display:flex;align-items:center;gap:8px;justify-content:space-between;margin:8px 0;flex:0 0 auto"><p style="color:#bdbdca;font-size:12px;line-height:1.4;margin:0;flex:1">${escapeHtml(summary)}。导入会合并内容，不会清空现有衣柜。</p><button type="button" data-import style="flex:0 0 auto;white-space:nowrap">确认导入</button></div><div style="display:grid;gap:8px;max-height:60vh;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain">${backup?['user','char'].map(t=>`<div style="padding:8px;border-bottom:1px solid #484454"><strong>${t==='user'?'User 衣柜':'Char 衣柜'}</strong><div style="font-size:12px;color:#bdbdca;margin-top:4px">分类 ${backup[t].categories.length} 个 · 预设 ${backup[t].items.length} 件</div>${backup[t].items.slice(0,8).map(x=>`<div style="font-size:12px;padding:4px 0;overflow-wrap:anywhere">${escapeHtml(x.description.slice(0,180))}</div>`).join('')}</div>`).join('') : parsed.slice(0,40).map(x=>`<div style="display:grid;grid-template-columns:80px minmax(0,1fr);gap:8px;border-bottom:1px solid #484454;padding:6px 0">${x.image?`<img src="${x.image}" style="width:80px;height:85px;object-fit:cover;object-position:center 42%;border-radius:6px">`:'<div style="color:#aaa">无图片</div>'}<div style="font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere">${escapeHtml(x.description.slice(0,600))}</div></div>`).join('')}${!backup&&parsed.length>40?`<div style="font-size:12px;color:#aaa">另有 ${parsed.length-40} 件未在预览中展开</div>`:''}</div></section>`;
+        panel.querySelector('#wardrobe-page').appendChild(overlay);
+        overlay.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>overlay.remove());
+        overlay.querySelector('[data-import]').onclick=async()=>{
+          if(backup){
+            for(const type of ['user','char']){
+              const src=backup[type],dest=wardrobeData[type];
+              dest.categories=[...new Set([...dest.categories,...src.categories])];
+              for(const item of src.items)dest.items.unshift({...item,id:'w'+Date.now()+Math.random().toString(16).slice(2),categories:Array.isArray(item.categories)?item.categories:(item.category?[item.category]:[]),image:String(item.image||'')});
+            }
+          }else{
+            const group=wardrobeData[wardrobeType];
+            for(const x of parsed)group.items.unshift({id:'w'+Date.now()+Math.random().toString(16).slice(2),description:x.description,categories:Array.isArray(x.categories)?x.categories:[],image:x.image||''});
+          }
+          if(await saveWardrobe()){overlay.remove();wardrobeCategory='全部';wardrobeMultiSelect=false;wardrobeSelectedIds.clear();renderWardrobe();showToast(`已导入 ${total} 件衣服。`,'ok');}
+        };
+      }catch(e){console.error('[MufyCard] 衣柜导入失败',e);showToast('导入失败：'+(e&&e.message?e.message:'文件内容无法识别'),'err');}
+      finally{cleanup();}
+    },{once:true});
+    input.addEventListener('cancel',cleanup,{once:true});
+    (document.body||document.documentElement).appendChild(input);
+    try{input.click();}catch(e){console.warn('[MufyCard] 文件选择器启动失败',e);showToast('无法打开文件选择器，请重试。','err');cleanup();}
+  }
+  let wardrobeJSZipLoadPromise=null;
+  async function ensureWardrobeJSZip(){
+    if(typeof JSZip!=='undefined')return JSZip;
+    if(!wardrobeJSZipLoadPromise){
+      wardrobeJSZipLoadPromise=new Promise((resolve,reject)=>{
+        const script=document.createElement('script');
+        script.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        script.onload=()=>typeof JSZip!=='undefined'?resolve(JSZip):reject(new Error('JSZip 脚本已加载但组件不可用'));
+        script.onerror=()=>reject(new Error('无法加载 DOCX 解压组件，请检查 Edge 网络或脚本管理器权限'));
+        (document.head||document.documentElement).appendChild(script);
+      }).catch(err=>{wardrobeJSZipLoadPromise=null;throw err;});
+    }
+    return wardrobeJSZipLoadPromise;
   }
   async function parseDocxWardrobe(file){
     // Use JSZip rather than native DecompressionStream: Safari/iOS can throw
     // "Invalid type should be ArrayBuffer" when processing raw-deflate DOCX entries.
-    if(!file || !/\.docx$/i.test(file.name||'')) throw new Error('请选择 .docx 格式的 Word 文件');
-    if(typeof JSZip==='undefined') throw new Error('DOCX 解析组件未加载，请检查网络后刷新页面再试');
+    if(!file) throw new Error('没有读取到所选文件');
+    const fileName=String(file.name||'');
+    const fileType=String(file.type||'').toLowerCase();
+    if(typeof JSZip==='undefined') await ensureWardrobeJSZip();
+    if(typeof JSZip==='undefined') throw new Error('DOCX 解析组件未加载；请检查网络连接后重试');
+    if(file.size===0) throw new Error('所选文件为空，请重新选择 Word 文档');
     let zip;
-    try { zip = await JSZip.loadAsync(file); }
+    try {
+      // Android 文件提供器对 File.arrayBuffer() 的支持并不完全一致：优先用 FileReader，
+      // 失败时再回退到 Blob.arrayBuffer；两条路径都交给 JSZip 处理，不改变 Safari/Via 的解析方式。
+      let buffer;
+      try {
+        buffer=await new Promise((resolve,reject)=>{
+          if(typeof FileReader==='undefined'){reject(new Error('当前浏览器不支持文件读取'));return;}
+          const reader=new FileReader();
+          reader.onload=()=>resolve(reader.result);
+          reader.onerror=()=>reject(reader.error||new Error('FileReader 读取失败'));
+          reader.onabort=()=>reject(new Error('文件读取已取消'));
+          reader.readAsArrayBuffer(file);
+        });
+      } catch(readerError) {
+        if(typeof file.arrayBuffer!=='function') throw readerError;
+        buffer=await file.arrayBuffer();
+      }
+      if(buffer instanceof Uint8Array) buffer=buffer.buffer.slice(buffer.byteOffset,buffer.byteOffset+buffer.byteLength);
+      if(!(buffer instanceof ArrayBuffer)) throw new Error('浏览器没有返回有效的文件数据');
+      const signature=new Uint8Array(buffer,0,Math.min(4,buffer.byteLength));
+      const looksLikeZip=signature.length>=4&&signature[0]===0x50&&signature[1]===0x4b&&([0x03,0x05,0x07].includes(signature[2]));
+      const acceptedMime=['application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/octet-stream','application/zip','application/x-zip-compressed',''].includes(fileType);
+      if(!/\.docx$/i.test(fileName)&&!acceptedMime&&!looksLikeZip) throw new Error('请选择 .docx 格式的 Word 文件');
+      if(!looksLikeZip) throw new Error('所选文件不是有效的 DOCX/ZIP 文档，请重新从文件管理器选择 .docx 文件');
+      zip = await JSZip.loadAsync(buffer);
+    }
     catch(e) { throw new Error('DOCX 文件读取或解压失败：'+(e&&e.message||'文件可能已损坏')); }
     const docEntry=zip.file('word/document.xml');
     if(!docEntry) throw new Error('文件中缺少 word/document.xml，不是有效的 DOCX 文件');
-    const dec = new TextDecoder();
-    const xmlText = await docEntry.async('text');
+    const xmlText = await docEntry.async('string');
     const xml = new DOMParser().parseFromString(xmlText,'application/xml');
     if(xml.querySelector('parsererror')) throw new Error('Word 文档 XML 解析失败');
     const relEntry=zip.file('word/_rels/document.xml.rels');
     const rels=new Map();
     if(relEntry){
-      const rx=new DOMParser().parseFromString(await relEntry.async('text'),'application/xml');
+      const rx=new DOMParser().parseFromString(await relEntry.async('string'),'application/xml');
       [...rx.getElementsByTagName('*')].filter(e=>(e.localName||'')==='Relationship').forEach(r=>{
         const id=r.getAttribute('Id'), target=r.getAttribute('Target');
         if(id&&target) rels.set(id,target);
@@ -2358,38 +2550,310 @@
     return items.filter(x=>x.description.trim()).map(x=>({description:x.description.trim(),image:x.image||''}));
   }
 
-  function loadMusicState(){
-    try{musicTracks=JSON.parse(W.localStorage.getItem(MUSIC_TRACKS_KEY)||'[]').filter(t=>t&&t.url).map(t=>({...t,preset:false}));}catch(_){musicTracks=[];}
-    musicTracks=[...PRESET_MUSIC_TRACKS.map((t,i)=>({...t,id:'preset-'+i,preset:true})),...musicTracks];
-    try{const st=JSON.parse(W.localStorage.getItem(MUSIC_STATE_KEY)||'{}');musicIndex=Math.max(0,Number(st.index)||0);musicMode=['sequence','single','shuffle'].includes(st.mode)?st.mode:(st.mode==='list'?'sequence':'sequence');musicRestoreTime=Math.max(0,Number(st.time)||0);musicCover=W.localStorage.getItem(MUSIC_COVER_KEY)||'';musicCoverSize=Math.min(100,Math.max(25,Number(st.coverSize)||35));}catch(_){}
-    if(wardrobeAudio){syncMusicNativeLoop();const saved=musicTracks[musicIndex];if(saved?.url && (!wardrobeAudio.src || wardrobeAudio.src!==saved.url)){wardrobeAudio.src=saved.url;musicRestorePending=true;}}
+  async function ensureWardrobePdfJs(){
+    if(W.pdfjsLib)return W.pdfjsLib;
+    if(!wardrobePdfLoadPromise){
+      wardrobePdfLoadPromise=new Promise((resolve,reject)=>{
+        const script=document.createElement('script');script.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+        script.onload=()=>{if(W.pdfjsLib){W.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';resolve(W.pdfjsLib);}else reject(new Error('PDF 解析组件加载失败'));};
+        script.onerror=()=>reject(new Error('无法加载 PDF 解析组件，请检查网络后重试'));
+        (document.head||document.documentElement).appendChild(script);
+      }).catch(e=>{wardrobePdfLoadPromise=null;throw e;});
+    }
+    return wardrobePdfLoadPromise;
   }
-  function saveMusicState(){const raw=JSON.stringify({index:musicIndex,mode:musicMode,time:wardrobeAudio?.currentTime||0,coverSize:musicCoverSize});try{W.localStorage.setItem(MUSIC_STATE_KEY,raw);}catch(_){}void mirrorToScriptStorage(MUSIC_STATE_KEY,raw);}
-  function saveCustomTracks(){const raw=JSON.stringify(musicTracks.filter(t=>!t.preset).map(({id,title,url,cover})=>({id,title,url,cover:cover||''})));let ok=false;try{W.localStorage.setItem(MUSIC_TRACKS_KEY,raw);ok=true;}catch(e){console.warn('[MufyCard] 音乐列表网页存储失败，转存脚本空间',e);}void mirrorToScriptStorage(MUSIC_TRACKS_KEY,raw);if(!ok&&typeof GM==='undefined'&&typeof GM_setValue!=='function')showToast('歌曲列表保存失败：当前浏览器存储空间不足。','err');}
-  async function openMusicPage(){loadMusicState();if(!musicCover){const dbCover=await loadMusicCoverFromDB();if(dbCover)musicCover=dbCover;}wardrobeView='music';const page=panel.querySelector('#wardrobe-page');['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id=>panel.querySelector('#'+id).style.display='none');panel.querySelector('#more-page').classList.remove('active');page.classList.add('active');panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));renderMusicPage();}
+  let wardrobePdfLoadPromise=null;
+  function normalizeImportedWardrobeBackup(obj){
+    const root=obj&&obj.data&&typeof obj.data==='object'?obj.data:obj;
+    if(!root||!root.user||!root.char)return null;
+    const out={};
+    for(const type of ['user','char']){
+      const src=root[type]||{};
+      out[type]={categories:[...new Set((Array.isArray(src.categories)?src.categories:[]).map(x=>String(x||'').trim()).filter(Boolean))],items:(Array.isArray(src.items)?src.items:[]).filter(x=>x&&typeof (x.description||x.desc||x.text)==='string').map(x=>({description:String(x.description||x.desc||x.text).trim(),image:String(x.image||x.imageUrl||x.image_url||''),categories:Array.isArray(x.categories)?x.categories:(x.category?[String(x.category)]:[])})).filter(x=>x.description)};
+    }
+    return out;
+  }
+  function parseWardrobeJsonItems(obj){
+    const candidates=[];
+    const visit=(v,depth=0)=>{
+      if(depth>4||!v)return;
+      if(Array.isArray(v)){for(const x of v)visit(x,depth+1);return;}
+      if(typeof v!=='object')return;
+      const desc=v.description??v.desc??v.text??v.content??v.outfit??v.clothingDescription;
+      if(typeof desc==='string'&&desc.trim()){
+        const image=v.image??v.imageUrl??v.image_url??v.cover??v.url??'';
+        candidates.push({description:desc.trim(),image:typeof image==='string'&&/^data:image\//i.test(image)||typeof image==='string'&&/^https?:\/\//i.test(image)?image:'',categories:Array.isArray(v.categories)?v.categories.filter(x=>typeof x==='string'):v.category?[String(v.category)]:[]});
+        return;
+      }
+      for(const key of ['items','clothes','outfits','wardrobe','data','list','records'])if(v[key])visit(v[key],depth+1);
+    };
+    visit(obj);
+    const seen=new Set();return candidates.filter(x=>{const k=x.description+'\n'+x.image;if(seen.has(k))return false;seen.add(k);return true;});
+  }
+  function parseWardrobePlainText(raw){
+    let text=String(raw||'').replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');
+    // RTF 转普通文本；HTML 先抽取正文并保留图片链接。
+    if(/^\s*\{\\rtf/i.test(text))text=text.replace(/\\'([0-9a-f]{2})/gi,(_,h)=>String.fromCharCode(parseInt(h,16))).replace(/\\par[d]?\b/g,'\n').replace(/\\tab\b/g,'\t').replace(/\\[a-z]+-?\d* ?/gi,'').replace(/[{}]/g,'');
+    if(/<\s*(?:html|body|div|p|table|ul|ol)\b/i.test(text)){
+      const doc=new DOMParser().parseFromString(text,'text/html');
+      const imgs=[...doc.querySelectorAll('img')].map(i=>i.getAttribute('src')||'').filter(Boolean);
+      text=(doc.body?.innerText||doc.body?.textContent||'')+'\n'+imgs.map(x=>'图片：'+x).join('\n');
+    }
+    text=text.replace(/\u00a0/g,' ').trim();if(!text)return [];
+    const blocks=[];let current=[];
+    const flush=()=>{const b=current.join('\n').trim();if(b)blocks.push(b);current=[];};
+    for(const line of text.split('\n')){
+      const t=line.trim();
+      if(!t){flush();continue;}
+      if(/^(?:[-=*_]{3,}|第\s*\d+\s*(?:件|套)|(?:编号\s*)?\d+\s*[:：.、．)）]?)$/.test(t)&&current.length){flush();continue;}
+      current.push(t);
+    }
+    flush();
+    const result=[];
+    for(const block of blocks){
+      let image='';const lines=block.split('\n').filter(Boolean),desc=[];
+      for(let line of lines){
+        const im=line.match(/^(?:图片|图片链接|image|imageurl|图片地址)\s*[:：]\s*(https?:\/\/\S+|data:image\/\S+)$/i);
+        if(im){image=im[1];continue;}
+        line=line.replace(/^(?:描述|穿搭描述|衣服描述)\s*[:：]\s*/,'').replace(/^(?:编号\s*)?\d+\s*[:：.、．)）]\s*/,'');
+        if(line.trim()&&!/^分类\s*[:：]/.test(line))desc.push(line);
+      }
+      const description=desc.join('\n').trim();if(description)result.push({description,image,categories:[]});
+    }
+    // 没有空行分段时，按连续编号/描述标签尝试拆分，避免整份文档只变成一件衣服。
+    if(result.length<=1){
+      const lines=text.split('\n').map(x=>x.trim()).filter(Boolean),split=[],buf=[];
+      for(const line of lines){if(/^(?:编号\s*)?\d+\s*[:：.、．)）]\s*/.test(line)&&buf.length){split.push(buf.join('\n'));buf.length=0;}buf.push(line);}if(buf.length)split.push(buf.join('\n'));
+      if(split.length>1)return split.map(b=>({description:b.split('\n').map(x=>x.replace(/^(?:编号\s*)?\d+\s*[:：.、．)）]\s*/, '').replace(/^描述\s*[:：]\s*/, '')).filter(Boolean).join('\n').trim(),image:'',categories:[]})).filter(x=>x.description);
+    }
+    return result;
+  }
+  function parseWardrobeCsv(raw){
+    const rows=[];let row=[],cell='',quoted=false;
+    for(let i=0;i<String(raw).length;i++){
+      const ch=String(raw)[i],next=String(raw)[i+1];
+      if(ch==='"'&&quoted&&next==='"'){cell+='"';i++;}
+      else if(ch==='"')quoted=!quoted;
+      else if(ch===','&&!quoted){row.push(cell.trim());cell='';}
+      else if((ch==='\n'||ch==='\r')&&!quoted){if(ch==='\r'&&next==='\n')i++;row.push(cell.trim());if(row.some(x=>x))rows.push(row);row=[];cell='';}
+      else cell+=ch;
+    }
+    row.push(cell.trim());if(row.some(x=>x))rows.push(row);
+    if(!rows.length)return [];
+    const keys=rows[0].map(x=>x.toLowerCase().replace(/[\s_-]/g,''));
+    const find=names=>keys.findIndex(k=>names.includes(k));
+    const descIndex=find(['description','desc','text','content','outfit','clothingdescription','衣服描述','穿搭描述','描述','内容']);
+    const nameIndex=find(['name','title','衣服名称','名称','标题']);
+    const imageIndex=find(['image','imageurl','image_url','图片','图片链接','图片地址']);
+    const categoryIndex=find(['category','categories','分类']);
+    const hasHeader=descIndex>=0||nameIndex>=0;
+    const dataRows=hasHeader?rows.slice(1):rows;
+    return dataRows.map(r=>{
+      const get=i=>i>=0?String(r[i]||'').trim():'';
+      const description=hasHeader?[get(nameIndex),get(descIndex)].filter(Boolean).join('\n'):r.filter(Boolean).join(' | ');
+      const image=get(imageIndex),category=get(categoryIndex);
+      return {description,image:/^(?:https?:\/\/|data:image\/)/i.test(image)?image:'',categories:category?category.split(/[|，,、]/).map(x=>x.trim()).filter(Boolean):[]};
+    }).filter(x=>x.description);
+  }
+  async function parseWardrobeImportFile(file){
+    if(!file||!file.size)throw new Error('文件为空');
+    const buffer=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(r.error||new Error('文件读取失败'));r.readAsArrayBuffer(file);});
+    const bytes=new Uint8Array(buffer),head=String.fromCharCode(...bytes.slice(0,Math.min(8,bytes.length)));
+    const decode=()=>new TextDecoder('utf-8').decode(bytes).replace(/^\uFEFF/,'');
+    const isZip=bytes.length>=4&&bytes[0]===0x50&&bytes[1]===0x4b&&[0x03,0x05,0x07].includes(bytes[2]);
+    const isPdf=head.startsWith('%PDF-');
+    if(bytes.length>=8&&head.startsWith('\u00d0\u00cf\u0011\u00e0'))throw new Error('检测到旧版 .doc 二进制 Word 文件；请另存为 .docx 或 PDF 后导入');
+    if(isZip){
+      await ensureWardrobeJSZip();const zip=await JSZip.loadAsync(buffer);
+      const doc=zip.file('word/document.xml');if(doc)return {items:await parseDocxWardrobe(file)};
+      const odt=zip.file('content.xml');if(odt){const xml=new DOMParser().parseFromString(await odt.async('string'),'application/xml');const paragraphs=[...xml.getElementsByTagName('*')].filter(e=>['p','h'].includes(e.localName));const txt=paragraphs.map(e=>e.textContent||'').join('\n');return {items:parseWardrobePlainText(txt)};}
+      const jsonFiles=Object.values(zip.files).filter(x=>!x.dir&&/\.json$/i.test(x.name));
+      for(const entry of jsonFiles){try{const obj=JSON.parse(await entry.async('string'));const backup=normalizeImportedWardrobeBackup(obj);if(backup)return {backup};const items=parseWardrobeJsonItems(obj);if(items.length)return {items};}catch(_){}}
+      throw new Error('这是 ZIP 文件，但其中没有可识别的 DOCX、ODT 或衣柜 JSON 内容');
+    }
+    if(isPdf){
+      const pdfjs=await ensureWardrobePdfJs(),pdf=await pdfjs.getDocument({data:bytes}).promise,parts=[];
+      for(let n=1;n<=pdf.numPages;n++){const page=await pdf.getPage(n),content=await page.getTextContent();parts.push(content.items.map(x=>x.str||'').join(' '));}
+      return {items:parseWardrobePlainText(parts.join('\n\n'))};
+    }
+    const raw=decode(),trim=raw.trim();
+    if(/\.csv$/i.test(String(file.name||''))||/text\/csv/i.test(String(file.type||''))){const csvItems=parseWardrobeCsv(raw);if(csvItems.length)return {items:csvItems};}
+    if(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(raw))throw new Error('该文件是无法直接读取的二进制格式，请转换为 DOCX、PDF、TXT 或 JSON 后再导入');
+    if(/^[\[{]/.test(trim)){
+      try{const obj=JSON.parse(trim),backup=normalizeImportedWardrobeBackup(obj);if(backup)return {backup};const items=parseWardrobeJsonItems(obj);if(items.length)return {items};throw new Error('JSON 中没有识别到衣柜条目');}catch(e){if(e instanceof SyntaxError)throw new Error('文件看起来是 JSON，但内容格式不正确');throw e;}
+    }
+    return {items:parseWardrobePlainText(raw)};
+  }
+  async function readMusicArrayFromStorage(){
+    const candidates=[];
+    try{const raw=W.localStorage.getItem(MUSIC_TRACKS_KEY);if(raw!==null){const v=JSON.parse(raw);if(Array.isArray(v))candidates.push(v.filter(t=>t&&t.url).map(t=>({...t,preset:false,favorite:!!t.favorite})));}}catch(e){console.debug('[MufyCard] 音乐 localStorage 数据无效',e);}
+    try{if(typeof GM!=='undefined'&&typeof GM.getValue==='function'){const raw=await GM.getValue(MUSIC_TRACKS_KEY,null);const v=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(v))candidates.push(v.filter(t=>t&&t.url).map(t=>({...t,preset:false,favorite:!!t.favorite})));}}catch(e){console.debug('[MufyCard] 音乐 GM.getValue 读取失败',e);}
+    try{if(typeof GM_getValue==='function'){const raw=await GM_getValue(MUSIC_TRACKS_KEY,null);const v=typeof raw==='string'?JSON.parse(raw):raw;if(Array.isArray(v))candidates.push(v.filter(t=>t&&t.url).map(t=>({...t,preset:false,favorite:!!t.favorite})));}}catch(e){console.debug('[MufyCard] 音乐 GM_getValue 读取失败',e);}
+    return candidates.sort((a,b)=>b.length-a.length)[0]||[];
+  }
+  async function loadMusicState(){
+    // 读取方式以4.1.1正式版为基准：先读网页本地歌曲数据；GM备份只作补充，不允许备份异常阻断播放器打开。
+    let loaded=[];
+    try{const raw=W.localStorage.getItem(MUSIC_TRACKS_KEY);if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed))loaded=parsed.filter(t=>t&&t.url).map(t=>({...t,preset:false,lyrics:String(t.lyrics||''),categories:Array.isArray(t.categories)?t.categories:[],favorite:!!t.favorite}));}}catch(e){console.warn('[MufyCard] 音乐列表网页数据读取失败',e);}
+    if(!loaded.length){try{loaded=await readMusicArrayFromStorage();}catch(e){console.warn('[MufyCard] 音乐备份读取失败，继续打开空播放器',e);}}
+    if(loaded.length)musicTracks=loaded.map(t=>({...t,preset:false,lyrics:String(t.lyrics||''),categories:Array.isArray(t.categories)?t.categories:[],favorite:!!t.favorite}));
+    musicTracks=[...PRESET_MUSIC_TRACKS.map((t,i)=>({...t,id:t.id||'preset-'+i,preset:true})),...musicTracks];
+    try{const raw=W.localStorage.getItem(MUSIC_CATEGORIES_KEY);const cats=raw?JSON.parse(raw):[];musicCategories=Array.isArray(cats)?[...new Set(cats.map(x=>String(x).trim()).filter(Boolean))]:[];}catch(e){musicCategories=[];}
+    try{const raw=W.localStorage.getItem(MUSIC_STATE_KEY);const st=raw?JSON.parse(raw):{};musicIndex=Math.max(0,Math.min(Math.max(0,musicTracks.length-1),Number(st.index)||0));musicMode=['sequence','single','shuffle'].includes(st.mode)?st.mode:'sequence';musicRestoreTime=Math.max(0,Number(st.time)||0);musicCover=W.localStorage.getItem(MUSIC_COVER_KEY)||'';musicCoverSize=Math.min(100,Math.max(25,Number(st.coverSize)||35));}catch(e){console.debug('[MufyCard] 音乐状态读取失败',e);}
+    if(wardrobeAudio){syncMusicNativeLoop();const saved=musicTracks[musicIndex];if(saved?.url&&!wardrobeAudio.src){wardrobeAudio.src=saved.url;musicRestorePending=true;}}
+  }
+  function saveMusicState(){const raw=JSON.stringify({index:musicIndex,mode:musicMode,time:wardrobeAudio?.currentTime||0,coverSize:musicCoverSize});try{W.localStorage.setItem(MUSIC_STATE_KEY,raw);}catch(e){console.debug('[MufyCard] 音乐状态网页存储失败',e);}void mirrorToScriptStorage(MUSIC_STATE_KEY,raw);}
+  function saveCustomTracks(){const raw=JSON.stringify(musicTracks.filter(t=>!t.preset).map(({id,title,url,cover,lyrics,categories,favorite})=>({id,title,url,cover:cover||'',lyrics:lyrics||'',categories:Array.isArray(categories)?categories:[],favorite:!!favorite})));let pageSaved=false;try{W.localStorage.setItem(MUSIC_TRACKS_KEY,raw);pageSaved=W.localStorage.getItem(MUSIC_TRACKS_KEY)===raw;}catch(e){console.warn('[MufyCard] 音乐列表网页存储失败',e);}const gmSaved=mirrorToScriptStorage(MUSIC_TRACKS_KEY,raw);Promise.resolve(gmSaved).then(()=>{if(!pageSaved&&typeof GM==='undefined'&&typeof GM_setValue!=='function')showToast('歌曲列表保存失败：当前浏览器存储空间不足。','err');});}
+  // 先立即进入音乐子页面，再异步读取音乐数据；避免 GM 存储读取延迟/异常时点击后毫无反应。
+  let musicPageLoadingToken=0;
+  function openMusicPage(){
+    const token=++musicPageLoadingToken;
+    wardrobeView='music';
+    const page=panel.querySelector('#wardrobe-page');
+    ['roles-toolbar','archive-toolbar','mask-toolbar','list-container'].forEach(id=>{const el=panel.querySelector('#'+id);if(el)el.style.display='none';});
+    panel.querySelector('#more-page').classList.remove('active');
+    page.classList.add('active');
+    panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.id==='tab-more'));
+    try{renderMusicPage();}catch(err){console.error('[MufyCard] 音乐页面初始渲染失败',err);page.innerHTML='<div class="wardrobe-head"><button id="music-back" type="button">← 返回</button><strong>♫ 音乐播放器</strong></div><div style="padding:18px;color:var(--dim)">音乐页面加载中…</div>';page.querySelector('#music-back').onclick=showMorePage;}
+    (async()=>{
+      try{
+        await loadMusicState();
+        if(!musicCover){try{const dbCover=await loadMusicCoverFromDB();if(dbCover)musicCover=dbCover;}catch(err){console.debug('[MufyCard] 唱片封面读取失败',err);}}
+        if(token===musicPageLoadingToken&&wardrobeView==='music'){
+          try{renderMusicPage();}
+          catch(renderErr){console.error('[MufyCard] 音乐页面渲染失败',renderErr);showToast('播放器界面渲染失败，请返回后重试。','err');}
+        }
+      }catch(err){
+        console.error('[MufyCard] 音乐页面数据加载失败',err);
+        if(token===musicPageLoadingToken&&wardrobeView==='music')showToast('音乐数据读取失败；原有歌曲数据已保留，请返回后重试。','err');
+      }
+    })();
+  }
   function renderMusicPage(){
-    const page=panel.querySelector('#wardrobe-page');const current=musicTracks[musicIndex];
-    page.innerHTML=`<div class="wardrobe-head"><button id="music-back" type="button">← 返回</button><strong>♫ 音乐播放器</strong><span aria-hidden="true"></span></div><div style="padding:12px;overflow:auto;min-height:0;flex:1;text-align:center"><div id="music-vinyl" style="width:min(54vw,210px);height:min(54vw,210px);margin:8px auto 16px;border-radius:50%;background:radial-gradient(circle at 34% 27%,#1b1724 0%,#121019 35%,#0d0b13 68%,#09080e 86%,#191324 94%,#0d0b12 100%);display:flex;align-items:center;justify-content:center;${!wardrobeAudio?.paused?'animation:music-spin 4s linear infinite;':''}box-shadow:0 5px 24px #0008;position:relative;overflow:hidden"><div id="music-cover-center" aria-hidden="true" style="width:35%;height:35%;border-radius:50%;background:radial-gradient(circle at 32% 28%,#b6a0ed 0%,#8b73cb 42%,#5a467f 78%,#34283f 100%);border:2px solid #282231;box-shadow:inset 0 1px 3px #ffffff24,0 1px 4px #0007;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:13px;position:relative;z-index:1">♫</div><div id="music-cover-art" role="button" tabindex="0" aria-label="自定义唱片图片" title="点击自定义图片" style="position:absolute;inset:0;width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2;cursor:pointer;overflow:hidden;background:transparent">${musicCover?'<img id="music-cover-image" src="'+escapeHtml(musicCover)+'" alt="唱片图片" style="display:block;width:'+musicCoverSize+'%;height:'+musicCoverSize+'%;max-width:none;object-fit:cover;border-radius:50%;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)">':''}</div></div><style>@keyframes music-spin{to{transform:rotate(360deg)}}#music-progress{appearance:none;-webkit-appearance:none;height:14px;background:transparent;cursor:pointer;display:block;margin:0 auto}#music-progress::-webkit-slider-runnable-track{height:2px;border-radius:999px;background:linear-gradient(to right,#a894e8 0%,#a894e8 var(--music-pct,0%),#514d5b var(--music-pct,0%),#514d5b 100%)}#music-progress::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:#d8cef9;border:0;margin-top:-4px;box-shadow:0 0 0 2px #17151e}#music-progress::-moz-range-track{height:2px;border-radius:999px;background:#514d5b}#music-progress::-moz-range-progress{height:3px;border-radius:999px;background:#a894e8}#music-progress::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:#d8cef9;border:0}#music-prev,#music-next,#music-play{border:0!important;background:transparent!important;box-shadow:none!important;color:#eee9ff!important;font-size:25px;line-height:1;padding:7px 10px!important;min-width:42px;min-height:40px;border-radius:0!important}#music-play{font-size:27px!important}#music-url-row{display:flex;gap:7px;margin:0 0 12px}#music-url-input{flex:1;min-width:0;background:#252331!important;color:#f4f1ff!important;border:1px solid #514965!important;border-radius:8px;padding:10px 9px!important;font-size:12px}#music-url-import{background:#302a48!important;border:1px solid #665a91!important;color:#f2efff!important;border-radius:8px;padding:8px 10px!important;font-size:12px;white-space:nowrap}#music-mode{background:#252331!important;border:1px solid #514965!important;color:#e7defe!important;border-radius:999px!important;padding:7px 14px!important;font-size:12px!important;box-shadow:none!important}#music-list button[data-delete-track]{border:0!important;background:transparent!important;box-shadow:none!important;color:#fff!important;font-size:22px;line-height:1;padding:3px 8px!important;min-width:34px}</style><div id="music-current-title" style="font-size:16px;font-weight:700;overflow-wrap:anywhere">${escapeHtml(current?.title||'尚未选择歌曲')}</div><div id="music-time" style="font-size:11px;color:#aaa;margin:8px 0">00:00 / 00:00</div><input id="music-progress" type="range" min="0" max="1000" value="0" aria-label="播放进度" style="width:100%;accent-color:#a894e8"><div style="display:flex;justify-content:center;align-items:center;gap:10px;margin:12px 0"><button id="music-prev" type="button" aria-label="上一首" title="上一首">‹‹</button><button id="music-play" type="button" aria-label="${wardrobeAudio?.paused?'播放':'暂停'}" title="${wardrobeAudio?.paused?'播放':'暂停'}">${wardrobeAudio?.paused?'▶':'Ⅱ'}</button><button id="music-next" type="button" aria-label="下一首" title="下一首">››</button></div><div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button id="music-mode" type="button">${musicMode==='sequence'?'⇢ 顺序播放':musicMode==='single'?'① 单曲循环':'🔀 随机播放'}</button></div><div id="music-url-row"><input id="music-url-input" type="url" placeholder="粘贴音乐 URL…" aria-label="音乐 URL"><button id="music-url-import" type="button">导入音乐 URL</button></div><div id="music-status" aria-live="polite" style="display:none"></div><div style="text-align:left;border-top:1px solid #484454;padding-top:10px"><strong>播放列表（${musicTracks.length}）</strong><div id="music-list" style="display:grid;gap:6px;margin-top:8px">${musicTracks.length?musicTracks.map((t,i)=>`<div style="display:flex;align-items:center;gap:6px;padding:7px;border:1px solid #484454;border-radius:8px;background:${i===musicIndex?'#8b7bff22':'#ffffff05'}"><button type="button" data-play-track="${i}" style="flex:1;text-align:left;border:0;background:transparent;min-width:0;overflow-wrap:anywhere">${i===musicIndex?'♫ ':''}${escapeHtml(t.title||'未命名歌曲')}${t.preset?' · 预设':''}</button>${!t.preset?`<button type="button" data-delete-track="${i}" aria-label="删除歌曲" title="删除歌曲">×</button>`:''}</div>`).join(''):'<div style="color:#aaa;font-size:12px">还没有歌曲，可以添加音频直链。</div>'}</div></div></div>`;
+    const page=panel.querySelector('#wardrobe-page');
+    // 关键：音乐页本身 overflow:hidden，真正发生滚动的可能是面板/外层容器。
+    // 旧实现只保存 page 内部「有 id 且 scrollTop>0」的元素，因此多选、筛选或切歌重绘后会丢失外层滚动位置。
+    const scrollSnapshot=[];
+    const scrollCandidates=new Set();
+    let ancestor=page;
+    while(ancestor){scrollCandidates.add(ancestor);ancestor=ancestor.parentElement;}
+    (page?.querySelectorAll('*')||[]).forEach(el=>scrollCandidates.add(el));
+    scrollCandidates.add(document.scrollingElement||document.documentElement);
+    for(const el of scrollCandidates){
+      if(!el)continue;
+      const st=el.scrollTop||0,sl=el.scrollLeft||0;
+      const cs=W.getComputedStyle(el);
+      const canScroll=el===document.scrollingElement||el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1||/(auto|scroll|overlay)/.test(`${cs.overflowY} ${cs.overflowX}`);
+      if(canScroll)scrollSnapshot.push({el,st,sl,id:el.id||'',cls:typeof el.className==='string'?el.className.split(' ').filter(Boolean)[0]||'':'',tag:el.tagName||''});
+    }
+    const savedWindowScrollX=W.scrollX||0;
+    const savedWindowScrollY=W.scrollY||0;
+    const current=musicTracks[musicIndex];
+    page.innerHTML=`<div class="wardrobe-head music-player-page"><button id="music-back" type="button">← 返回</button><strong>♫ 音乐播放器</strong><span aria-hidden="true"></span></div><div class="music-player-page" style="padding:8px;overflow:hidden;min-height:0;flex:1;text-align:center"><div id="music-visual-pages" style="position:relative;width:100%;min-height:min(54vw,230px);height:min(42vh,360px);margin:8px auto 16px;perspective:1100px;transform-style:preserve-3d"><div id="music-page-flipper" style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(0deg);transition:transform .72s cubic-bezier(.22,.72,.22,1)"><div id="music-vinyl" class="music-page-face music-vinyl-face" style="width:min(54vw,210px);height:min(54vw,210px);margin:0 auto;border-radius:50%;background:transparent;display:flex;align-items:center;justify-content:center;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotateY(0deg);backface-visibility:hidden;z-index:2"><div id="music-vinyl-disc" style="width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 34% 27%,#1b1724 0%,#121019 35%,#0d0b13 68%,#09080e 86%,#191324 94%,#0d0b12 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 24px #0008;position:relative;overflow:hidden;animation:${!wardrobeAudio?.paused?'music-spin 4s linear infinite':'none'}"><div id="music-cover-center" aria-hidden="true" style="width:35%;height:35%;border-radius:50%;background:radial-gradient(circle at 32% 28%,#b6a0ed 0%,#8b73cb 42%,#5a467f 78%,#34283f 100%);border:2px solid #282231;box-shadow:inset 0 1px 3px #ffffff24,0 1px 4px #0007;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:13px;position:relative;z-index:1">♫</div><div id="music-cover-art" role="button" tabindex="0" aria-label="自定义唱片图片" title="点击自定义图片" style="position:absolute;inset:0;width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2;cursor:pointer;overflow:hidden;background:transparent">${(current?.cover||musicCover)?'<img id="music-cover-image" src="'+escapeHtml(current?.cover||musicCover)+'" alt="唱片图片" style="display:block;width:'+musicCoverSize+'%;height:'+musicCoverSize+'%;max-width:none;object-fit:cover;border-radius:50%;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)">':''}</div></div></div><div id="music-lyrics-stage" aria-hidden="true" class="music-page-face music-lyrics-face" style="display:flex;position:absolute;inset:0;width:100%;height:100%;margin:0;color:inherit;padding:8px 4px;box-sizing:border-box;overflow:hidden;backface-visibility:hidden;flex-direction:column;transform:rotateY(180deg);z-index:1"><div id="music-lyrics-title" style="font-size:15px;font-weight:700;text-align:center;padding:2px 8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div><div id="music-lyrics-lines" style="width:100%;height:calc(100% - 34px);min-height:0;flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:15px;text-align:center;scrollbar-width:none"></div></div></div></div><style>#music-visual-pages{transform-style:preserve-3d;perspective:1200px;touch-action:pan-y;user-select:none;-webkit-user-select:none}#music-page-flipper{transform-style:preserve-3d;will-change:transform}#music-vinyl,#music-lyrics-stage{backface-visibility:hidden}#music-vinyl{display:flex!important;opacity:1!important;visibility:visible!important;width:min(54vw,210px)!important;height:auto!important;aspect-ratio:1/1!important;flex:0 0 auto!important}#music-vinyl-disc{width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;aspect-ratio:1/1!important;flex:0 0 auto!important;flex-shrink:0!important}#music-lyrics-stage{display:flex!important;opacity:1!important;visibility:visible!important;background:transparent!important}#music-visual-pages.is-lyrics #music-vinyl{pointer-events:none}#music-visual-pages:not(.is-lyrics) #music-lyrics-stage{pointer-events:none}#music-vinyl #music-vinyl-disc{animation-play-state:${wardrobeAudio?.paused?'paused':'running'}}#music-lyrics-stage{pointer-events:none}#music-visual-pages.is-lyrics #music-lyrics-stage{pointer-events:auto}#music-lyrics-stage #music-lyrics-lines{position:relative}#music-lyrics-stage [data-lyric-line]{display:grid;touch-action:pan-y;user-select:none;-webkit-user-select:none;grid-template-columns:minmax(0,1fr) 42px;align-items:center;gap:8px;width:100%;text-align:left;cursor:pointer}#music-lyrics-stage .lyric-text{min-width:0;text-align:center}#music-lyrics-stage .lyric-time{font-size:10px;color:var(--dim);opacity:.8;text-align:right;font-variant-numeric:tabular-nums}#music-lyrics-stage [data-lyric-line].active .lyric-time{color:var(--fg);opacity:1}#music-lyrics-stage #music-lyrics-title{position:sticky;top:0;z-index:2;background:var(--panel,#17151e)}@keyframes music-spin{to{transform:rotate(360deg)}}#music-progress{appearance:none;-webkit-appearance:none;height:14px;background:transparent;cursor:pointer;display:block;margin:0 auto}#music-progress::-webkit-slider-runnable-track{height:2px;border-radius:999px;background:linear-gradient(to right,#a894e8 0%,#a894e8 var(--music-pct,0%),#514d5b var(--music-pct,0%),#514d5b 100%)}#music-progress::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:#d8cef9;border:0;margin-top:-4px;box-shadow:0 0 0 2px #17151e}#music-progress::-moz-range-track{height:2px;border-radius:999px;background:#514d5b}#music-progress::-moz-range-progress{height:3px;border-radius:999px;background:#a894e8}#music-progress::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:#d8cef9;border:0}#music-prev,#music-next,#music-play{border:0!important;background:transparent!important;box-shadow:none!important;color:#eee9ff!important;font-size:25px;line-height:1;padding:7px 10px!important;min-width:42px;min-height:40px;border-radius:0!important}#music-play{font-size:27px!important}#music-url-row{display:flex;gap:7px;margin:0 0 12px}#music-url-input{flex:1;min-width:0;background:#252331!important;color:#f4f1ff!important;border:1px solid #514965!important;border-radius:8px;padding:10px 9px!important;font-size:12px}#music-url-import{background:#302a48!important;border:1px solid #665a91!important;color:#f2efff!important;border-radius:8px;padding:8px 10px!important;font-size:12px;white-space:nowrap}#music-mode{background:#252331!important;border:1px solid #514965!important;color:#e7defe!important;border-radius:999px!important;padding:7px 14px!important;font-size:12px!important;box-shadow:none!important}.wardrobe-detail-backdrop .wardrobe-detail .detail-actions button{background:#302a48!important;color:#f2efff!important;border:1px solid #665a91!important;box-shadow:none!important}#music-list button[data-edit-track]{background:#302a48!important;color:#f2efff!important;border:1px solid #665a91!important;border-radius:7px!important;padding:6px 10px!important;box-shadow:none!important;font-size:11px!important}#music-list button[data-favorite-track]{background:transparent!important;box-shadow:none!important}#music-list button[data-delete-track]{border:0!important;background:transparent!important;box-shadow:none!important;color:#fff!important;font-size:22px;line-height:1;padding:3px 8px!important;min-width:34px}</style><div id="music-current-title" style="font-size:16px;font-weight:700;overflow-wrap:anywhere">${escapeHtml(current?.title||'尚未选择歌曲')}</div><div id="music-time" style="font-size:11px;color:#aaa;margin:8px 0">00:00 / 00:00</div><input id="music-progress" type="range" min="0" max="1000" value="0" aria-label="播放进度" style="width:100%;accent-color:#a894e8"><div style="display:flex;justify-content:center;align-items:center;gap:10px;margin:12px 0"><button id="music-prev" type="button" aria-label="上一首" title="上一首">‹‹</button><button id="music-play" type="button" aria-label="${wardrobeAudio?.paused?'播放':'暂停'}" title="${wardrobeAudio?.paused?'播放':'暂停'}">${wardrobeAudio?.paused?'▶':'Ⅱ'}</button><button id="music-next" type="button" aria-label="下一首" title="下一首">››</button></div><div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button id="music-mode" type="button">${musicMode==='sequence'?'⇢ 顺序播放':musicMode==='single'?'① 单曲循环':'🔀 随机播放'}</button></div><div id="music-url-row"><input id="music-url-input" type="url" placeholder="粘贴音乐 URL…" aria-label="音乐 URL"><button id="music-url-import" type="button">导入音乐 URL</button></div><div id="music-status" aria-live="polite" style="display:none"></div><div style="text-align:left;border-top:1px solid #484454;padding-top:10px"><div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:8px"><strong style="flex:1;min-width:90px">播放列表（${musicTracks.length}）</strong><button id="music-multi-toggle" type="button" style="font-size:11px;padding:5px 8px">${musicMultiSelect?'退出多选':'多选'}</button><button id="music-category-manage" type="button" style="font-size:11px;padding:5px 7px">管理分类</button><button id="music-add-category" type="button" style="font-size:11px;padding:5px 7px" ${musicMultiSelect?'':'disabled title="请先开启多选"'}>批量分类</button>${musicMultiSelect?'<button id="music-select-all" type="button" style="font-size:11px;padding:5px 7px">全选</button><button id="music-bulk-delete" type="button" style="font-size:11px;padding:5px 7px">批量删除</button>':''}</div><div id="music-category-filter" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${['全部','收藏夹',...musicCategories.filter(c=>c!=='收藏夹')].map(c=>`<button type="button" data-music-cat="${escapeHtml(c)}" style="border:1px solid #514965;border-radius:999px;padding:4px 9px;background:${musicActiveCategory===c?'#554574':'#252331'};color:#eee;font-size:11px">${escapeHtml(c)}</button>`).join('')}</div><div id="music-list" style="display:grid;gap:6px;margin-top:8px">${musicTracks.map((t,i)=>({t,i})).filter(({t})=>musicActiveCategory==='全部'||(musicActiveCategory==='收藏夹'?!!t.favorite:(t.categories||[]).includes(musicActiveCategory))).map(({t,i})=>`<div class="music-track-row ${String(t.lyrics||'').trim()?'has-lyrics':''} ${i===musicIndex?'is-playing':''}" data-track-row="${i}" style="padding:0;border:1px solid ${i===musicIndex?'var(--accent,#b86670)':'var(--border)'};border-radius:8px;background:${i===musicIndex?'rgba(184,102,112,.18)':'transparent'};opacity:${i===musicIndex?'1':'.78'}"><div class="music-track-main" style="padding:7px">${musicMultiSelect?`<input type="checkbox" data-music-select="${i}" aria-label="选择歌曲" ${musicSelectedIds.has(String(t.id))?'checked':''}>`:''}<button type="button" data-play-track="${i}" style="flex:1;text-align:left;border:0;background:transparent;min-width:0;overflow-wrap:anywhere;color:#eee">${i===musicIndex?'♫ ':''}${escapeHtml(t.title||'未命名歌曲')}${t.preset?' · 预设':''}${(t.categories||[]).length?`<small style="display:block;color:#aaa">${escapeHtml(t.categories.join(' · '))}</small>`:''}</button><button type="button" data-favorite-track="${i}" aria-label="${t.favorite?'取消收藏':'收藏歌曲'}" title="${t.favorite?'取消收藏':'收藏歌曲'}" style="border:0;background:transparent;color:${t.favorite?'var(--accent,#b86670)':'var(--dim)'};padding:4px 7px;font-size:18px">${t.favorite?'♥':'♡'}</button>${!t.preset?`<button type="button" data-edit-track="${i}" title="编辑歌曲与歌词">编辑</button>`:''}</div></div>`).join('')||'<div style="color:#aaa;font-size:12px">当前分类暂无歌曲。</div>'}</div><div id="music-lyrics-panel" aria-hidden="true" style="display:none"></div></div></div>`;
+    // 4.1.16：唱片整页与歌词整页左右并排，拖动时页面位置实时跟随手指。
+    try {
+      const body=page.querySelector('.music-player-page:not(.wardrobe-head)');
+      const oldPages=body?.querySelector('#music-visual-pages');
+      const oldFlipper=oldPages?.querySelector('#music-page-flipper');
+      const vinyl=oldFlipper?.querySelector('#music-vinyl');
+      const lyricStage=oldFlipper?.querySelector('#music-lyrics-stage');
+      if(body&&oldPages&&oldFlipper&&vinyl&&lyricStage){
+        const movable=[...body.children].filter(n=>n!==oldPages);
+        const viewport=document.createElement('div');viewport.id='music-visual-pages';
+        viewport.style.cssText='position:relative;flex:1;min-height:0;width:100%;overflow:hidden;touch-action:pan-y;margin:0 auto;';
+        const flipper=document.createElement('div');flipper.id='music-page-flipper';
+        flipper.style.cssText='position:absolute;inset:0 auto 0 0;width:200%;display:flex;transform:translate3d(0,0,0);transition:transform .35s cubic-bezier(.2,.7,.2,1);will-change:transform;';
+        const front=document.createElement('section');front.className='music-whole-face music-whole-front';
+        front.style.cssText='position:relative;flex:0 0 50%;width:50%;height:100%;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:stretch;padding:8px 10px 16px;box-sizing:border-box;';
+        const back=document.createElement('section');back.className='music-whole-face music-whole-back';
+        back.style.cssText='position:relative;flex:0 0 50%;width:50%;height:100%;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box;padding:12px 10px 16px;background:var(--panel,#17151e);';
+        oldPages.remove();vinyl.style.cssText='width:min(54vw,210px);height:min(54vw,210px);margin:20px auto 22px;border-radius:50%;background:transparent;display:flex;align-items:center;justify-content:center;position:relative;transform:none;';
+        front.appendChild(vinyl);movable.forEach(n=>front.appendChild(n));
+        lyricStage.style.cssText='display:flex!important;position:relative;inset:auto;width:100%;height:100%;margin:0;color:inherit;padding:0;box-sizing:border-box;overflow:hidden;flex:1;flex-direction:column;background:var(--panel,#17151e);';
+        const title=lyricStage.querySelector('#music-lyrics-title');
+        if(title)title.outerHTML='<div id="music-lyrics-title" style="display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;font-weight:700;text-align:left;padding:2px 8px 12px;white-space:nowrap;overflow:hidden;min-height:38px;border-bottom:1px solid var(--border);margin-bottom:10px"><span id="music-lyrics-song-name" style="overflow:hidden;text-overflow:ellipsis"></span><button id="music-lyrics-favorite" type="button" aria-label="收藏歌曲" style="flex:0 0 auto;background:transparent;border:0;color:var(--dim);font-size:22px;padding:0 6px">♡</button></div>';
+        const lines=lyricStage.querySelector('#music-lyrics-lines');
+        if(lines)lines.insertAdjacentHTML('beforebegin','<div id="music-lyrics-clock" style="text-align:center;font-size:12px;color:var(--dim);padding:3px 0 12px;font-variant-numeric:tabular-nums">00:00</div>');
+        back.appendChild(lyricStage);flipper.append(front,back);viewport.appendChild(flipper);body.appendChild(viewport);body.style.padding='0';body.style.overflow='hidden';body.style.display='flex';body.style.flexDirection='column';
+        const css=document.createElement('style');css.textContent=`#music-visual-pages{overflow:hidden!important;touch-action:pan-y}#music-page-flipper{transform-style:flat!important}#music-lyrics-stage,#music-lyrics-stage #music-lyrics-lines{background:var(--panel,#17151e)!important}#music-lyrics-stage [data-lyric-line]{display:block!important;width:100%;text-align:left!important;cursor:pointer;padding:3px 2px}#music-lyrics-stage .lyric-text{display:block;text-align:left!important}#music-lyrics-stage [data-lyric-line]{display:grid!important;grid-template-columns:minmax(0,1fr) 42px!important;align-items:center;gap:8px}#music-lyrics-stage .lyric-text{display:block;text-align:left!important;min-width:0}#music-lyrics-stage .lyric-time{display:block!important;text-align:right!important;font-size:10px;color:var(--dim);opacity:.78;font-variant-numeric:tabular-nums}#music-lyrics-stage [data-lyric-line].active .lyric-time{color:var(--fg);opacity:1}#music-lyrics-stage [data-lyric-line].active{color:var(--fg)!important;opacity:1!important}#music-list button[data-edit-track],#music-category-manage,#music-add-category,#music-url-import,.wardrobe-detail-backdrop .wardrobe-detail button{background:#302a48!important;color:#f2efff!important;border:1px solid #665a91!important;box-shadow:none!important;border-radius:7px!important}#music-category-filter button{background:#252331!important;color:#eee!important;border:1px solid #514965!important}#music-category-filter button[style*="554574"]{background:#554574!important}#music-list button[data-play-track]{background:transparent!important;color:#eee!important}#music-list .music-track-row{transition:background .15s,border-color .15s,opacity .15s}#music-list .music-track-row:has([data-play-track]){cursor:pointer}#music-multi-toggle{background:#554574!important;color:#fff!important;border:1px solid #79669d!important;border-radius:7px!important}#music-add-category:disabled{opacity:.42!important}#music-list button[data-favorite-track]{background:transparent!important;color:var(--dim)!important}#music-list button[data-edit-track]{padding:5px 9px!important;font-size:11px!important}#music-list .music-track-row,#music-list .music-track-main{background:transparent!important}#music-list .music-track-main{padding:6px 7px!important}#music-list button[data-delete-track],#music-list button[data-edit-track]{background:#302a48!important;color:#f2efff!important;border:1px solid #665a91!important}#music-list button{color:#eee!important}#music-list button[data-favorite-track]{color:var(--accent,#b86670)!important}#music-url-import{white-space:nowrap}
+#music-multi-toggle,#music-select-all,#music-bulk-delete,#music-category-manage,#music-add-category{background:#302a48!important;color:#f2efff!important;border:1px solid #665a91!important;border-radius:7px!important;box-shadow:none!important;}
+#music-multi-toggle:disabled,#music-select-all:disabled,#music-bulk-delete:disabled,#music-add-category:disabled{background:#252331!important;color:#8d879b!important;border-color:#514965!important;opacity:.65!important;}
+#music-list .music-track-main{display:flex;align-items:center;gap:7px;}
+#music-list input[data-music-select]{flex:0 0 16px;width:16px;height:16px;margin:0 3px 0 1px;accent-color:#a894e8;}
+#music-list .music-track-row.is-playing{background:#3b3152!important;border-color:#9b86ce!important;box-shadow:inset 3px 0 0 #b9a5f0!important;opacity:1!important;}
+#music-list .music-track-row.is-playing [data-play-track]{color:#fff!important;font-weight:700!important;}
+#music-list .music-track-row:not(.is-playing){opacity:.78;}
+#music-url-import{white-space:nowrap}`;page.appendChild(css);
+      }
+    } catch(err){console.warn('[MufyCard] 整页左右翻页布局初始化失败',err);}
     page.querySelector('#music-back').onclick=showMorePage;
     const coverArt=page.querySelector('#music-cover-art');
     const coverImage=page.querySelector('#music-cover-image');if(coverImage)coverImage.onerror=()=>{coverImage.remove();if(coverArt)coverArt.textContent='图片加载失败';showToast('图片已保存，但当前浏览器无法读取该图片数据。','err');};
     const openCoverMenu=()=>{
       const menu=document.createElement('div');menu.className='wardrobe-detail-backdrop';
-      menu.innerHTML=`<section class="wardrobe-detail" style="max-width:330px"><div style="display:flex;justify-content:space-between;align-items:center"><strong>唱片中心图片</strong><button type="button" data-close>×</button></div><div style="display:grid;gap:10px;margin-top:14px"><button type="button" data-import-cover>导入图片</button><label style="font-size:12px;color:#d7d3e2">图片覆盖唱片比例：<span id="cover-size-label">${musicCoverSize}%</span><input id="cover-size-range" type="range" min="25" max="100" step="1" value="${musicCoverSize}" style="width:100%"></label><button type="button" data-reset-cover>恢复默认</button></div></section>`;
+      menu.innerHTML=`<section class="wardrobe-detail" style="max-width:330px"><div style="display:flex;justify-content:space-between;align-items:center"><strong>全局默认唱片中心图片</strong><button type="button" data-close>×</button></div><div style="display:grid;gap:10px;margin-top:14px"><button type="button" data-import-cover>导入图片</button><label style="font-size:12px;color:#d7d3e2">图片覆盖唱片比例：<span id="cover-size-label">${musicCoverSize}%</span><input id="cover-size-range" type="range" min="25" max="100" step="1" value="${musicCoverSize}" style="width:100%"></label><button type="button" data-reset-cover>恢复默认</button></div></section>`;
       page.appendChild(menu);menu.querySelector('[data-close]').onclick=()=>menu.remove();menu.addEventListener('click',e=>{if(e.target===menu)menu.remove();});
       const range=menu.querySelector('#cover-size-range');range.oninput=()=>{musicCoverSize=Number(range.value);menu.querySelector('#cover-size-label').textContent=musicCoverSize+'%';const img=coverArt?.querySelector('#music-cover-image');if(img){img.style.width=musicCoverSize+'%';img.style.height=musicCoverSize+'%';}saveMusicState();};
-      menu.querySelector('[data-import-cover]').onclick=()=>{const input=document.createElement('input');input.type='file';input.accept='image/*';input.onchange=async()=>{const file=input.files&&input.files[0];if(!file)return;if(!/^image\/(png|jpeg|webp|gif|avif)$/i.test(file.type)){showToast('请选择 PNG、JPG、WEBP、GIF 或 AVIF 图片。','err');return;}if(file.size>12*1024*1024){showToast('图片过大，请选择 12MB 以内的图片。','err');return;}try{const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result||''));reader.onerror=()=>reject(reader.error);reader.readAsDataURL(file);});await saveMusicCoverToDB(dataUrl);musicCover=dataUrl;musicCoverSize=Math.max(25,Math.min(100,musicCoverSize||35));menu.remove();renderMusicPage();showToast('唱片中心图片已保存。','ok');}catch(err){console.error('[MufyCard] 唱片图片保存失败',err);showToast('图片保存失败，请尝试更小的图片。','err');}};input.click();};
-      menu.querySelector('[data-reset-cover]').onclick=async()=>{musicCover='';musicCoverSize=35;try{await saveMusicCoverToDB('');}catch(_){}try{W.localStorage.removeItem(MUSIC_COVER_KEY);}catch(_){}saveMusicState();menu.remove();renderMusicPage();showToast('已恢复默认紫色唱片中心。','ok');};
+      menu.querySelector('[data-import-cover]').onclick=()=>{const input=document.createElement('input');input.type='file';input.accept='image/*';input.onchange=async()=>{const file=input.files&&input.files[0];if(!file)return;if(!String(file.type||'').toLowerCase().startsWith('image/')){showToast('请选择图片文件。','err');return;}if(file.size>25*1024*1024){showToast('原始图片超过 25MB，请选择较小文件。','err');return;}try{const dataUrl=await compressMusicCoverFile(file);await saveMusicCoverToDB(dataUrl);musicCover=dataUrl;musicCoverSize=Math.max(25,Math.min(100,musicCoverSize||35));menu.remove();renderMusicPage();showToast('全局默认唱片中心图片已保存。','ok');}catch(err){console.error('[MufyCard] 唱片图片保存失败',err);showToast('图片导入失败：'+(err&&err.message?err.message:'本地存储不可用'), 'err');}};input.click();};
+      menu.querySelector('[data-reset-cover]').onclick=async()=>{musicCover='';musicCoverSize=35;try{await saveMusicCoverToDB('');}catch(_){}try{W.localStorage.removeItem(MUSIC_COVER_KEY);}catch(_){}saveMusicState();menu.remove();renderMusicPage();showToast('已清除全局默认图片；未设置专属封面的歌曲恢复紫色默认唱片。','ok');};
     };
     if(coverArt){coverArt.onclick=openCoverMenu;coverArt.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openCoverMenu();}};}
-    page.querySelector('#music-prev').onclick=()=>playMusicAt(musicMode==='shuffle'?randomMusicIndex():musicIndex-1,true);
-    page.querySelector('#music-next').onclick=()=>playMusicAt(musicMode==='shuffle'?randomMusicIndex():musicIndex+1,true);
-    page.querySelector('#music-play').onclick=async()=>{if(!wardrobeAudio.src&&musicTracks[musicIndex]){wardrobeAudio.src=musicTracks[musicIndex].url;syncMusicNativeLoop();}if(!wardrobeAudio.src){showToast('请先添加或选择一首歌曲。','err');return;}if(wardrobeAudio.paused){try{await wardrobeAudio.play();}catch(err){showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src);}}else wardrobeAudio.pause();renderMusicPage();};
-    page.querySelector('#music-mode').onclick=(e)=>{e.preventDefault();e.stopPropagation();musicMode=musicMode==='sequence'?'shuffle':musicMode==='shuffle'?'single':'sequence';syncMusicNativeLoop();saveMusicState();const labels={sequence:'⇢ 顺序播放',single:'① 单曲循环',shuffle:'🔀 随机播放'};const btn=page.querySelector('#music-mode');if(btn)btn.textContent=labels[musicMode];};
-    page.querySelector('#music-url-import').onclick=async()=>{const input=page.querySelector('#music-url-input');const url=(input?.value||'').trim();if(!url){showToast('请先粘贴音乐 URL。','err');input?.focus();return;}try{const u=new URL(url,location.href);if(!/^https?:$/.test(u.protocol))throw new Error('protocol');const title=prompt('请输入歌曲名称（不填则使用“未命名歌曲”）')||'未命名歌曲';musicTracks.push({id:'custom-'+Date.now(),title:title.trim()||'未命名歌曲',url:u.href,preset:false});musicIndex=musicTracks.length-1;saveCustomTracks();wardrobeAudio.pause();syncMusicNativeLoop();wardrobeAudio.src=u.href;wardrobeAudio.load();saveMusicState();try{await wardrobeAudio.play();}catch(err){showMusicPlaybackError(err,u.href);}renderMusicPage();}catch(_){showToast('链接格式不正确，请使用 http/https 音频直链。','err');}};
-    page.querySelectorAll('[data-play-track]').forEach(b=>b.onclick=()=>playMusicAt(Number(b.dataset.playTrack),true));
-    page.querySelectorAll('[data-delete-track]').forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.deleteTrack),t=musicTracks[idx];if(!t||t.preset)return;if(!confirm(`删除歌曲「${t.title}」？`))return;const wasCurrent=idx===musicIndex;musicTracks.splice(idx,1);if(idx<musicIndex)musicIndex--;if(wasCurrent){wardrobeAudio.pause();wardrobeAudio.removeAttribute('src');wardrobeAudio.load();musicIndex=Math.min(musicIndex,Math.max(0,musicTracks.length-1));if(musicTracks[musicIndex])wardrobeAudio.src=musicTracks[musicIndex].url;}saveCustomTracks();saveMusicState();renderMusicPage();});
+    // 播放按钮采用4.1.1正式版的逐元素绑定方式，点击列表歌曲立即切歌并播放。
+    page.querySelectorAll('[data-play-track]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();if(!musicMultiSelect)void playMusicAt(Number(b.dataset.playTrack),true);});
+    page.querySelector('#music-prev').onclick=()=>void playMusicAt(musicMode==='shuffle'?randomMusicIndex():musicIndex-1,true);
+    page.querySelector('#music-next').onclick=()=>void playMusicAt(musicMode==='shuffle'?randomMusicIndex():musicIndex+1,true);
+    page.querySelector('#music-play').onclick=async()=>{if(!wardrobeAudio.src&&musicTracks[musicIndex])wardrobeAudio.src=musicTracks[musicIndex].url;if(!wardrobeAudio.src){showToast('请先添加或选择一首歌曲。','err');return;}if(wardrobeAudio.paused){try{await wardrobeAudio.play();}catch(err){showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src);}}else wardrobeAudio.pause();updateMusicProgress();};
+    page.querySelector('#music-mode').onclick=(e)=>{e.preventDefault();e.stopPropagation();musicMode=musicMode==='sequence'?'shuffle':musicMode==='shuffle'?'single':'sequence';if(musicMode==='shuffle')resetMusicShuffleBag();else musicShuffleBag=[];syncMusicNativeLoop();saveMusicState();const labels={sequence:'⇢ 顺序播放',single:'① 单曲循环',shuffle:'🔀 随机播放'};const btn=page.querySelector('#music-mode');if(btn)btn.textContent=labels[musicMode];};
+    page.querySelector('#music-url-import').onclick=()=>{
+      const input=page.querySelector('#music-url-input');
+      const raw=(input?.value||'').trim();
+      if(!raw){showToast('请先粘贴音乐 URL。','err');input?.focus();return;}
+      let u;try{u=new URL(raw,location.href);}catch(_){showToast('链接格式不正确，请检查 URL。','err');return;}
+      if(!/^https?:$/.test(u.protocol)){showToast('仅支持 http/https 链接。','err');return;}
+      let suggested='';try{suggested=decodeURIComponent(u.pathname.split('/').pop()||'').replace(/\.(mp3|m4a|aac|ogg|wav|flac)$/i,'').replace(/[+_]/g,' ').trim();}catch(_){suggested='';}
+      const entered=prompt('请输入歌曲名称（留空则自动命名）',suggested);
+      if(entered===null)return;
+      const track={id:'custom-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),title:entered.trim()||suggested||'未命名歌曲',url:u.href,cover:'',lyrics:'',categories:[],favorite:false,preset:false};
+      try{musicTracks.push(track);saveCustomTracks();if(input)input.value='';renderMusicPage();showToast('歌曲已加入播放列表。','ok');}
+      catch(err){musicTracks=musicTracks.filter(t=>t.id!==track.id);console.error('[MufyCard] 音乐导入失败',err);showToast('歌曲保存失败，请重试。','err');}
+    };
+    // 歌曲点击由上方委托事件统一处理。
+    page.querySelectorAll('[data-music-select]').forEach(b=>b.onchange=()=>{const t=musicTracks[Number(b.dataset.musicSelect)];if(!t)return;b.checked?musicSelectedIds.add(String(t.id)):musicSelectedIds.delete(String(t.id));});
+    page.querySelector('#music-multi-toggle')?.addEventListener('click',()=>{
+      musicMultiSelect=!musicMultiSelect;
+      if(!musicMultiSelect)musicSelectedIds.clear();
+      const toggle=page.querySelector('#music-multi-toggle');if(toggle)toggle.textContent=musicMultiSelect?'退出多选':'多选';
+      const bulk=page.querySelector('#music-add-category');if(bulk){bulk.disabled=!musicMultiSelect;bulk.title=musicMultiSelect?'':'请先开启多选';}
+      let selectAll=page.querySelector('#music-select-all'),bulkDelete=page.querySelector('#music-bulk-delete');
+      const bar=toggle?.parentElement;
+      if(musicMultiSelect&&bar){if(!selectAll){selectAll=document.createElement('button');selectAll.id='music-select-all';selectAll.type='button';selectAll.textContent='全选';selectAll.style.cssText='font-size:11px;padding:5px 7px';bar.appendChild(selectAll);}if(!bulkDelete){bulkDelete=document.createElement('button');bulkDelete.id='music-bulk-delete';bulkDelete.type='button';bulkDelete.textContent='批量删除';bulkDelete.style.cssText='font-size:11px;padding:5px 7px';bar.appendChild(bulkDelete);}}
+      else{selectAll?.remove();bulkDelete?.remove();}
+      page.querySelectorAll('[data-track-row]').forEach(row=>{const idx=Number(row.dataset.trackRow),track=musicTracks[idx];let cb=row.querySelector('[data-music-select]');if(musicMultiSelect&&!cb&&track){cb=document.createElement('input');cb.type='checkbox';cb.dataset.musicSelect=String(idx);cb.setAttribute('aria-label','选择歌曲');cb.checked=musicSelectedIds.has(String(track.id));row.querySelector('.music-track-main')?.prepend(cb);cb.onchange=()=>{cb.checked?musicSelectedIds.add(String(track.id)):musicSelectedIds.delete(String(track.id));};}else if(!musicMultiSelect&&cb)cb.remove();});
+      const bindSelectAll=()=>{const visible=[...page.querySelectorAll('[data-track-row]')].map(row=>musicTracks[Number(row.dataset.trackRow)]).filter(Boolean);const all=visible.length&&visible.every(t=>musicSelectedIds.has(String(t.id)));visible.forEach(t=>all?musicSelectedIds.delete(String(t.id)):musicSelectedIds.add(String(t.id)));page.querySelectorAll('[data-music-select]').forEach(cb=>{const t=musicTracks[Number(cb.dataset.musicSelect)];cb.checked=!!t&&musicSelectedIds.has(String(t.id));});};
+      if(selectAll)selectAll.onclick=bindSelectAll;
+      if(bulkDelete)bulkDelete.onclick=()=>{const chosen=musicTracks.filter(t=>musicSelectedIds.has(String(t.id))&&!t.preset);if(!chosen.length){showToast('请先选择自定义歌曲。','err');return;}if(!confirm(`确定删除选中的 ${chosen.length} 首歌曲吗？`))return;const activeId=musicTracks[musicIndex]?.id,ids=new Set(chosen.map(t=>String(t.id)));musicTracks=musicTracks.filter(t=>!ids.has(String(t.id)));musicSelectedIds.clear();const idx=musicTracks.findIndex(t=>String(t.id)===String(activeId));musicIndex=idx>=0?idx:Math.min(musicIndex,Math.max(0,musicTracks.length-1));saveCustomTracks();saveMusicState();renderMusicPage();};
+    });
+    page.querySelector('#music-select-all')?.addEventListener('click',()=>{const visible=[...page.querySelectorAll('[data-track-row]')].map(row=>musicTracks[Number(row.dataset.trackRow)]).filter(Boolean);const all=visible.length&&visible.every(t=>musicSelectedIds.has(String(t.id)));visible.forEach(t=>all?musicSelectedIds.delete(String(t.id)):musicSelectedIds.add(String(t.id)));page.querySelectorAll('[data-music-select]').forEach(cb=>{const t=musicTracks[Number(cb.dataset.musicSelect)];cb.checked=!!t&&musicSelectedIds.has(String(t.id));});});
+    page.querySelectorAll('[data-music-cat]').forEach(b=>b.onclick=()=>{musicActiveCategory=b.dataset.musicCat||'全部';renderMusicPage();});
+    page.querySelector('#music-category-manage')?.addEventListener('click',openMusicCategoryManager);
+    page.querySelector('#music-add-category')?.addEventListener('click',assignSelectedMusicCategory);
+    page.querySelectorAll('[data-favorite-track]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();const t=musicTracks[Number(b.dataset.favoriteTrack)];if(!t)return;t.favorite=!t.favorite;saveCustomTracks();b.textContent=t.favorite?'♥':'♡';b.style.color=t.favorite?'var(--accent,#b86670)':'var(--dim)';b.setAttribute('aria-label',t.favorite?'取消收藏':'收藏歌曲');b.title=t.favorite?'取消收藏':'收藏歌曲';const lyricFav=page.querySelector('#music-lyrics-favorite');if(String(t.id)===String(musicTracks[musicIndex]?.id)&&lyricFav){lyricFav.textContent=t.favorite?'♥':'♡';lyricFav.style.color=t.favorite?'var(--accent,#b86670)':'var(--dim)';}showToast(t.favorite?'已加入收藏夹。':'已从收藏夹移除。','ok');});
+    page.querySelectorAll('[data-edit-track]').forEach(b=>b.onclick=()=>openMusicTrackEditor(Number(b.dataset.editTrack)));
+    const musicPageGesture=page.querySelector('#music-visual-pages');
+    if(musicPageGesture){
+      let sx=0,sy=0,dx=0,started=false,dragging=false,base=musicLyricsTrackId?1:0,pointerId=null;
+      const hasLyrics=()=>!!musicTracks[musicIndex]?.lyrics;
+      const flipper=()=>page.querySelector('#music-page-flipper');
+      const setOffset=(progress)=>{const f=flipper();if(f){f.style.transition='none';f.style.transform=`translate3d(${-Math.max(0,Math.min(1,progress))*50}%,0,0)`;}};
+      musicPageGesture.addEventListener('pointerdown',e=>{if(e.target?.closest?.('#music-progress,button,input,textarea,select,[data-lyric-line]'))return;if(e.pointerType==='mouse'&&e.button!==0)return;if(!hasLyrics()&&!musicLyricsTrackId)return;sx=e.clientX;sy=e.clientY;dx=0;started=true;dragging=false;base=musicLyricsTrackId?1:0;pointerId=e.pointerId;const f=flipper();if(f)f.style.transition='none';},{passive:true});
+      musicPageGesture.addEventListener('pointermove',e=>{if(!started||e.pointerId!==pointerId)return;dx=e.clientX-sx;const dy=e.clientY-sy;if(!dragging&&Math.abs(dy)>Math.abs(dx)*1.15){started=false;return;}if(Math.abs(dx)>3)dragging=true;if(dragging){const w=Math.max(1,musicPageGesture.clientWidth);const progress=Math.max(0,Math.min(1,base-dx/w));setOffset(progress);if(e.cancelable)e.preventDefault();}},{passive:false});
+      const finish=e=>{if(!started||e.pointerId!==pointerId)return;started=false;const w=Math.max(1,musicPageGesture.clientWidth),progress=Math.max(0,Math.min(1,base-dx/w));const toLyrics=dragging?(Math.abs(dx)>Math.max(34,w*0.20)?(dx<0):(base===1)):(base===1);const final=toLyrics&&hasLyrics()?1:0;const f=flipper();if(f){f.style.transition='transform .38s cubic-bezier(.2,.7,.2,1)';f.style.transform=`translate3d(${-final*50}%,0,0)`;}if(final){showMusicLyrics(musicTracks[musicIndex],true);}else hideMusicLyrics(true);};
+      musicPageGesture.addEventListener('pointerup',finish);musicPageGesture.addEventListener('pointercancel',e=>{if(!started||e.pointerId!==pointerId)return;started=false;const f=flipper();if(f){f.style.transition='transform .24s ease-out';f.style.transform=`translate3d(${-base*50}%,0,0)`;}});
+    }
+    if(musicLyricsTrackId){const t=musicTracks.find(x=>String(x.id)===musicLyricsTrackId);if(t?.lyrics)showMusicLyrics(t,false);}
     const seek=page.querySelector('#music-progress');
+    seek.style.touchAction='none';
+    ['pointerdown','pointermove','pointerup','touchstart','touchmove','touchend','click'].forEach(type=>seek.addEventListener(type,e=>e.stopPropagation(),{passive:type!=='touchmove'}));
     seek.addEventListener('pointerdown',()=>{musicSeeking=true;});
     seek.addEventListener('touchstart',()=>{musicSeeking=true;},{passive:true});
     seek.addEventListener('input',e=>{
@@ -2405,12 +2869,207 @@
     const endSeek=()=>{musicSeeking=false;updateMusicProgress();};
     seek.addEventListener('change',endSeek);seek.addEventListener('pointerup',endSeek);seek.addEventListener('touchend',endSeek,{passive:true});
     updateMusicProgress();if(!musicSeekTimer)musicSeekTimer=W.setInterval(updateMusicProgress,500);
+    const restoreMusicScroll=()=>{
+      if(!page?.isConnected)return;
+      for(const item of scrollSnapshot){let target=item.el?.isConnected?item.el:null;if(!target&&item.id)target=page.querySelector('#'+CSS.escape(item.id));if(!target&&item.cls&&item.tag)target=page.querySelector(item.tag.toLowerCase()+'.'+CSS.escape(item.cls));if(target){target.scrollTop=item.st;target.scrollLeft=item.sl;}}
+      if(W.scrollX!==savedWindowScrollX||W.scrollY!==savedWindowScrollY)W.scrollTo(savedWindowScrollX,savedWindowScrollY);
+    };
+    // DOM 替换、移动端焦点滚动和布局回流可能分不同帧发生；连续恢复，确保不被后续回流覆盖。
+    W.requestAnimationFrame(()=>{restoreMusicScroll();W.requestAnimationFrame(restoreMusicScroll);});
+    W.setTimeout(restoreMusicScroll,80);
   }
-  function showMusicPlaybackError(err,url){const code=wardrobeAudio?.error?.code;const detail=err?.name==='NotAllowedError'?'浏览器阻止了自动播放，请点击播放按钮。':code===3?'音频格式或编码不受当前浏览器支持。':code===4?'链接不是可直接播放的音频文件，或服务器拒绝了请求。':code===2?'网络读取失败，请检查链接或网络。':'无法启动播放，请确认这是可公开访问的音频直链。';const st=panel?.querySelector('#music-status');if(st){st.textContent=detail;st.style.display='block';}console.warn('[MufyCard] 音频播放失败',url,err,code);}
-  async function saveMusicCoverToDB(value){const db=await openWardrobeDB();return new Promise((resolve,reject)=>{const tx=db.transaction('data','readwrite');tx.objectStore('data').put(value,'musicCover');tx.oncomplete=()=>{db.close();resolve(true);};tx.onerror=()=>{const e=tx.error;db.close();reject(e);};tx.onabort=()=>{const e=tx.error;db.close();reject(e||new Error('图片保存事务中断'));};});}
-  async function loadMusicCoverFromDB(){try{const db=await openWardrobeDB();return await new Promise((resolve,reject)=>{const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get('musicCover');req.onsuccess=()=>resolve(req.result||'');req.onerror=()=>reject(req.error);tx.oncomplete=()=>db.close();});}catch(_){return '';}}
+  function persistMusicCategories(){const raw=JSON.stringify(musicCategories);try{W.localStorage.setItem(MUSIC_CATEGORIES_KEY,raw);}catch(_){}void mirrorToScriptStorage(MUSIC_CATEGORIES_KEY,raw);}
+  function openMusicCategoryManager(){
+    const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
+    overlay.innerHTML=`<section class="wardrobe-detail"><div style="display:flex;justify-content:space-between;align-items:center"><strong>音乐分类管理</strong><button data-close type="button">×</button></div><div style="display:flex;gap:6px;margin:12px 0"><input id="music-cat-name" placeholder="新建分类名称" maxlength="30" style="flex:1"><button data-create type="button">新建</button></div><div id="music-cat-list" style="display:grid;gap:6px">${musicCategories.map((c,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:7px;border:1px solid var(--border);border-radius:8px"><span>${escapeHtml(c)}</span><button type="button" data-del-cat="${i}">删除</button></div>`).join('')||'<small>还没有自定义分类</small>'}</div></section>`;
+    panel.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('[data-close]').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+    overlay.querySelector('[data-create]').onclick=()=>{const v=overlay.querySelector('#music-cat-name').value.trim();if(!v)return;if(musicCategories.includes(v)){showToast('分类已存在。','err');return;}musicCategories.push(v);persistMusicCategories();close();renderMusicPage();};
+    overlay.querySelectorAll('[data-del-cat]').forEach(b=>b.onclick=()=>{const c=musicCategories[Number(b.dataset.delCat)];if(!confirm(`删除分类「${c}」？歌曲不会被删除，只会解除该分类。`))return;musicCategories.splice(Number(b.dataset.delCat),1);musicTracks.forEach(t=>t.categories=(t.categories||[]).filter(x=>x!==c));persistMusicCategories();saveCustomTracks();close();renderMusicPage();});
+  }
+  function assignSelectedMusicCategory(){
+    if(!musicMultiSelect){showToast('请先开启多选。','err');return;}
+    const tracks=musicTracks.filter(t=>musicSelectedIds.has(String(t.id)));if(!tracks.length){showToast('请先勾选要分类的歌曲。','err');return;}
+    const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';overlay.innerHTML=`<section class="wardrobe-detail"><div style="display:flex;justify-content:space-between;align-items:center"><strong>加入音乐分类（${tracks.length} 首）</strong><button data-close type="button">×</button></div><div style="display:grid;gap:7px;margin:12px 0">${musicCategories.map((c,i)=>`<label><input type="checkbox" value="${escapeHtml(c)}" checked> ${escapeHtml(c)}</label>`).join('')||'<small>请先创建分类。</small>'}</div><div style="display:flex;gap:6px"><input id="music-new-cat" placeholder="也可新建分类" maxlength="30" style="flex:1"><button data-save type="button">确认</button></div></section>`;
+    panel.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('[data-close]').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close();});overlay.querySelector('[data-save]').onclick=()=>{const chosen=[...overlay.querySelectorAll('input[type=checkbox]:checked')].map(x=>x.value);const fresh=overlay.querySelector('#music-new-cat').value.trim();if(fresh&&!musicCategories.includes(fresh))musicCategories.push(fresh);if(fresh)chosen.push(fresh);if(!chosen.length){showToast('请选择或新建至少一个分类。','err');return;}tracks.forEach(t=>t.categories=[...new Set([...(t.categories||[]),...chosen])]);persistMusicCategories();saveCustomTracks();musicSelectedIds.clear();close();renderMusicPage();showToast(`已将 ${tracks.length} 首歌曲加入分类。`,'ok');};
+  }
+  function openMusicTrackEditor(index){const t=musicTracks[index];if(!t||t.preset)return;const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';overlay.innerHTML=`<section class="wardrobe-detail"><div style="display:flex;justify-content:space-between;align-items:center"><strong>编辑歌曲</strong><button data-close type="button">×</button></div><label>歌曲名称<input id="edit-music-title" value="${escapeHtml(t.title||'')}" maxlength="100"></label><label>音乐 URL<input id="edit-music-url" value="${escapeHtml(t.url||'')}" type="url"></label><label>封面 URL（可选）<input id="edit-music-cover" value="${escapeHtml(String(t.cover||'').startsWith('data:image/')?'':(t.cover||''))}" type="url" placeholder="图片链接"></label><label>或导入本地封面图片<input id="edit-music-cover-file" type="file" accept="image/*"></label><button type="button" data-clear-cover style="display:block;width:100%;box-sizing:border-box;margin:2px 0 10px">清除这首歌的专属封面</button><label style="display:block;width:100%">歌词（支持普通文本或 LRC 时间轴）<textarea id="edit-music-lyrics" rows="9" placeholder="粘贴歌词；LRC 格式可按时间同步滚动">${escapeHtml(t.lyrics||'')}</textarea></label><div class="detail-actions"><button data-save type="button">保存</button><button data-cancel type="button">取消</button></div></section>`;panel.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('[data-close]').onclick=close;overlay.querySelector('[data-cancel]').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close();});overlay.querySelector('[data-clear-cover]').onclick=()=>{t.cover='';overlay.querySelector('#edit-music-cover').value='';const f=overlay.querySelector('#edit-music-cover-file');if(f)f.value='';};overlay.querySelector('[data-save]').onclick=async()=>{const url=overlay.querySelector('#edit-music-url').value.trim();try{const u=new URL(url,location.href);if(!/^https?:$/.test(u.protocol))throw 0;t.title=overlay.querySelector('#edit-music-title').value.trim()||'未命名歌曲';t.url=u.href;let coverUrl=overlay.querySelector('#edit-music-cover').value.trim();const file=overlay.querySelector('#edit-music-cover-file')?.files?.[0];if(file){if(!String(file.type||'').startsWith('image/'))throw new Error('请选择图片文件');if(file.size>25*1024*1024)throw new Error('图片超过25MB');coverUrl=await compressMusicCoverFile(file);}t.cover=coverUrl;t.lyrics=overlay.querySelector('#edit-music-lyrics').value.trim();saveCustomTracks();if(musicIndex===index&&wardrobeAudio.src!==t.url){wardrobeAudio.src=t.url;wardrobeAudio.load();}close();renderMusicPage();showToast('歌曲信息、歌词与专属封面已保存。','ok');}catch(err){showToast(err?.message==='音乐 URL 格式不正确。'?err.message:(err?.message||'音乐 URL 格式不正确。'),'err');}};}
+  function parseMusicLyrics(text){
+    const raw=String(text||'').replace(/\r/g,'');
+    const out=[];
+    // LRC 经常从网页/手机剪贴板粘贴成单行；不能只按换行拆分。
+    const timeTag=/\[(\d{1,3}):(\d{2})(?:[.:](\d{1,3}))?\]/g;
+    let match;
+    while((match=timeTag.exec(raw))!==null){
+      const start=timeTag.lastIndex;
+      const next=raw.indexOf('[',start);
+      const lyric=raw.slice(start,next<0?raw.length:next).trim();
+      const fraction=match[3]?Number('0.'+match[3]):0;
+      out.push({time:Number(match[1])*60+Number(match[2])+fraction,text:lyric});
+    }
+    if(out.length){return out.filter(x=>x.text||x.time===0);}
+    // 普通文本歌词保持原样逐行滚动。
+    return raw.split(/\n+/).map(line=>line.trim()).filter(Boolean).map(text=>({time:null,text}));
+  }
+  function showMusicLyrics(track,animate=true){
+    const stage=panel.querySelector('#music-lyrics-stage'),vinyl=panel.querySelector('#music-vinyl'),pages=panel.querySelector('#music-visual-pages');if(!stage||!vinyl||!pages||!track?.lyrics)return;
+    musicLyricsTrackId=String(track.id);const lines=parseMusicLyrics(track.lyrics);const timed=lines.some(x=>x.time!==null)&&String(track.id)===String(musicTracks[musicIndex]?.id);
+    const title=stage.querySelector('#music-lyrics-song-name');if(title)title.textContent=track.title||'未命名歌曲';const fav=stage.querySelector('#music-lyrics-favorite');if(fav){fav.textContent=track.favorite?'♥':'♡';fav.style.color=track.favorite?'var(--accent,#b86670)':'var(--dim)';fav.onclick=e=>{e.preventDefault();e.stopPropagation();track.favorite=!track.favorite;saveCustomTracks();fav.textContent=track.favorite?'♥':'♡';fav.style.color=track.favorite?'var(--accent,#b86670)':'var(--dim)';fav.setAttribute('aria-label',track.favorite?'取消收藏':'收藏歌曲');const listFav=panel.querySelector('#music-list [data-favorite-track="'+musicIndex+'"]');if(listFav){listFav.textContent=track.favorite?'♥':'♡';listFav.style.color=track.favorite?'var(--accent,#b86670)':'var(--dim)';listFav.setAttribute('aria-label',track.favorite?'取消收藏':'收藏歌曲');}};}
+    const area=stage.querySelector('#music-lyrics-lines');area.innerHTML=lines.map((x,i)=>`<div data-lyric-line="${i}" data-lyric-time="${x.time===null?'':x.time}" role="button" tabindex="0" aria-label="跳转到 ${x.time===null?'':formatMusicClock(x.time)}"><span class="lyric-text">${escapeHtml(x.text)}</span><span class="lyric-time">${x.time===null?'':formatMusicClock(x.time)}</span></div>`).join('');
+    stage.setAttribute('aria-hidden','false');vinyl.setAttribute('aria-hidden','true');pages.classList.add('is-lyrics');const flipper=panel.querySelector('#music-page-flipper');if(flipper){flipper.style.transition=animate?'transform .38s cubic-bezier(.2,.7,.2,1)':'none';flipper.style.transform='translate3d(-50%,0,0)';}
+    if(musicLyricsTimer)clearInterval(musicLyricsTimer);let lastActive=-1;
+    const setActive=(active)=>{const clock=stage.querySelector('#music-lyrics-clock');if(clock)clock.textContent=formatMusicClock(wardrobeAudio?.currentTime||0);if(active<0||active>=lines.length)return;if(active!==lastActive){lastActive=active;area.querySelectorAll('[data-lyric-line]').forEach((n,i)=>n.classList.toggle('active',i===active));const el=area.querySelector(`[data-lyric-line="${active}"]`);if(el){const a=area.getBoundingClientRect(),r=el.getBoundingClientRect();const target=area.scrollTop+(r.top-a.top)-(area.clientHeight-r.height)/2;area.scrollTo({top:Math.max(0,target),behavior:'smooth'});}}};
+    // 使用歌词容器捕获事件委托，避免页面重排/触摸翻页监听导致单行 click 丢失。
+    // 只响应浏览器确认的 click；滑动经过歌词行不会触发定位。
+    let lastLyricSeekAt=0;
+    const seekLyricTarget=(e)=>{
+      const row=e.target?.closest?.('[data-lyric-line]');
+      if(!row||!area.contains(row))return false;
+      const rawTime=row.getAttribute('data-lyric-time');
+      if(rawTime===null||rawTime.trim()==='')return false;
+      const seconds=Number(rawTime);
+      if(!Number.isFinite(seconds)||seconds<0||!wardrobeAudio)return false;
+      e.preventDefault?.();e.stopPropagation?.();
+      const now=Date.now();
+      if(now-lastLyricSeekAt<280)return true;
+      lastLyricSeekAt=now;
+      try{
+        // 先更新播放位置，再尝试播放；即使浏览器阻止自动播放，定位本身仍然生效。
+        wardrobeAudio.currentTime=seconds;
+        setActive(Number(row.dataset.lyricLine));
+        const playResult=wardrobeAudio.play();
+        if(playResult&&typeof playResult.catch==='function')playResult.catch(()=>{});
+      }catch(err){console.warn('[MufyCard] 歌词定位失败',err);showToast('这句歌词暂时无法定位，请检查歌曲音频是否可拖动。','err');}
+      return true;
+    };
+    area.addEventListener('click',e=>{seekLyricTarget(e);},true);
+    area.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){seekLyricTarget(e);}},true);
+    if(timed){const sync=()=>{if(String(musicTracks[musicIndex]?.id)!==musicLyricsTrackId)return;const now=(Number(wardrobeAudio?.currentTime)||0)+0.7;let active=-1;lines.forEach((x,i)=>{if(x.time!==null&&x.time<=now)active=i;});setActive(active);};sync();musicLyricsTimer=W.setInterval(sync,100);
+    }else{const sync=()=>{if(!area||wardrobeAudio?.paused)return;const duration=Number(wardrobeAudio?.duration)||0,now=Number(wardrobeAudio?.currentTime)||0;if(duration>0){const active=Math.min(lines.length-1,Math.floor(now/duration*lines.length));setActive(active);}};sync();musicLyricsTimer=W.setInterval(sync,150);}
+  }
+  function formatMusicClock(seconds){const n=Math.max(0,Number(seconds)||0);return `${Math.floor(n/60).toString().padStart(2,'0')}:${Math.floor(n%60).toString().padStart(2,'0')}`;}
+  function hideMusicLyrics(animate=true){if(musicLyricsTimer)clearInterval(musicLyricsTimer);musicLyricsTimer=0;const pages=panel.querySelector('#music-visual-pages'),vinyl=panel.querySelector('#music-vinyl'),stage=panel.querySelector('#music-lyrics-stage');if(pages){pages.classList.remove('is-lyrics');const flipper=panel.querySelector('#music-page-flipper');if(flipper){flipper.style.transition=animate?'transform .38s cubic-bezier(.2,.7,.2,1)':'none';flipper.style.transform='translate3d(0,0,0)';}}if(stage)stage.setAttribute('aria-hidden','true');if(vinyl)vinyl.setAttribute('aria-hidden','false');musicLyricsTrackId='';}
+
+  function getPlayableMusicUrl(rawUrl){/* 保留用户提供的原始音频直链及签名参数；QQ 音乐 vkey 可能与协议/重定向绑定，禁止擅自把 http 改成 https。 */return String(rawUrl||'').trim();}
+  let lastMusicErrorKey='',lastMusicErrorAt=0;
+  function showMusicPlaybackError(err,url){
+    const message=err&&err.message?err.message:'音频加载或播放失败';
+    const key=String(url||wardrobeAudio?.currentSrc||wardrobeAudio?.src||'')+'|'+message;
+    const now=Date.now();
+    console.warn('[MufyCard] 音乐播放失败：',url||'',err||'');
+    const status=panel?.querySelector('#music-status');
+    if(status){status.style.display='block';status.textContent='歌曲无法播放：'+message+'。请检查音频格式、直链响应及浏览器播放支持。';}
+    if(key!==lastMusicErrorKey||now-lastMusicErrorAt>2500){showToast('歌曲播放失败，请检查音频链接或浏览器播放权限。','err');lastMusicErrorKey=key;lastMusicErrorAt=now;}
+  }
+  function refreshMusicTrackUI(){
+    if(wardrobeView!=='music')return;
+    const page=panel.querySelector('#wardrobe-page');
+    const title=page?.querySelector('#music-current-title');
+    const track=musicTracks[musicIndex];
+    if(title)title.textContent=track?.title||'尚未选择歌曲';
+    page?.querySelectorAll('[data-track-row]').forEach(row=>{
+      const active=Number(row.dataset.trackRow)===musicIndex;
+      row.classList.toggle('is-playing',active);
+      row.style.borderColor=active?'var(--accent,#b86670)':'var(--border)';
+      row.style.background=active?'rgba(184,102,112,.18)':'transparent';
+      row.style.opacity=active?'1':'.78';
+      const button=row.querySelector('[data-play-track]');
+      if(button){const t=musicTracks[Number(row.dataset.trackRow)];if(t)button.textContent=(active?'♫ ':'')+(t.title||'未命名歌曲')+(t.preset?' · 预设':'');}
+    });
+    const disc=page?.querySelector('#music-vinyl-disc');if(disc)disc.style.animationPlayState=wardrobeAudio?.paused?'paused':'running';
+    // 每次切歌都按当前歌曲重新计算封面，不能沿用上一首歌的 DOM 图片。
+    const coverArt=page?.querySelector('#music-cover-art');
+    if(coverArt){
+      const coverSource=String(track?.cover||musicCover||'').trim();
+      let coverImg=coverArt.querySelector('#music-cover-image');
+      if(coverSource){
+        if(!coverImg){coverImg=document.createElement('img');coverImg.id='music-cover-image';coverImg.alt='唱片图片';coverArt.appendChild(coverImg);}
+        coverImg.src=coverSource;
+        coverImg.style.cssText=`display:block;width:${musicCoverSize}%;height:${musicCoverSize}%;max-width:none;object-fit:cover;border-radius:50%;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)`;
+      }else if(coverImg){coverImg.remove();}
+    }
+    updateMusicProgress();
+  }
+  async function compressMusicCoverFile(file){
+    // 将普通手机照片先缩放并压缩，再写入 IndexedDB，避免原始大图的 Base64 超出存储配额。
+    const sourceUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result||''));reader.onerror=()=>reject(reader.error||new Error('图片读取失败'));reader.readAsDataURL(file);});
+    const image=await new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(new Error('浏览器无法解码这张图片'));img.src=sourceUrl;});
+    const width=image.naturalWidth||image.width,height=image.naturalHeight||image.height;
+    if(!width||!height)throw new Error('图片尺寸无效');
+    const maxSide=1200,scale=Math.min(1,maxSide/Math.max(width,height));
+    const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(width*scale));canvas.height=Math.max(1,Math.round(height*scale));
+    const ctx=canvas.getContext('2d');if(!ctx)throw new Error('当前浏览器无法处理图片');
+    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(image,0,0,canvas.width,canvas.height);
+    let compressed=canvas.toDataURL('image/jpeg',0.82);
+    // 极端情况下再次降低质量和尺寸，尽量将存储体积控制在约 1MB 内。
+    if(compressed.length>1400000){const scale2=0.75;const c2=document.createElement('canvas');c2.width=Math.max(1,Math.round(canvas.width*scale2));c2.height=Math.max(1,Math.round(canvas.height*scale2));const x2=c2.getContext('2d');if(!x2)throw new Error('图片压缩失败');x2.fillStyle='#fff';x2.fillRect(0,0,c2.width,c2.height);x2.drawImage(canvas,0,0,c2.width,c2.height);compressed=c2.toDataURL('image/jpeg',0.72);}
+    canvas.width=canvas.height=1;image.src='';
+    return compressed;
+  }
+  async function saveMusicCoverToDB(value){const db=await openWardrobeDB();return new Promise((resolve,reject)=>{const tx=db.transaction('data','readwrite');tx.objectStore('data').put(value,'musicCover');tx.oncomplete=()=>{db.close();resolve(true);};tx.onerror=()=>{const err=tx.error;db.close();reject(err||new Error('本地数据库写入失败'));};tx.onabort=()=>{const err=tx.error;db.close();reject(err||new Error('本地数据库写入中断'));};});}
+  async function loadMusicCoverFromDB(){const db=await openWardrobeDB();return new Promise((resolve,reject)=>{const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get('musicCover');req.onsuccess=()=>resolve(req.result||'');req.onerror=()=>reject(req.error||new Error('本地数据库读取失败'));tx.oncomplete=()=>db.close();tx.onerror=()=>{db.close();reject(tx.error||new Error('本地数据库读取失败'));};});}
+  function bindMusicAudioEvents(){
+    if(!wardrobeAudio || wardrobeAudio.__mufyCardMusicBound) return;
+    wardrobeAudio.__mufyCardMusicBound = true;
+    wardrobeAudio.addEventListener('loadedmetadata',()=>{
+      if(musicRestorePending && musicRestoreTime>0 && Number.isFinite(wardrobeAudio.duration)){
+        try{wardrobeAudio.currentTime=Math.min(musicRestoreTime,Math.max(0,wardrobeAudio.duration-1));}catch(_){}
+      }
+      musicRestorePending=false;
+    });
+    wardrobeAudio.addEventListener('ended',()=>{
+      if(musicMode==='single') return;
+      if(musicTracks.length>1){ void advanceMusicAfterEnded(); }
+      else if(musicTracks.length===1){
+        try{
+          wardrobeAudio.currentTime=0;
+          const p=wardrobeAudio.play();
+          if(p&&p.catch)p.catch(err=>showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src));
+        }catch(err){showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src);}
+      }else saveMusicState();
+    });
+    wardrobeAudio.addEventListener('error',()=>{
+      if(wardrobeAudio.error) showMusicPlaybackError(null,wardrobeAudio.currentSrc||wardrobeAudio.src);
+    });
+    wardrobeAudio.addEventListener('play',()=>{
+      const v=panel.querySelector('#music-vinyl-disc');
+      if(v)v.style.animationPlayState='running';
+    });
+    wardrobeAudio.addEventListener('pause',()=>{
+      const v=panel.querySelector('#music-vinyl-disc');
+      if(v)v.style.animationPlayState='paused';
+    });
+  }
   function syncMusicNativeLoop(){if(wardrobeAudio)wardrobeAudio.loop=(musicMode==='single'||musicTracks.length===1);}
-  function randomMusicIndex(){if(musicTracks.length<=1)return 0;let next=musicIndex;for(let tries=0;tries<8&&next===musicIndex;tries++)next=Math.floor(Math.random()*musicTracks.length);return next===musicIndex?(musicIndex+1)%musicTracks.length:next;}
+  // 等待新音源真正进入可播放状态，再调用 play()；不能只换 src 后立刻假定下一首已准备好。
+  function waitForMusicCanPlay(audio,timeoutMs=15000){
+    return new Promise((resolve,reject)=>{
+      if(!audio)return reject(new Error('音频播放器不存在'));
+      if(audio.readyState>=HTMLMediaElement.HAVE_FUTURE_DATA)return resolve();
+      let settled=false;
+      const cleanup=()=>{audio.removeEventListener('canplay',onReady);audio.removeEventListener('error',onError);clearTimeout(timer);};
+      const finish=(fn,value)=>{if(settled)return;settled=true;cleanup();fn(value);};
+      const onReady=()=>finish(resolve);
+      const onError=()=>finish(reject,new Error('下一首歌曲加载失败'));
+      const timer=setTimeout(()=>finish(reject,new Error('等待下一首歌曲加载超时')),timeoutMs);
+      audio.addEventListener('canplay',onReady,{once:true});
+      audio.addEventListener('error',onError,{once:true});
+      // 防止监听器安装前后 readyState 刚好变化。
+      if(audio.readyState>=HTMLMediaElement.HAVE_FUTURE_DATA)onReady();
+    });
+  }
+  function resetMusicShuffleBag(){
+    musicShuffleBag=musicTracks.map((_,i)=>i).filter(i=>i!==musicIndex);
+    for(let i=musicShuffleBag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[musicShuffleBag[i],musicShuffleBag[j]]=[musicShuffleBag[j],musicShuffleBag[i]];}
+    // 每轮洗牌都包含全部歌曲；当前歌曲作为本轮起点，不会立刻重复。
+  }
+  function randomMusicIndex(){
+    if(musicTracks.length<=1)return 0;
+    if(!Array.isArray(musicShuffleBag)||musicShuffleBag.length===0)resetMusicShuffleBag();
+    // 歌曲列表发生增删时，丢弃越界项并确保新加入的歌曲也能进入下一轮。
+    musicShuffleBag=musicShuffleBag.filter(i=>i>=0&&i<musicTracks.length&&i!==musicIndex);
+    if(!musicShuffleBag.length){resetMusicShuffleBag();}
+    return musicShuffleBag.length?musicShuffleBag.shift():((musicIndex+1)%musicTracks.length);
+  }
   async function advanceMusicAfterEnded(){
     if(!wardrobeAudio||!musicTracks.length||musicAdvancing)return;
     musicAdvancing=true;
@@ -2420,21 +3079,43 @@
       const nextTrack=musicTracks[musicIndex];
       if(!nextTrack?.url)return;
       syncMusicNativeLoop();
-      // Assigning src starts resource selection; calling load() immediately afterwards
-      // can cancel a queued play request in some mobile browsers.
-      wardrobeAudio.src=nextTrack.url;
+      // 延续 4.1.1 正式版已使用的连续播放方式：只切换 src 并立即 play，
+      // 不在 ended 回调里额外 pause/load，避免打断浏览器的媒体播放队列。
+      const nextUrl=getPlayableMusicUrl(nextTrack.url);
+      wardrobeAudio.src=nextUrl;
       saveMusicState();
       try{
         const playPromise=wardrobeAudio.play();
         if(playPromise&&typeof playPromise.then==='function')await playPromise;
-        renderMusicPage();
-      }catch(err){showMusicPlaybackError(err,nextTrack.url);renderMusicPage();}
-    }finally{musicAdvancing=false;}
+        refreshMusicTrackUI();
+      }catch(err){
+        showMusicPlaybackError(err,nextUrl);
+        refreshMusicTrackUI();
+      }
+    }finally{
+      musicAdvancing=false;
+    }
   }
-  function playMusicAt(index,autoplay){if(!musicTracks.length){showToast('播放列表为空。','err');return;}if(musicMode==='shuffle'&&(index<0||index>=musicTracks.length))index=randomMusicIndex();else{if(index<0)index=musicMode==='sequence'?musicTracks.length-1:0;if(index>=musicTracks.length)index=musicMode==='sequence'?0:musicTracks.length-1;}musicIndex=index;const t=musicTracks[musicIndex];syncMusicNativeLoop();wardrobeAudio.src=t.url;wardrobeAudio.load();saveMusicState();renderMusicPage();if(autoplay)wardrobeAudio.play().then(()=>renderMusicPage()).catch(err=>showMusicPlaybackError(err,t.url));}
-  function updateMusicProgress(){if(!wardrobeAudio||wardrobeView!=='music')return;const p=panel.querySelector('#music-progress'),time=panel.querySelector('#music-time');if(!p||!time)return;const d=wardrobeAudio.duration||0,c=wardrobeAudio.currentTime||0;if(!musicSeeking){p.value=d?String(Math.round(c/d*1000)):'0';p.style.setProperty('--music-pct',`${d?Math.round(c/d*1000)/10:0}%`);}const fmt=n=>`${Math.floor(n/60).toString().padStart(2,'0')}:${Math.floor(n%60).toString().padStart(2,'0')}`;time.textContent=`${fmt(c)} / ${fmt(d)}`;const vinyl=panel.querySelector('#music-vinyl');if(vinyl)vinyl.style.animationPlayState=wardrobeAudio.paused?'paused':'running';const play=panel.querySelector('#music-play');if(play)play.textContent=wardrobeAudio.paused?'▶':'Ⅱ';play.setAttribute('aria-label',wardrobeAudio.paused?'播放':'暂停');play.title=wardrobeAudio.paused?'播放':'暂停';saveMusicState();}
-  loadMusicState();
-  if(wardrobeAudio){wardrobeAudio.addEventListener('loadedmetadata',()=>{if(musicRestorePending&&musicRestoreTime>0&&Number.isFinite(wardrobeAudio.duration)){try{wardrobeAudio.currentTime=Math.min(musicRestoreTime,Math.max(0,wardrobeAudio.duration-1));}catch(_){} }musicRestorePending=false;});wardrobeAudio.addEventListener('ended',()=>{if(musicMode==='single')return;if(musicTracks.length>1)void advanceMusicAfterEnded();else if(musicTracks.length===1){try{wardrobeAudio.currentTime=0;const p=wardrobeAudio.play();if(p&&p.catch)p.catch(err=>showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src));}catch(err){showMusicPlaybackError(err,wardrobeAudio.currentSrc||wardrobeAudio.src);}}else saveMusicState();});wardrobeAudio.addEventListener('error',()=>{if(wardrobeAudio.error)showMusicPlaybackError(null,wardrobeAudio.currentSrc||wardrobeAudio.src);});wardrobeAudio.addEventListener('play',()=>{const v=panel.querySelector('#music-vinyl');if(v)v.style.animationPlayState='running';});wardrobeAudio.addEventListener('pause',()=>{const v=panel.querySelector('#music-vinyl');if(v)v.style.animationPlayState='paused';});}
+  async function playMusicAt(index,autoplay){
+    if(!musicTracks.length){showToast('播放列表为空。','err');return;}
+    if(musicMode==='shuffle'&&(index<0||index>=musicTracks.length))index=randomMusicIndex();
+    else{if(index<0)index=musicTracks.length-1;if(index>=musicTracks.length)index=0;}
+    musicIndex=index;const track=musicTracks[musicIndex];if(!track?.url)return;
+    ++musicPlaybackRequestId;
+    syncMusicNativeLoop();
+    try{
+      wardrobeAudio.pause();
+      wardrobeAudio.src=getPlayableMusicUrl(track.url);
+      wardrobeAudio.load();
+      saveMusicState();
+      refreshMusicTrackUI();
+      if(autoplay)await wardrobeAudio.play();
+    }catch(err){showMusicPlaybackError(err,track.url);}
+  }
+  function updateMusicProgress(){if(!wardrobeAudio||wardrobeView!=='music')return;const p=panel.querySelector('#music-progress'),time=panel.querySelector('#music-time');if(!p||!time)return;const d=wardrobeAudio.duration||0,c=wardrobeAudio.currentTime||0;if(!musicSeeking){p.value=d?String(Math.round(c/d*1000)):'0';p.style.setProperty('--music-pct',`${d?Math.round(c/d*1000)/10:0}%`);}const fmt=n=>`${Math.floor(n/60).toString().padStart(2,'0')}:${Math.floor(n%60).toString().padStart(2,'0')}`;time.textContent=`${fmt(c)} / ${fmt(d)}`;const vinyl=panel.querySelector('#music-vinyl-disc');if(vinyl)vinyl.style.animationPlayState=wardrobeAudio.paused?'paused':'running';const play=panel.querySelector('#music-play');if(play)play.textContent=wardrobeAudio.paused?'▶':'Ⅱ';play.setAttribute('aria-label',wardrobeAudio.paused?'播放':'暂停');play.title=wardrobeAudio.paused?'播放':'暂停';saveMusicState();}
+  // 4.1.38：不在模块顶层读取音乐状态或绑定 audio 事件；
+  // 音乐数据在 openMusicPage() 中读取，事件在 initUI() 创建 audio 后绑定。
+
   function showWardrobeDetail(id) {
     const page=panel.querySelector('#wardrobe-page'), group=wardrobeData[wardrobeType], item=group.items.find(i=>i.id===id);if(!item)return;
     const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
@@ -3077,6 +3758,18 @@
         }
       });
       card.appendChild(action);
+      const refresh = document.createElement('button');
+      refresh.type = 'button';
+      refresh.className = 'archive-refresh';
+      refresh.textContent = loading ? '正在刷新…' : '↻ 刷新该角色存档列表';
+      refresh.disabled = loading;
+      refresh.addEventListener('click', () => {
+        if (archiveLoadingIds.has(id)) return;
+        archiveCache.delete(id);
+        expandedArchiveIds.add(id);
+        loadArchivesForRole(role);
+      });
+      card.appendChild(refresh);
       if (expanded) {
         if (cached?.error) {
           const error = document.createElement('div');
@@ -3194,7 +3887,7 @@
         case 'unfav': return !role.isFav && roleHasChatHistory(role) && !roleIsDeleted(role);
         case 'deleted': return roleIsDeleted(role);
         case 'unknown': return !role.linkStatus || role.linkStatus === 'unknown';
-        case 'fav-unchatted': return !!role.isFav && !roleIsDeleted(role) && !roleHasChatHistory(role);
+        case 'fav-unchatted': return !!role.isFav && !roleIsDeleted(role) && !roleHasChatHistory(role) && (!chatGreetingFolderIds || chatGreetingFolderIds.has(String(role.id)));
         case 'fav-chatted': return !!role.isFav && roleHasChatHistory(role);
         case 'authors': return !!String(role.authorName || '').trim() && role.authorName !== '未知作者';
         default: return true;
@@ -3314,6 +4007,7 @@
     if (!listContainer) return;
     if (activeRoleFilter === 'trending') { renderTrendInline(); return; }
     listContainer.classList.remove('archive-list');
+    if (activeRoleFilter === 'authors') { renderAuthorsList(); return; }
     const filtered = getFilteredRoleTargets();
     listContainer.innerHTML = '';
     syncRoleActionVisibility();
@@ -3328,6 +4022,129 @@
     const frag = document.createDocumentFragment();
     filtered.forEach(role => frag.appendChild(renderRoleRow(role)));
     listContainer.appendChild(frag);
+  }
+
+  function extractAuthorProfileHref(profile){
+    const keys=['profileUrl','userUrl','homepage','url','href','shareUrl','profilePath','profileLink','userProfileUrl','personalPageUrl','creatorUrl','shareLink','webUrl'];
+    const queue=[profile],seen=new Set();
+    while(queue.length){const obj=queue.shift();if(!obj||typeof obj!=='object'||seen.has(obj))continue;seen.add(obj);
+      for(const key of keys){const value=obj[key];if(typeof value==='string'&&value.trim()){try{const u=new URL(value.trim(),location.origin);if(/^https?:$/.test(u.protocol)&&u.origin===location.origin)return u.href;}catch(_){}}}
+      for(const key of ['data','user','profile','userInfo','creator','author'])if(obj[key]&&typeof obj[key]==='object')queue.push(obj[key]);
+    }
+    return '';
+  }
+  async function openAuthorHomepage(authorId,knownHref){
+    const id=String(authorId||'').trim();
+    if(!id){showToast('缺少作者 userId，无法打开作者主页。','err');return;}
+    // 已确认的 ChatMufy 前端路由；资料 API 返回的 data 不含主页 URL 字段。
+    // 不再把数字 uid 当作 userId，也不依赖 profileUrl 等非必有字段。
+    const href=new URL('/profile/role',location.origin);
+    href.searchParams.set('id',id);
+    location.href=href.href;
+  }
+  function getAuthorGroups(){
+    const groups=new Map();
+    for(const role of scannedRoles){
+      if(roleIsDeleted(role))continue;
+      const name=normalizedAuthor(role);if(!name)continue;
+      const key=String(role.authorId||name);
+      if(!groups.has(key))groups.set(key,{id:String(role.authorId||''),name,roles:[],url:String(role.authorUrl||'')});
+      const g=groups.get(key);g.roles.push(role);if(!g.url&&role.authorUrl)g.url=String(role.authorUrl);
+    }
+    return [...groups.values()].sort((a,b)=>a.name.localeCompare(b.name,'zh'));
+  }
+  function renderAuthorsList(){
+    if(!listContainer)return;
+    listContainer.classList.remove('archive-list');
+    const q=String(panel.querySelector('#role-search')?.value||'').trim().toLowerCase();
+    const groups=getAuthorGroups().filter(g=>!q||g.name.toLowerCase().includes(q));
+    listContainer.innerHTML=`<div class="author-global-search" style="padding:8px 4px 10px;border-bottom:1px solid var(--border);margin-bottom:6px"><input id="author-global-search-input" type="search" placeholder="全站搜索作者名称或 ID…" autocomplete="off" style="width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:var(--input-bg,#17171d);color:var(--fg)"><div id="author-global-search-results" style="display:none;margin-top:6px"></div><small style="display:block;color:var(--dim);font-size:10px;margin-top:5px">UUID / 数字 UID 查询作者资料；昵称可匹配已扫描作者</small></div><div id="author-scanned-list"></div>`;
+    const scanned=listContainer.querySelector('#author-scanned-list');
+    if(!groups.length)scanned.innerHTML='<div style="text-align:center;color:var(--dim);padding:20px;font-size:12px">没有扫描到可识别的作者</div>';
+    else {const frag=document.createDocumentFragment();for(const g of groups){const row=document.createElement('div');row.className='author-scan-row';const profileUrl=g.url||'';row.innerHTML=`<span class="author-scan-name">${escapeHtml(g.name)} <small style="color:var(--dim);font-weight:400">${g.roles.length} 张已扫描角色卡</small></span>${g.id?`<button type="button" class="author-homepage-link" data-author-homepage="${escapeHtml(g.id)}" data-author-href="${escapeHtml(profileUrl)}">作者主页 ↗</button>`:'<span style="font-size:10px;color:var(--dim)">暂无主页链接</span>'}<button type="button" data-scan-author="${escapeHtml(g.id)}" data-author-name="${escapeHtml(g.name)}" ${g.id?'':'disabled'}>扫描</button>`;frag.appendChild(row);}scanned.appendChild(frag);}
+    scanned.querySelectorAll('[data-scan-author]').forEach(btn=>btn.onclick=()=>scanAuthorPublicCards(btn.dataset.scanAuthor,btn.dataset.authorName));
+    scanned.querySelectorAll('[data-author-homepage]').forEach(btn=>btn.onclick=()=>openAuthorHomepage(btn.dataset.authorHomepage,btn.dataset.authorHref));
+    const input=listContainer.querySelector('#author-global-search-input'),results=listContainer.querySelector('#author-global-search-results');let timer=0,seq=0;
+    const showAuthorResults=(items)=>{results.style.display='block';if(!items.length){results.innerHTML='<div style="padding:10px;color:var(--dim);font-size:11px">没有找到作者</div>';return;}results.innerHTML=items.slice(0,20).map(u=>{const id=String(u.userId??u.user_id??u.authorId??u.creatorId??u.id??'');const uid=String(u.uid??'');const name=String(u.nickname??u.nickName??u.username??u.name??u.displayName??u.userName??'未知作者');const url=extractAuthorProfileHref(u);return `<div class="author-scan-row"><span class="author-scan-name">${escapeHtml(name)} <small style="color:var(--dim);font-weight:400">userId: ${escapeHtml(id)}${uid?` · UID: ${escapeHtml(uid)}`:''}</small></span>${id?`<button type="button" class="author-homepage-link" data-author-homepage="${escapeHtml(id)}" data-author-href="${escapeHtml(url)}">作者主页 ↗</button>`:'<span style="font-size:10px;color:var(--dim)">资料未返回 userId</span>'}<button type="button" data-global-author-scan="${escapeHtml(id)}" data-global-author-name="${escapeHtml(name)}" ${id?'':'disabled'}>扫描</button></div>`;}).join('');results.querySelectorAll('[data-global-author-scan]').forEach(b=>b.onclick=()=>scanAuthorPublicCards(b.dataset.globalAuthorScan,b.dataset.globalAuthorName));results.querySelectorAll('[data-author-homepage]').forEach(b=>b.onclick=()=>openAuthorHomepage(b.dataset.authorHomepage,b.dataset.authorHref));};
+    const unwrapProfile=(data)=>{
+      let value=data;
+      for(let i=0;i<4&&value&&typeof value==='object'&&!Array.isArray(value);i++){
+        if(value.userId||value.user_id||value.uid||value.username||value.nickname)return value;
+        value=value.data??value.user??value.profile??value.userInfo??value.result??null;
+      }
+      if(Array.isArray(value))return value.find(x=>x&&typeof x==='object')||null;
+      return value&&typeof value==='object'?value:null;
+    };
+    input.addEventListener('input',()=>{clearTimeout(timer);const term=input.value.trim();const current=++seq;if(!term){results.style.display='none';results.innerHTML='';return;}timer=setTimeout(async()=>{
+      results.style.display='block';results.innerHTML='<div style="padding:10px;color:var(--dim);font-size:11px">正在查询作者资料…</div>';
+      try{
+        let arr=[];
+        const isUuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(term);
+        const isNumericUid=/^\d+$/.test(term);
+        if(isUuid||isNumericUid){
+          // 已确认的站点资料接口以 userId 为查询参数。数字 UID 先尝试 uid 参数，
+          // 再回退到 userId，避免把数字 UID 误当成本地昵称进行匹配。
+          const candidates=isUuid?[`/api/users/profiles?userId=${encodeURIComponent(term)}`]:[
+            `/api/users/profiles?uid=${encodeURIComponent(term)}`,
+            `/api/users/profiles?userId=${encodeURIComponent(term)}`
+          ];
+          let lastError=null;
+          for(const path of candidates){
+            try{const data=await apiRequest(path);const profile=unwrapProfile(data);if(profile&&(profile.userId||profile.user_id||profile.authorId||profile.id)){arr=[profile];break;}}
+            catch(err){lastError=err;}
+          }
+          if(!arr.length&&lastError)throw lastError;
+        }else{
+          // 不把本地匹配伪装成全站昵称搜索；网站昵称搜索接口尚未从现有资料中得到确认。
+          arr=getAuthorGroups().filter(g=>g.name.toLocaleLowerCase().includes(term.toLocaleLowerCase())).map(g=>({userId:g.id,nickname:g.name,name:g.name}));
+        }
+        if(current!==seq)return;
+        showAuthorResults(arr);
+        if(!arr.length&&!isUuid&&!isNumericUid){
+          results.insertAdjacentHTML('beforeend','<div style="padding:0 10px 10px;color:var(--dim);font-size:10px">此结果仅包含已扫描作者；未扫描作者的昵称全站查询接口尚未确认。</div>');
+        }
+      }catch(err){if(current!==seq)return;results.style.display='block';results.innerHTML=`<div style="padding:10px;color:var(--dim);font-size:11px">作者资料查询失败：${escapeHtml(err?.message||'接口未响应')}</div>`;}
+    },350);});
+  }
+  async function scanAuthorPublicCards(authorId,authorName){
+    if(!authorId){showToast('缺少作者 ID，暂时无法扫描该作者主页。','err');return;}
+    const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
+    overlay.innerHTML=`<section class="wardrobe-detail author-organizer-box" style="display:flex;flex-direction:column;min-height:0;height:min(560px,86vh);max-height:90%;overflow:hidden"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>${escapeHtml(authorName||'作者')} · 公开角色卡</strong><button type="button" data-close>×</button></div><div class="status" data-scan-status>正在扫描作者公开角色卡…</div><div data-public-list class="author-organizer-list" style="max-height:none"></div><div class="detail-actions"><button type="button" data-select-all>全选/取消全选</button><button type="button" data-fav-selected disabled>收藏所选（0）</button></div></section>`;
+    panel.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('[data-close]').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+    const status=overlay.querySelector('[data-scan-status]'),list=overlay.querySelector('[data-public-list]'),favBtn=overlay.querySelector('[data-fav-selected]');
+    let found=[];
+    const render=()=>{
+      list.innerHTML=found.map((r,i)=>{
+        const roleUrl=`https://chat.mufy.ai/chat?roleId=${encodeURIComponent(r.id)}`;
+        const tags=Array.isArray(r.tags)&&r.tags.length?`<div class="role-tags">${r.tags.map(tag=>`<span class="role-tag">${escapeHtml(tag)}</span>`).join('')}</div>`:'';
+        const state=r.linkStatus||'unknown';
+        return `<div class="row author-public-role-row"><div class="row-top"><div class="role-title-wrap"><input class="author-card-check" type="checkbox" data-author-card="${i}" checked aria-label="选择角色 ${escapeHtml(r.name||'未命名角色')}"><img class="author-public-avatar" src="${escapeHtml(r.avatarUrl||'')}" alt="" onerror="this.style.visibility='hidden'"><span class="role-name">${escapeHtml(r.name||'未命名角色')}</span></div><span class="fav-btn ${r.isFav?'is-fav':''}" aria-hidden="true">${r.isFav?'★':'☆'}</span></div><div class="row-meta"><div>作者：${escapeHtml(r.authorName||authorName||'未知作者')}</div><a class="role-link" href="${escapeHtml(roleUrl)}" target="_self">查看原角色卡 ↗</a><div>面具：<span class="mask-tag">无面具</span></div>${tags}</div><span class="role-state ${state}">${state==='active'?'链接正常':state==='deleted'?'链接失效/可能已删除':'状态待确认'}</span></div>`;
+      }).join('')||'<div style="padding:18px;text-align:center;color:var(--dim)">没有找到该作者公开的角色卡</div>';
+      updateCount();
+    };
+    const updateCount=()=>{const n=list.querySelectorAll('[data-author-card]:checked').length;favBtn.textContent=`收藏所选（${n}）`;favBtn.disabled=!n;};
+    try{
+      const pageSize=30,maxPages=100,seen=new Set();
+      for(let pageNum=1;pageNum<=maxPages;pageNum++){
+        status.textContent=`正在扫描第 ${pageNum} 页，已找到 ${found.length} 张…`;
+        const response=await apiRequest('/api/characters/query','POST',{pageNum,pageSize,creatorId:String(authorId),authorId:String(authorId),sortBy:'latest',genderText:'全性别',tags:[],search:'',showNsfw:false});
+        const rows=Array.isArray(response?.data)?response.data:(Array.isArray(response?.data?.list)?response.data.list:[]);
+        if(!rows.length)break;
+        for(const item of rows){
+          const owner=String(item.creatorId??item.authorId??'');if(owner!==String(authorId))continue;
+          const id=String(item.characterId??item.id??'');if(!id||seen.has(id))continue;seen.add(id);
+          found.push({id,name:String(item.name||item.characterName||'未命名角色'),authorName:String(item.creatorName||authorName||'未知作者'),authorId:String(authorId),url:`https://chat.mufy.ai/chat?roleId=${encodeURIComponent(id)}`,avatarUrl:String(item.avatarUrl||item.coverUrl||item.imageUrl||''),tags:Array.isArray(item.tags)?item.tags.map(String):[],isFav:Boolean(item.isFollowed??item.isFavorite??item.isFav??false),linkStatus:'unknown'});
+        }
+        render();
+        const total=Number(response?.total||response?.data?.total||0),hasNext=Boolean(response?.hasNext??response?.data?.hasNext??(rows.length>=pageSize&&(!total||found.length<total)));
+        if(!hasNext||rows.length<pageSize)break;
+        await sleep(180);
+      }
+      status.textContent=`扫描完成：找到 ${found.length} 张公开角色卡。`;
+    }catch(error){status.textContent=`扫描失败：${error?.message||error}`;console.warn('[MufyCard] 作者公开卡扫描失败',authorId,error);}
+    list.addEventListener('change',e=>{if(e.target.matches('[data-author-card]'))updateCount();});
+    overlay.querySelector('[data-select-all]').onclick=()=>{const boxes=[...list.querySelectorAll('[data-author-card]')],all=boxes.length&&boxes.every(x=>x.checked);boxes.forEach(x=>x.checked=!all);updateCount();};
+    favBtn.onclick=async()=>{const selected=[...list.querySelectorAll('[data-author-card]:checked')].map(x=>found[Number(x.dataset.authorCard)]).filter(Boolean);if(!selected.length)return;if(!confirm(`确定将 ${selected.length} 张「${authorName}」的公开角色卡加入网站收藏吗？`))return;favBtn.disabled=true;let ok=0,fail=0;for(let i=0;i<selected.length;i++){const r=selected[i];try{if(!r.isFav)await apiRequest('/api/characters/follow','POST',{characterId:r.id,isFavorite:true});r.isFav=true;const old=scannedRoles.find(x=>String(x.id)===r.id);if(old)old.isFav=true;else scannedRoles.push({...r,hasChatHistory:false,maskId:null,maskName:'无面具'});ok++;}catch(e){fail++;}if(i<selected.length-1)await sleep(160);}saveScanCache();updateReport();status.textContent=`收藏完成：成功 ${ok} 张${fail?`，失败 ${fail} 张`:''}。`;showToast(`作者公开卡收藏完成：成功 ${ok} 张${fail?`，失败 ${fail} 张`:''}`,fail?'err':'ok');favBtn.disabled=false;};
   }
 
   function updateChatHiButtonLabel() {
@@ -3412,6 +4229,7 @@
     return sessionId;
   }
 
+  let chatGreetingFolderIds = null; // null=全部收藏夹；Set=仅所选收藏夹
   const CUSTOM_GREETING_KEY = 'mufycard_custom_greeting_v1';
   let customGreetingText = '';
   try { customGreetingText = String(W.localStorage.getItem(CUSTOM_GREETING_KEY) || ''); } catch (_) {}
@@ -3434,12 +4252,57 @@
     };
   }
 
+  async function openGreetingFolderFilter(){
+    const button=panel.querySelector('#btn-chat-folder-filter');button.disabled=true;button.textContent='读取中…';
+    try{
+      const folders=await requestFavoriteFolders();
+      const memberships=new Map();
+      for(const f of folders){try{memberships.set(String(f.id),await requestFavoriteFolderCharacterIds(f.id));}catch(e){console.debug('[MufyCard] 打招呼筛选读取收藏夹失败',f,e);}}
+      const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
+      overlay.innerHTML=`<section class="wardrobe-detail author-organizer-box" style="height:min(76vh,560px);overflow:hidden">
+        <div class="author-organizer-head" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>选择打招呼的收藏夹</strong><button data-close type="button">×</button></div>
+        <p style="font-size:11px;color:var(--dim);margin:0">只会从所选收藏夹中筛选「收藏未聊」角色；可多选。</p>
+        <div class="author-organizer-controls" style="display:flex;gap:6px"><button data-select-all type="button">全选</button><button data-clear-all type="button">取消全选</button></div>
+        <div id="greet-folder-list" class="author-organizer-list">${folders.map(f=>`<label class="author-organizer-row"><input type="checkbox" data-greet-folder="${escapeHtml(f.id)}" ${chatGreetingFolderIds===null||chatGreetingFolderIds.has(String(f.id))?'checked':''}><span class="author-name">${escapeHtml(f.name||'未命名收藏夹')}</span><small class="author-count">${memberships.get(String(f.id))?.size||0} 张</small></label>`).join('')||'<small>没有读取到收藏夹。</small>'}</div>
+        <div class="detail-actions author-organizer-footer"><button data-apply type="button">应用筛选</button><button data-cancel type="button">取消</button></div>
+      </section>`;
+      panel.appendChild(overlay);
+      const close=()=>overlay.remove();
+      overlay.querySelector('[data-close]').onclick=close;
+      overlay.querySelector('[data-cancel]').onclick=close;
+      overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+      const checkboxes=[...overlay.querySelectorAll('[data-greet-folder]')];
+      overlay.querySelector('[data-select-all]').onclick=()=>checkboxes.forEach(x=>x.checked=true);
+      overlay.querySelector('[data-clear-all]').onclick=()=>checkboxes.forEach(x=>x.checked=false);
+      overlay.querySelector('[data-apply]').onclick=()=>{
+        const ids=new Set(checkboxes.filter(x=>x.checked).map(x=>String(x.dataset.greetFolder)));
+        chatGreetingFolderIds=new Set();
+        for(const id of ids)for(const roleId of memberships.get(id)||[])chatGreetingFolderIds.add(String(roleId));
+        // 收藏夹筛选即同步选择：外层角色复选框、顶部“一键勾选（数量）”与发送目标共用同一份 selectedRoleIds。
+        // 仅选择当前收藏未聊范围内、且属于已选收藏夹的角色；避免把已聊/未收藏角色带入发送队列。
+        selectedRoleIds.clear();
+        for(const role of scannedRoles){
+          const roleId=String(role.id);
+          if(chatGreetingFolderIds.has(roleId) && role.isFav && !roleIsDeleted(role) && !roleHasChatHistory(role)) selectedRoleIds.add(roleId);
+        }
+        renderFilteredRoles();
+        updateChatHiButtonLabel();
+        updateSelectVisibleButtonLabel();
+        updateRoleBulkButtonState();
+        button.textContent=`已选 ${ids.size} 个夹`;
+        close();
+        showToast(`已按收藏夹筛选，共匹配 ${chatGreetingFolderIds.size} 张角色卡。`);
+      };
+    }catch(e){showToast(`读取收藏夹失败：${e?.message||e}`,'err');}
+    finally{button.disabled=false;if(button.textContent==='读取中…')button.textContent=chatGreetingFolderIds===null?'全部收藏夹':'已设置筛选';}
+  }
+
   async function runChatHiBatch(message = 'hi') {
     if (chatHiRunning) return;
     message = String(message || 'hi').trim().slice(0, 2000);
     if (!message) { showToast('请先输入要发送的内容。', 'err'); return; }
     if (!scannedRoles.length) { showToast('请先扫描角色列表。', 'err'); return; }
-    const visibleUnchatted = scannedRoles.filter(role => role.isFav && !roleIsDeleted(role) && !roleHasChatHistory(role));
+    const visibleUnchatted = scannedRoles.filter(role => role.isFav && !roleIsDeleted(role) && !roleHasChatHistory(role) && (!chatGreetingFolderIds || chatGreetingFolderIds.has(String(role.id))));
     const targets = visibleUnchatted.filter(role => selectedRoleIds.has(String(role.id)));
     if (activeRoleFilter !== 'fav-unchatted') {
       showToast('请先点击统计区的「收藏未聊」，再勾选需要打招呼的角色。', 'err');
@@ -3692,21 +4555,30 @@
   }
 
   async function openAuthorFolderOrganizer() {
-    const authors = [...new Set(scannedRoles.filter(r => r.isFav && !roleIsDeleted(r)).map(normalizedAuthor).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh'));
-    if (!authors.length) { showToast('当前没有可整理的已收藏角色作者。', 'err'); return; }
-    const counts = new Map();
-    for (const role of scannedRoles) if (role.isFav && !roleIsDeleted(role)) { const a=normalizedAuthor(role); if(a) counts.set(a,(counts.get(a)||0)+1); }
-    const overlay = document.createElement('div'); overlay.className = 'wardrobe-detail-backdrop';
-    overlay.innerHTML = `<section class="wardrobe-detail author-organizer-box"><div class="author-organizer-head" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>选择要整理的作者</strong><button type="button" data-close>×</button></div><input id="author-folder-search" type="search" placeholder="搜索作者名称…" style="flex:0 0 auto;width:100%;margin:0;padding:8px;border:1px solid var(--border);border-radius:7px;background:#15151b;color:var(--fg)"><div class="author-organizer-controls" style="display:flex;gap:6px"><button type="button" data-all>取消全选</button></div><div id="author-folder-checks" class="author-organizer-list">${authors.map(a=>`<label class="author-organizer-row"><input type="checkbox" value="${escapeHtml(a)}" checked><span class="author-name">${escapeHtml(a)}</span><small class="author-count">${counts.get(a)||0} 张</small></label>`).join('')}</div><div class="detail-actions author-organizer-footer"><button type="button" data-run>整理所选作者</button><button type="button" data-cancel>取消</button></div></section>`;
-    panel.appendChild(overlay); const close=()=>overlay.remove();
-    overlay.querySelector('[data-close]').onclick=close; overlay.querySelector('[data-cancel]').onclick=close;
-    overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
-    const list=overlay.querySelector('#author-folder-checks'), search=overlay.querySelector('#author-folder-search'), toggle=overlay.querySelector('[data-all]');
-    const syncToggle=()=>{const visible=[...list.querySelectorAll('.author-organizer-row')].filter(row=>row.style.display!=='none').map(row=>row.querySelector('input'));const all=visible.length>0&&visible.every(x=>x.checked);toggle.textContent=all?'取消全选':'全选';};
-    toggle.onclick=()=>{const visible=[...list.querySelectorAll('.author-organizer-row')].filter(row=>row.style.display!=='none').map(row=>row.querySelector('input'));const all=visible.length>0&&visible.every(x=>x.checked);visible.forEach(x=>x.checked=!all);syncToggle();};
-    search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase();list.querySelectorAll('.author-organizer-row').forEach(row=>{row.style.display=row.querySelector('.author-name').textContent.toLocaleLowerCase().includes(q)?'flex':'none';});syncToggle();});
-    list.addEventListener('change',syncToggle); syncToggle();
-    overlay.querySelector('[data-run]').onclick=async()=>{const selected=[...list.querySelectorAll('input:checked')].map(x=>x.value);if(!selected.length){showToast('请至少选择一个作者。','err');return;}close();await organizeAuthorFolders(selected);};
+    const authors=[...new Set(scannedRoles.filter(r=>r.isFav&&!roleIsDeleted(r)).map(normalizedAuthor).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh'));
+    const tags=[...new Set(scannedRoles.filter(r=>!roleIsDeleted(r)).flatMap(r=>Array.isArray(r.tags)?r.tags:[]).map(x=>String(x).trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh'));
+    if(!authors.length&&!tags.length){showToast('请先扫描角色及其作者/标签信息。','err');return;}
+    const counts=new Map();for(const r of scannedRoles.filter(r=>r.isFav&&!roleIsDeleted(r))){const a=normalizedAuthor(r);if(a)counts.set(a,(counts.get(a)||0)+1);}
+    const overlay=document.createElement('div');overlay.className='wardrobe-detail-backdrop';
+    overlay.innerHTML=`<section class="wardrobe-detail author-organizer-box" style="height:min(76vh,560px);overflow:hidden"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>自动收藏</strong><button type="button" data-close>×</button></div><div style="display:flex;gap:6px;margin:10px 0"><button type="button" data-mode="author" class="active">按作者收藏</button><button type="button" data-mode="tag">按标签收藏</button></div><div id="auto-author-pane" style="display:flex;flex-direction:column;min-height:0;flex:1 1 auto;overflow:hidden"><input id="author-folder-search" type="search" placeholder="搜索作者名称…" style="flex:0 0 auto;width:100%;box-sizing:border-box;margin:0 0 8px;padding:8px;border:1px solid var(--border);border-radius:7px;background:#15151b;color:var(--fg)"><div style="display:flex;gap:6px;margin-bottom:6px"><button type="button" data-author-all>全选/取消全选</button></div><div id="author-folder-checks" class="author-organizer-list" style="min-height:120px;flex:1 1 auto;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;-webkit-overflow-scrolling:touch">${authors.map(a=>`<label class="author-organizer-row"><input type="checkbox" value="${escapeHtml(a)}" checked><span class="author-name">${escapeHtml(a)}</span><small class="author-count">${counts.get(a)||0} 张</small></label>`).join('')}</div><div class="detail-actions"><button type="button" data-run-author>整理所选作者</button></div></div><div id="auto-tag-pane" style="display:none;min-height:0;flex:1 1 auto;flex-direction:column;overflow:hidden"><div id="tag-pick-step" style="display:flex;flex-direction:column;min-height:0;flex:1 1 auto;overflow:hidden"><input id="tag-folder-search" type="search" placeholder="搜索标签…" style="width:100%;margin:0 0 8px;padding:8px;border:1px solid var(--border);border-radius:7px;background:#15151b;color:var(--fg)"><div id="tag-folder-checks" class="author-organizer-list" style="min-height:120px;flex:1 1 auto;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;-webkit-overflow-scrolling:touch">${tags.map(t=>`<label class="author-organizer-row"><input type="checkbox" data-tag-value="${escapeHtml(t)}"><span class="author-name">${escapeHtml(t)}</span><small class="author-count">${scannedRoles.filter(r=>!roleIsDeleted(r)&&(r.tags||[]).includes(t)).length} 张</small></label>`).join('')}</div><div class="detail-actions"><button type="button" data-confirm-tags>确定</button></div></div><div id="tag-result-step" style="display:none;flex-direction:column;min-height:0;flex:1 1 auto;overflow:hidden"><div style="display:flex;align-items:center;gap:8px;justify-content:space-between"><strong id="tag-result-title">匹配角色卡</strong><button type="button" data-back-tags>返回选择标签</button></div><div id="tag-role-results"></div><div class="detail-actions"><button type="button" data-run-tag>将所选角色加入新收藏夹</button></div></div></div><div class="detail-actions"><button type="button" data-cancel>关闭</button></div></section>`;
+    panel.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('[data-close]').onclick=close;overlay.querySelector('[data-cancel]').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+    const authorPane=overlay.querySelector('#auto-author-pane'),tagPane=overlay.querySelector('#auto-tag-pane');overlay.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{const isTag=b.dataset.mode==='tag';authorPane.style.display=isTag?'none':'block';tagPane.style.display=isTag?'flex':'none';overlay.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x===b));});
+    const authorList=overlay.querySelector('#author-folder-checks');overlay.querySelector('#author-folder-search').oninput=e=>{const q=e.target.value.toLowerCase();authorList.querySelectorAll('.author-organizer-row').forEach(r=>r.style.display=r.querySelector('.author-name').textContent.toLowerCase().includes(q)?'grid':'none');};overlay.querySelector('[data-author-all]').onclick=()=>{const rows=[...authorList.querySelectorAll('.author-organizer-row')].filter(r=>r.style.display!=='none'),all=rows.every(r=>r.querySelector('input').checked);rows.forEach(r=>r.querySelector('input').checked=!all);};
+    overlay.querySelector('[data-run-author]').onclick=async()=>{const selected=[...authorList.querySelectorAll('input:checked')].map(x=>x.value);if(!selected.length){showToast('请至少选择一个作者。','err');return;}close();await organizeAuthorFolders(selected);};
+    const tagList=overlay.querySelector('#tag-folder-checks'),results=overlay.querySelector('#tag-role-results');let matched=[];
+    const renderTagResults=()=>{
+      const chosen=[...tagList.querySelectorAll('[data-tag-value]:checked')].map(x=>x.dataset.tagValue);
+      matched=scannedRoles.filter(r=>!roleIsDeleted(r)&&chosen.some(t=>(r.tags||[]).map(String).includes(t)));
+      results.innerHTML=matched.map(r=>`<label class="tag-role-result-row"><input type="checkbox" data-tag-role="${escapeHtml(r.id)}" checked><span class="tag-role-name">${escapeHtml(r.name||'未命名角色')}</span><span class="tag-role-tags">${escapeHtml((r.tags||[]).filter(t=>chosen.includes(String(t))).join('、'))}</span></label>`).join('')||'<small style="color:var(--dim);padding:12px;display:block">没有找到匹配的角色卡。</small>';
+      overlay.querySelector('#tag-result-title').textContent=`匹配角色卡（${matched.length}）`;
+    };
+    overlay.querySelector('#tag-folder-search').oninput=e=>{const q=e.target.value.toLowerCase();tagList.querySelectorAll('.author-organizer-row').forEach(r=>r.style.display=r.querySelector('.author-name').textContent.toLowerCase().includes(q)?'grid':'none');};
+    overlay.querySelector('[data-confirm-tags]').onclick=()=>{
+      const chosen=[...tagList.querySelectorAll('[data-tag-value]:checked')];if(!chosen.length){showToast('请先选择至少一个标签。','err');return;}
+      renderTagResults();overlay.querySelector('#tag-pick-step').style.display='none';overlay.querySelector('#tag-result-step').style.display='flex';
+    };
+    overlay.querySelector('[data-back-tags]').onclick=()=>{overlay.querySelector('#tag-result-step').style.display='none';overlay.querySelector('#tag-pick-step').style.display='flex';};
+    overlay.querySelector('[data-run-tag]').onclick=async()=>{const ids=[...results.querySelectorAll('[data-tag-role]:checked')].map(x=>String(x.dataset.tagRole));if(!ids.length){showToast('请先勾选要收藏的角色卡。','err');return;}const name=prompt(`为选中的 ${ids.length} 张角色卡创建收藏夹：`);if(!name||!name.trim())return;const btn=overlay.querySelector('[data-run-tag]');btn.disabled=true;try{const folder=await createFavoriteFolder(name.trim());let favorited=0;for(let i=0;i<ids.length;i++){const role=scannedRoles.find(r=>String(r.id)===ids[i]);if(role&&!role.isFav){await apiRequest('/api/characters/follow','POST',{characterId:role.id,isFavorite:true});role.isFav=true;favorited++;}if(i<ids.length-1)await sleep(100);}await addCharactersToFavoriteFolder(folder.id,ids);saveScanCache();updateReport();showToast(`已创建「${name.trim()}」，加入 ${ids.length} 张角色卡${favorited?`，其中 ${favorited} 张同步加入网站收藏`:''}。`,'ok');close();}catch(e){showToast(`标签收藏失败：${e?.message||e}`,'err');btn.disabled=false;}};
   }
 
   // ================= 作者收藏夹：只复用能确认属于单一作者的旧收藏夹 =================
@@ -3895,7 +4767,7 @@
       showToast(`作者收藏夹整理失败：${e?.message || e}`, 'err');
       updateStatus(`作者收藏夹整理失败：${e?.message || e}`, 'err');
     } finally {
-      if (button) { button.disabled = false; button.textContent = '按作者整理'; }
+      if (button) { button.disabled = false; button.textContent = '自动收藏'; }
     }
   }
 
@@ -3924,7 +4796,7 @@
     await Promise.all(persistentKeys.map(restorePageKeyFromScriptStorage));
     // 恢复到 localStorage 后同步刷新内存态，避免页面初始化早于数据恢复而显示空列表。
     try{const raw=W.localStorage.getItem('mufycard_stickers_v1');const value=raw?JSON.parse(raw):null;if(value&&Array.isArray(value.categories)&&Array.isArray(value.items))stickerData=value;}catch(_){}
-    try{const raw=W.localStorage.getItem('mufycard_notes_v1');const value=raw?JSON.parse(raw):null;if(Array.isArray(value))noteItems=value;}catch(_){}
+    try{noteItems=await readNotesPersistent();if(noteItems.length){const raw=JSON.stringify(noteItems);try{W.localStorage.setItem(NOTES_KEY,raw);}catch(_){}try{if(typeof GM!=='undefined'&&typeof GM.setValue==='function')await GM.setValue(NOTES_KEY,raw);else if(typeof GM_setValue==='function')await GM_setValue(NOTES_KEY,raw);}catch(e){console.debug('[MufyCard] 备忘录恢复回写失败',e);}}}catch(e){console.warn('[MufyCard] 备忘录恢复失败',e);}
     await Promise.all(persistentKeys.map(migratePageKeyToScriptStorage));
     await loadCommandItemsPersistent();
     await initUI();
