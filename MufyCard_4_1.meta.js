@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         MufyCard 4.1
+// @name         MufyCard 4.2.3
 // @namespace    local.mufy.custom.scanner
 // @version      4.2.3
 // @updateURL    https://raw.githubusercontent.com/tengbei161-dev/Mufycard-update/refs/heads/main/MufyCard_4_1.meta.js
